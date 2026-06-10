@@ -1,13 +1,33 @@
 import React, { useState } from 'react';
-import * as LucideIcons from 'lucide-react';
+import { 
+  Sparkles, 
+  Smile, 
+  Shield, 
+  Layers, 
+  Heart, 
+  Zap, 
+  ArrowRight, 
+  X, 
+  CheckCircle, 
+  HeartPulse 
+} from 'lucide-react';
 import { clinicConfig } from '../config';
 import FadeIn from './FadeIn';
 import AnimatedBackground from './AnimatedBackground';
 import ShapeDivider from './ShapeDivider';
 
+const iconMap = {
+  Sparkles,
+  Smile,
+  Shield,
+  Layers,
+  Heart,
+  Zap,
+};
+
 const TreatmentIcon = ({ name, className }) => {
-  const IconComponent = LucideIcons[name];
-  if (!IconComponent) return <LucideIcons.HeartPulse className={className} />;
+  const IconComponent = iconMap[name];
+  if (!IconComponent) return <HeartPulse className={className} />;
   return <IconComponent className={className} />;
 };
 
@@ -49,6 +69,7 @@ export default function Treatments() {
                   <img
                     src={treatment.image}
                     alt={treatment.title}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   {/* Floating Icon */}
@@ -73,7 +94,7 @@ export default function Treatments() {
                     className="inline-flex items-center text-sm font-bold text-brand-primary group-hover:text-brand-secondary transition-colors cursor-pointer"
                   >
                     Detayları İncele
-                    <LucideIcons.ArrowRight className="w-4 h-4 ml-1.5 transform group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 ml-1.5 transform group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
 
@@ -109,7 +130,7 @@ export default function Treatments() {
                 className="absolute top-4 right-4 p-2 bg-black/45 hover:bg-black/70 text-white rounded-full transition-colors"
                 aria-label="Kapat"
               >
-                <LucideIcons.X className="w-5 h-5" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
@@ -120,7 +141,7 @@ export default function Treatments() {
               </p>
               
               <div className="flex items-center space-x-2.5 p-3 rounded-2xl bg-brand-light/30 border border-brand-primary/10">
-                <LucideIcons.CheckCircle className="w-5 h-5 text-brand-primary shrink-0" />
+                <CheckCircle className="w-5 h-5 text-brand-primary shrink-0" />
                 <span className="text-xs sm:text-sm text-brand-secondary font-medium">
                   Bu tedavi kliniğimizde uzman hekimimiz tarafından dijital protokollerle sunulmaktadır.
                 </span>

@@ -18,9 +18,9 @@ export const clinicConfig = {
     title: "Mehmet Yağcı Ağız ve Diş Sağlığı Polikliniği",
     description: "Modern diş kliniğimizde implant, zirkonyum kaplama, Hollywood smile gülüş tasarımı, ortodonti ve çocuk diş hekimliği. Randevunuzu hemen online oluşturun.",
     keywords: "diş hekimi, diş kliniği, implant tedavisi, izmir diş hekimi, gülüş tasarımı, zirkonyum kaplama, diş beyazlatma, ortodonti, telsiz diş tedavisi",
-    author: "Dentemet Diş Polikliniği",
+    author: "Mehmet Yağcı Diş Polikliniği",
     ogType: "website",
-    ogUrl: "https://dentemet.com",
+    ogUrl: "https://dtmehmetyagci.com",
     ogImage: "/images/brand-logo.jpg", // Sosyal medyada paylaşıldığında görünecek resim
   },
 
@@ -178,7 +178,7 @@ export const clinicConfig = {
   contact: {
     phone: "+90 (232) 444 0 555",
     phoneClean: "+902324440555", // Arama yapılabilmesi için boşluksuz telefon no
-    email: "info@dentemet.com",
+    email: "info@dtmehmetyagci.com",
     address: "Atatürk Caddesi No: 123, Kat: 2, Alsancak, Konak / İzmir",
     googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d379.1168818719706!2d28.33702575105927!3d37.9204163614518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b8b8d067b2d347%3A0x2322eabff4ca8d69!2zWWXFn2lsLCA3MjcuIFNrLiBObzoyNiwgMDk4MDAgTmF6aWxsaS9BeWTEsW4!5e0!3m2!1str!2str!4v1781123725973!5m2!1str!2str",
     workingHours: [
