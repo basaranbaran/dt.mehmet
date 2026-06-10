@@ -1,14 +1,20 @@
 import React from 'react';
-import * as LucideIcons from 'lucide-react';
+import { UserCheck, Cpu, ShieldCheck, HelpCircle } from 'lucide-react';
 import { clinicConfig } from '../config';
 import FadeIn from './FadeIn';
 import AnimatedBackground from './AnimatedBackground';
 import ShapeDivider from './ShapeDivider';
 
+const iconMap = {
+  UserCheck,
+  Cpu,
+  ShieldCheck,
+};
+
 // Dynamic Icon rendering helper based on config string
 const FeatureIcon = ({ name, className }) => {
-  const IconComponent = LucideIcons[name];
-  if (!IconComponent) return <LucideIcons.HelpCircle className={className} />;
+  const IconComponent = iconMap[name];
+  if (!IconComponent) return <HelpCircle className={className} />;
   return <IconComponent className={className} />;
 };
 
