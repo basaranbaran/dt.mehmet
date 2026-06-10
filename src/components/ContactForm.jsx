@@ -2,13 +2,12 @@ import React from 'react';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { clinicConfig } from '../config';
 import FadeIn from './FadeIn';
+import AnimatedBackground from './AnimatedBackground';
 
 export default function ContactForm() {
   return (
-    <section id="iletisim" className="py-20 bg-gradient-to-b from-white to-brand-light/35 relative overflow-hidden">
-      {/* Animated Background Blobs */}
-      <div className="absolute top-10 left-10 w-96 h-96 rounded-full bg-brand-primary/7 blur-3xl animate-blob-slow pointer-events-none -z-10"></div>
-      <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-brand-secondary/6.5 blur-3xl animate-blob-reverse pointer-events-none -z-10"></div>
+    <section id="iletisim" className="py-20 bg-brand-light relative overflow-hidden">
+      <AnimatedBackground section="contactForm" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         

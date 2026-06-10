@@ -1,6 +1,8 @@
 import React from 'react';
 import { clinicConfig } from '../config';
 import FadeIn from './FadeIn';
+import AnimatedBackground from './AnimatedBackground';
+import ShapeDivider from './ShapeDivider';
 
 export default function Hero() {
   const cards = [
@@ -59,7 +61,8 @@ export default function Hero() {
   };
 
   return (
-    <section id="anasayfa" className="pt-24 pb-4 px-4 bg-white">
+    <section id="anasayfa" className="pt-24 pb-4 px-4 bg-white relative overflow-hidden">
+      <AnimatedBackground section="hero" />
       <FadeIn delay={100} duration={900} translate="translateY(40px)">
         <div 
           id="banner-grid-wrapper" 

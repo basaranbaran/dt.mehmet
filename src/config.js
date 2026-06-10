@@ -35,15 +35,141 @@ export const clinicConfig = {
   },
 
   // ==========================================
-  // 3. TEMA RENKLERİ (HEX Kodları)
+  // 3. TEMA RENKLERİ VE ARKA PLAN ANİMASYONLARI
   // ==========================================
-  theme: {
-    primaryColor: "#0d9488",    // Ana Tema Rengi (Teal-600) - Butonlar, linkler vb.
-    secondaryColor: "#0f766e",  // İkincil Renk (Teal-700) - Hover durumları vb.
-    accentColor: "#f59e0b",     // Vurgu Rengi (Amber-500) - Randevu Butonu vb.
-    darkColor: "#111827",       // Koyu Metinler / Başlıklar (Gray-900)
-    lightColor: "#f0fdfa",      // Hafif Arkaplanlar (Teal-50) - Kart arka planları vb.
+  // Aktif renk paleti: "tealFresh", "oceanBlue", "sunsetGlow", "royalIndigo", "emeraldBio", "softModern", "premiumClinicTheme", "warmWoodenTheme", "softBeigeTheme"
+  activePalette: "premiumClinicTheme",
+
+  themePalettes: {
+    tealFresh: {
+      primaryColor: "#0d9488",    // Ana Tema Rengi (Teal-600) - Butonlar, linkler vb.
+      secondaryColor: "#0f766e",  // İkincil Renk (Teal-700) - Hover durumları vb.
+      accentColor: "#f59e0b",     // Vurgu Rengi (Amber-500) - Randevu Butonu vb.
+      darkColor: "#111827",       // Koyu Metinler / Başlıklar (Gray-900)
+      lightColor: "#ccfbf1",      // Hafif Arkaplanlar (Teal-100) - Kart arka planları vb.
+      phoneColor: "#10b981",      // Telefon / İletişim Rengi (Emerald-500)
+    },
+    oceanBlue: {
+      primaryColor: "#2563eb",    // Royal Mavi (Blue-600)
+      secondaryColor: "#1d4ed8",  // Koyu Mavi (Blue-700)
+      accentColor: "#06b6d4",     // Turkuaz/Cyan (Cyan-500)
+      darkColor: "#0f172a",       // Koyu Gri/Mavi (Slate-900)
+      lightColor: "#dbeafe",      // Açık Mavi Arka Plan (Blue-100 - Derinleştirildi)
+      phoneColor: "#059669",      // Telefon / İletişim Rengi (Emerald-600)
+    },
+    sunsetGlow: {
+      primaryColor: "#db2777",    // Pembe (Pink-600)
+      secondaryColor: "#be185d",  // Koyu Pembe (Pink-700)
+      accentColor: "#f97316",     // Turuncu (Orange-500)
+      darkColor: "#18181b",       // Koyu Siyah (Zinc-900)
+      lightColor: "#ffe4e6",      // Gül Arka Plan (Rose-100)
+      phoneColor: "#10b981",      // Telefon / İletişim Rengi (Emerald-500)
+    },
+    royalIndigo: {
+      primaryColor: "#4f46e5",    // İndigo (Indigo-600)
+      secondaryColor: "#4338ca",  // Koyu İndigo (Indigo-700)
+      accentColor: "#10b981",     // Zümrüt Yeşili (Emerald-500)
+      darkColor: "#1e1b4b",       // Koyu Lacivert (Indigo-950)
+      lightColor: "#e0e7ff",      // Violet Arka Plan (Indigo-100)
+      phoneColor: "#10b981",      // Telefon / İletişim Rengi (Emerald-500)
+    },
+    emeraldBio: {
+      primaryColor: "#059669",    // Zümrüt Yeşili (Emerald-600)
+      secondaryColor: "#047857",  // Koyu Yeşil (Emerald-700)
+      accentColor: "#f59e0b",     // Amber Vurgu (Amber-500)
+      darkColor: "#064e3b",       // Koyu Orman Yeşili (Emerald-950)
+      lightColor: "#d1fae5",      // Hafif Yeşil Arka Plan (Emerald-100)
+      phoneColor: "#d97706",      // Telefon / İletişim Rengi (Amber-600)
+    },
+    softModern: {
+      primaryColor: "#BEA792",    // Ana Renk (Yumuşak Ahşap - Masanın üstü ve sandalye tonu)
+      secondaryColor: "#E8E2D9",  // İkincil Renk (Hafif Krem-Bej - Duvar rengi)
+      accentColor: "#BCBCBC",     // Vurgu (Mat Gümüş/Gri - Diş ünitesinin metal aksamları)
+      darkColor: "#575B5F",       // Koyu Renk (Koyu Gri/Antrasit - Jaluzi ve sandalye ayakları)
+      lightColor: "#FBF9F7",      // Açık Renk (Krem-Beyaz Arka Plan - Duvarın en aydınlık hali)
+      phoneColor: "#575B5F",      // Telefon / İletişim Rengi (Ko yu Gri)
+    },
+    premiumClinicTheme: {
+      primaryColor: "#6fb7ffb7",    // Gece Laciverti (Güven ve profesyonellik için ana gövde rengi)
+      secondaryColor: "#3a312cff",  // Eskitme Ahşap (Detaylar, ikonlar ve yardımcı vurgular)
+      accentColor: "#a7d1fcff",     // Altın Sarısı (Butonlar, önemli call-to-action'lar ve lüks detaylar)
+      darkColor: "#111827ff",       // Derin Lacivert (Footer veya başlık alanı gibi koyu zeminler)
+      lightColor: "#eee6db",        // Bej/Kum (Ana içerik alanı arka planı, okunabilirliği artırır)
+      phoneColor: "#181e2b",      // Telefon / İletişim Rengi (Eskitme Ahşap)
+    },
+    warmWoodenTheme: {
+      primaryColor: "#5D4037",    // Koyu Kahve (Ahşap detaylar ve güçlü vurgular için)
+      secondaryColor: "#8D6E63",  // Orta Kahve (İkincil detaylar ve ikonlar)
+      accentColor: "#D4AF37",     // Altın Sarısı (CTA ve dikkat çekici alanlar için)
+      darkColor: "#3E2723",       // Çok Koyu Kahve (Footer veya metin ağırlıklı alanlar)
+      lightColor: "#F5F0E6",
+      phoneColor: "#D4AF37",      // Telefon / İletişim Rengi (Altın Sarısı)
+    },
+    softBeigeTheme: {
+      primaryColor: "#A69584",    // Taupe/Bej (Ana kurumsal renk, yumuşak ve sofistike)
+      secondaryColor: "#C9B9A6",  // Açık Bej/Kum (Detaylar, ikonlar ve yardımcı öğeler)
+      accentColor: "#E0C9A6",     // Soluk Altın/Şampanya (Dikkat çekmesi istenen yumuşak vurgular)
+      darkColor: "#5D5752",       // Koyu Gri-Kahve (Okunabilir metinler ve güçlü hatlar)
+      lightColor: "#dbf0feff",
+      phoneColor: "#5D5752",      // Telefon / İletişim Rengi (Koyu Gri-Kahve)
+    }
   },
+
+  // Dinamik olarak seçili paleti döndüren getter (Geriye dönük uyumluluk için)
+  get theme() {
+    return this.themePalettes[this.activePalette] || this.themePalettes.tealFresh;
+  },
+
+  // Her bölüm (section) için farklı, ayırt edici animasyonlu arka plan ayarları
+  backgroundAnimations: {
+    enabled: true,
+    sections: {
+      hero: {
+        type: "gradientWave",    // "gradientWave", "blobDrift", "particleDrift", "movingGrid", "glowingRadial", "none"
+        speed: "slow",          // "slow", "medium", "fast"
+        opacity: 0.28,          // Görünürlük oranı (arttırıldı)
+        color1: "primaryColor",
+        color2: "accentColor"
+      },
+      features: {
+        type: "movingGrid",
+        speed: "medium",
+        opacity: 0.14,          // Görünürlük oranı (arttırıldı)
+        color1: "primaryColor"
+      },
+      aboutDoctor: {
+        type: "blobDrift",
+        speed: "slow",
+        opacity: 0.24,          // Görünürlük oranı (arttırıldı)
+        blobCount: 4,           // Yüzen organik şekil sayısı
+        color1: "primaryColor",
+        color2: "secondaryColor",
+        color3: "accentColor"
+      },
+      treatments: {
+        type: "particleDrift",
+        speed: "slow",
+        opacity: 0.32,          // Görünürlük oranı (arttırıldı)
+        particleCount: 50,      // Canvas üzerinde yüzecek parıltı sayısı
+        color1: "primaryColor"
+      },
+      gallery: {
+        type: "particleDrift",
+        speed: "slow",
+        opacity: 0.08,          // Temiz beyaz arka planı korumak için çok hafif parıltılar
+        particleCount: 25,
+        color1: "primaryColor"
+      },
+      contactForm: {
+        type: "gradientWave",
+        speed: "medium",
+        opacity: 0.25,          // Görünürlük oranı (arttırıldı)
+        color1: "secondaryColor",
+        color2: "accentColor"
+      }
+    }
+  },
+
 
   // ==========================================
   // 4. İLETİŞİM BİLGİLERİ & HARİTA
@@ -53,7 +179,7 @@ export const clinicConfig = {
     phoneClean: "+902324440555", // Arama yapılabilmesi için boşluksuz telefon no
     email: "info@dentemet.com",
     address: "Atatürk Caddesi No: 123, Kat: 2, Alsancak, Konak / İzmir",
-    googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.044158498263!2d27.1384024!3d38.4404092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbd85d77344f6f%3A0xe4431e7cc44aa4df!2sAlsancak%2C%20Konak%2F%C4%B0zmir!5e0!3m2!1str!2str!4v1716422400000!5m2!1str!2str",
+    googleMapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d379.1168818719706!2d28.33702575105927!3d37.9204163614518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b8b8d067b2d347%3A0x2322eabff4ca8d69!2zWWXFn2lsLCA3MjcuIFNrLiBObzoyNiwgMDk4MDAgTmF6aWxsaS9BeWTEsW4!5e0!3m2!1str!2str!4v1781123725973!5m2!1str!2str",
     workingHours: [
       { days: "Pazartesi - Cuma", hours: "09:00 - 19:00" },
       { days: "Cumartesi", hours: "09:00 - 15:00" },
