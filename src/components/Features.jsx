@@ -2,6 +2,8 @@ import React from 'react';
 import * as LucideIcons from 'lucide-react';
 import { clinicConfig } from '../config';
 import FadeIn from './FadeIn';
+import AnimatedBackground from './AnimatedBackground';
+import ShapeDivider from './ShapeDivider';
 
 // Dynamic Icon rendering helper based on config string
 const FeatureIcon = ({ name, className }) => {
@@ -12,35 +14,42 @@ const FeatureIcon = ({ name, className }) => {
 
 export default function Features() {
   return (
-    <section className="py-16 bg-gradient-to-r from-brand-light/30 to-white border-y border-brand-primary/5 relative overflow-hidden">
-      {/* Animated Background Blobs */}
-      <div className="absolute top-10 left-10 w-72 h-72 rounded-full bg-brand-primary/6 blur-3xl animate-blob-slow pointer-events-none -z-10"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-brand-secondary/5 blur-3xl animate-blob-reverse pointer-events-none -z-10"></div>
+    <section className="pt-16 pb-36 md:pb-44 bg-gradient-to-r from-brand-light/30 to-white border-y border-brand-primary/5 relative overflow-hidden">
+      <AnimatedBackground section="features" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
-        {/* Section Heading */}
+        {/* Section Heading with depth decoration */}
         <FadeIn delay={50} translate="translateY(20px)">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl font-extrabold text-brand-dark tracking-tight font-display">
+          <div className="text-center max-w-2xl mx-auto mb-16 relative">
+            {/* Glowing Backdrop Orb */}
+            <div className="absolute top-[10%] left-[50%] -translate-x-[50%] w-72 h-72 rounded-full bg-brand-primary/15 blur-[90px] -z-10 pointer-events-none" />
+            
+            <span className="text-xs font-bold text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-4 py-1.5 rounded-full mb-3.5 inline-block">
+              Neden Dentemet?
+            </span>
+            <h2 className="text-3.5xl font-extrabold text-brand-dark tracking-tight font-display">
               Diş Kliniğimizin Farkı
             </h2>
-            <div className="w-12 h-1 bg-brand-primary mx-auto mt-3 rounded-full"></div>
-            <p className="mt-4 text-brand-muted text-sm sm:text-base">
+            <div className="w-14 h-1 bg-brand-primary mx-auto mt-3 rounded-full shadow-sm"></div>
+            <p className="mt-4 text-brand-muted text-sm sm:text-base leading-relaxed">
               Dentemet'te her detayı konforunuz, güvenliğiniz ve en yüksek tedavi başarısı için tasarladık.
             </p>
           </div>
         </FadeIn>
 
-        {/* Feature Cards Grid */}
+        {/* Feature Cards Grid with depth shadows */}
         <div className="grid md:grid-cols-3 gap-8">
           {clinicConfig.features.map((feature, idx) => (
             <FadeIn key={idx} delay={idx * 150} translate="translateY(30px)">
               <div
-                className="p-8 rounded-2xl bg-brand-light/20 border border-brand-primary/10 text-left hover:shadow-xl hover:border-brand-primary/30 transform hover:-translate-y-1 transition-all duration-350 group h-full"
+                className="p-8 rounded-3xl bg-white/80 border border-white/60 text-left shadow-[0_15px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.09)] hover:border-brand-primary/25 hover:bg-white transform hover:-translate-y-2.5 transition-all duration-500 backdrop-blur-md group h-full relative overflow-hidden"
               >
-                {/* Icon Frame */}
-                <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary mb-6 group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300">
+                {/* Decorative bottom corner highlight */}
+                <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-primary/0 to-brand-primary/5 rounded-tl-[100px] pointer-events-none group-hover:scale-110 transition-transform duration-500" />
+
+                {/* Icon Frame - Spins and scales on card hover */}
+                <div className="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary mb-6 group-hover:bg-brand-primary group-hover:text-white transition-all duration-500 group-hover:scale-105 group-hover:rotate-[360deg]">
                   <FeatureIcon name={feature.icon} className="w-7 h-7" />
                 </div>
 
@@ -57,6 +66,7 @@ export default function Features() {
         </div>
 
       </div>
+      <ShapeDivider type="animatedWaves" position="bottom" color="fill-white" height="clamp(80px, 9vw, 140px)" />
     </section>
   );
 }

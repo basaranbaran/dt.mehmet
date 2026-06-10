@@ -20,6 +20,8 @@ export default function App() {
     root.style.setProperty('--color-brand-accent', clinicConfig.theme.accentColor);
     root.style.setProperty('--color-brand-dark', clinicConfig.theme.darkColor);
     root.style.setProperty('--color-brand-light', clinicConfig.theme.lightColor);
+    root.style.setProperty('--color-brand-muted', clinicConfig.theme.mutedColor || '#4b5563');
+    root.style.setProperty('--color-brand-phone', clinicConfig.theme.phoneColor || clinicConfig.theme.primaryColor);
 
     // 2. Dynamically set HTML Document Title (SEO)
     document.title = clinicConfig.metadata.title;

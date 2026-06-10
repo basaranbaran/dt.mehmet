@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import * as LucideIcons from 'lucide-react';
 import { clinicConfig } from '../config';
 import FadeIn from './FadeIn';
+import AnimatedBackground from './AnimatedBackground';
+import ShapeDivider from './ShapeDivider';
 
 const TreatmentIcon = ({ name, className }) => {
   const IconComponent = LucideIcons[name];
@@ -13,13 +15,10 @@ export default function Treatments() {
   const [activeModal, setActiveModal] = useState(null);
 
   return (
-    <section id="tedaviler" className="py-20 bg-brand-light/45 relative overflow-hidden">
-      
-      {/* Background shape with animation */}
-      <div className="absolute top-10 left-0 w-80 h-80 rounded-full bg-brand-primary/8 blur-3xl animate-blob-slow pointer-events-none -z-10"></div>
-      <div className="absolute bottom-20 right-0 w-96 h-96 rounded-full bg-brand-secondary/7 blur-3xl animate-blob-reverse pointer-events-none -z-10"></div>
+    <section id="tedaviler" className="pt-20 pb-40 md:pb-48 bg-brand-light relative overflow-hidden">
+      <AnimatedBackground section="treatments" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Heading */}
         <FadeIn delay={50} translate="translateY(20px)">
@@ -141,7 +140,7 @@ export default function Treatments() {
           </div>
         </div>
       )}
-
+      <ShapeDivider type="animatedWaves" position="bottom" color="fill-white" height="clamp(100px, 11vw, 160px)" />
     </section>
   );
 }

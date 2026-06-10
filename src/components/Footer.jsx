@@ -64,7 +64,7 @@ export default function Footer() {
       {/* Scroll to Top Button */}
       <button
         onClick={scrollToTop}
-        className="absolute top-[-24px] left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-brand-primary hover:bg-brand-secondary text-white shadow-xl flex items-center justify-center border-4 border-white transition-colors cursor-pointer"
+        className="absolute top-[-24px] left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-[#B3D9FF] hover:bg-[#99ccff] text-brand-dark hover:text-brand-dark shadow-xl flex items-center justify-center border-4 border-brand-dark transition-colors cursor-pointer"
         aria-label="Sayfanın Başına Git"
       >
         <ArrowUp className="w-5 h-5" />
@@ -76,7 +76,7 @@ export default function Footer() {
           {/* Logo & Slogan Column */}
           <div className="space-y-4">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold tracking-wider uppercase font-display text-brand-primary">
+              <span className="text-2xl font-bold tracking-wider uppercase font-display text-brand-accent">
                 {clinicConfig.brand.logoText}
               </span>
               <span className="text-[10px] tracking-widest uppercase font-medium text-gray-400 -mt-1">
@@ -94,11 +94,11 @@ export default function Footer() {
               Hızlı Erişim
             </h4>
             <div className="grid grid-cols-2 gap-2 text-sm text-gray-400">
-              <a href="#anasayfa" onClick={(e) => handleScrollClick(e, '#anasayfa')} className="hover:text-brand-primary transition-colors py-1">Anasayfa</a>
-              <a href="#hakkimizda" onClick={(e) => handleScrollClick(e, '#hakkimizda')} className="hover:text-brand-primary transition-colors py-1">Hakkımızda</a>
-              <a href="#tedaviler" onClick={(e) => handleScrollClick(e, '#tedaviler')} className="hover:text-brand-primary transition-colors py-1">Tedaviler</a>
-              <a href="#galeri" onClick={(e) => handleScrollClick(e, '#galeri')} className="hover:text-brand-primary transition-colors py-1">Kliniğimiz</a>
-              <a href="#iletisim" onClick={(e) => handleScrollClick(e, '#iletisim')} className="hover:text-brand-primary transition-colors py-1">İletişim</a>
+              <a href="#anasayfa" onClick={(e) => handleScrollClick(e, '#anasayfa')} className="hover:text-brand-accent transition-colors py-1">Anasayfa</a>
+              <a href="#hakkimizda" onClick={(e) => handleScrollClick(e, '#hakkimizda')} className="hover:text-brand-accent transition-colors py-1">Hakkımızda</a>
+              <a href="#tedaviler" onClick={(e) => handleScrollClick(e, '#tedaviler')} className="hover:text-brand-accent transition-colors py-1">Tedaviler</a>
+              <a href="#galeri" onClick={(e) => handleScrollClick(e, '#galeri')} className="hover:text-brand-accent transition-colors py-1">Kliniğimiz</a>
+              <a href="#iletisim" onClick={(e) => handleScrollClick(e, '#iletisim')} className="hover:text-brand-accent transition-colors py-1">İletişim</a>
             </div>
           </div>
 
@@ -118,7 +118,7 @@ export default function Footer() {
                     href={value}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-900 hover:bg-brand-primary text-gray-400 hover:text-white rounded-xl shadow-inner transition-all transform hover:-translate-y-0.5"
+                    className="p-3 bg-gray-900 hover:bg-brand-accent text-gray-400 hover:text-white rounded-xl shadow-inner transition-all transform hover:-translate-y-0.5"
                     aria-label={`Bizi ${key}'de takip edin`}
                   >
                     {socialIcons[key]}

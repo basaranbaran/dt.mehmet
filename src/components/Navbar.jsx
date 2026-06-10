@@ -53,14 +53,23 @@ export default function Navbar() {
           <a
             href="#anasayfa"
             onClick={(e) => handleNavClick(e, '#anasayfa')}
-            className="flex flex-col group"
+            className="flex items-center space-x-3 group"
           >
-            <span className="text-2xl font-bold tracking-wider text-brand-dark group-hover:text-brand-primary transition-colors uppercase font-display">
-              {clinicConfig.brand.logoText}
-            </span>
-            <span className="text-[10px] tracking-widest text-brand-muted uppercase font-sans -mt-1 font-medium">
-              {clinicConfig.brand.logoSubtext}
-            </span>
+            {clinicConfig.brand.logoImage && (
+              <img 
+                src={clinicConfig.brand.logoImage} 
+                alt={`${clinicConfig.brand.logoText} Logo`} 
+                className="w-10 h-10 object-contain"
+              />
+            )}
+            <div className="flex flex-col">
+              <span className="text-xl sm:text-2xl font-bold tracking-wider text-brand-dark group-hover:text-brand-primary transition-colors uppercase font-display">
+                {clinicConfig.brand.logoText}
+              </span>
+              <span className="text-[10px] tracking-widest text-brand-muted uppercase font-sans -mt-1 font-medium">
+                {clinicConfig.brand.logoSubtext}
+              </span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
@@ -81,7 +90,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center">
             <a
               href={`tel:${clinicConfig.contact.phoneClean}`}
-              className="bg-brand-primary hover:bg-brand-secondary text-white font-bold py-2.5 px-6 rounded-full shadow-lg shadow-brand-primary/20 hover:shadow-brand-secondary/30 transform hover:-translate-y-0.5 transition-all text-sm font-display flex items-center"
+              className="bg-brand-phone hover:bg-brand-phone/90 text-white font-bold py-2.5 px-6 rounded-full shadow-lg shadow-brand-phone/20 hover:shadow-brand-phone/30 transform hover:-translate-y-0.5 transition-all text-sm font-display flex items-center"
             >
               <Phone className="w-4 h-4 mr-2 animate-pulse" />
               {clinicConfig.contact.phone}
@@ -123,7 +132,7 @@ export default function Navbar() {
             <a
               href={`tel:${clinicConfig.contact.phoneClean}`}
               onClick={() => setIsOpen(false)}
-              className="bg-brand-primary hover:bg-brand-secondary text-white font-bold py-3 px-6 rounded-full text-center shadow-md transform hover:-translate-y-0.5 transition-all text-sm font-display flex items-center justify-center"
+              className="bg-brand-phone hover:bg-brand-phone/90 text-white font-bold py-3 px-6 rounded-full text-center shadow-md transform hover:-translate-y-0.5 transition-all text-sm font-display flex items-center justify-center"
             >
               <Phone className="w-4 h-4 mr-2" />
               {clinicConfig.contact.phone}
