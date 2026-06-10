@@ -21,7 +21,7 @@ export const clinicConfig = {
     author: "Dentemet Diş Polikliniği",
     ogType: "website",
     ogUrl: "https://dentemet.com",
-    ogImage: "/images/og-image.jpg", // Sosyal medyada paylaşıldığında görünecek resim
+    ogImage: "/images/brand-logo.jpg", // Sosyal medyada paylaşıldığında görünecek resim
   },
 
   // ==========================================
@@ -32,6 +32,7 @@ export const clinicConfig = {
     slogan: "Gülüşünüz Değerlidir",
     logoText: "Dt. Mehmet Yağcı",
     logoSubtext: "Ağız ve Diş Sağlığı",
+    logoImage: "/images/brand-logo.png",
   },
 
   // ==========================================

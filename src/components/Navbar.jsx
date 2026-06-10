@@ -44,9 +44,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'glass-nav py-1.5 shadow-md' : 'bg-transparent py-4'
-    }`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'glass-nav py-1.5 shadow-md' : 'bg-transparent py-4'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo / Branding */}
@@ -56,10 +55,10 @@ export default function Navbar() {
             className="flex items-center space-x-3 group"
           >
             {clinicConfig.brand.logoImage && (
-              <img 
-                src={clinicConfig.brand.logoImage} 
-                alt={`${clinicConfig.brand.logoText} Logo`} 
-                className="w-10 h-10 object-contain"
+              <img
+                src={clinicConfig.brand.logoImage}
+                alt={`${clinicConfig.brand.logoText} Logo`}
+                className="w-28 h-28 object-contain p-2"
               />
             )}
             <div className="flex flex-col">
@@ -111,9 +110,8 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Navigation Drawer */}
-      <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-        isOpen ? 'max-h-screen border-b border-gray-200 bg-white' : 'max-h-0'
-      }`}>
+      <div className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-screen border-b border-gray-200 bg-white' : 'max-h-0'
+        }`}>
         <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3 shadow-inner">
           {navItems.map((item) => (
             <a
