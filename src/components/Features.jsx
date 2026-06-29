@@ -28,8 +28,8 @@ export default function Features() {
         {/* Section Heading with depth decoration */}
         <FadeIn delay={50} translate="translateY(20px)">
           <div className="text-center max-w-2xl mx-auto mb-16 relative">
-            {/* Glowing Backdrop Orb */}
-            <div className="absolute top-[10%] left-[50%] -translate-x-[50%] w-72 h-72 rounded-full bg-brand-primary/15 blur-[90px] -z-10 pointer-events-none" />
+            {/* Glowing Backdrop Orb - blur kaldırıldı, native gradient kullanıldı */}
+            <div className="absolute top-[10%] left-[50%] -translate-x-[50%] w-72 h-72 rounded-full -z-10 pointer-events-none" style={{background: 'radial-gradient(ellipse at center, var(--color-brand-primary, #6fb7ff) 0%, transparent 70%)', opacity: 0.15}} />
             
             <span className="text-xs font-bold text-brand-primary uppercase tracking-widest bg-brand-primary/10 px-4 py-1.5 rounded-full mb-3.5 inline-block">
               Neden Dentemet?

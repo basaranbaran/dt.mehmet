@@ -72,16 +72,16 @@ export default function AnimatedBackground({ section }) {
         return (
           <>
             <div 
-              className="absolute -top-[25%] -left-[15%] w-[70%] h-[70%] rounded-full blur-[70px]"
-              style={{ background: `radial-gradient(circle, ${c1} 0%, transparent 70%)` }}
+              className="absolute -top-[25%] -left-[15%] w-[70%] h-[70%] rounded-full"
+              style={{ background: `radial-gradient(ellipse at center, ${c1}55 0%, ${c1}22 40%, transparent 70%)`, willChange: 'opacity' }}
             />
             <div 
-              className="absolute -bottom-[25%] -right-[15%] w-[80%] h-[80%] rounded-full blur-[80px]"
-              style={{ background: `radial-gradient(circle, ${c2 || c1} 0%, transparent 70%)` }}
+              className="absolute -bottom-[25%] -right-[15%] w-[80%] h-[80%] rounded-full"
+              style={{ background: `radial-gradient(ellipse at center, ${c2 || c1}44 0%, ${c2 || c1}18 40%, transparent 70%)`, willChange: 'opacity' }}
             />
             <div 
-              className="absolute top-[20%] left-[25%] w-[60%] h-[60%] rounded-full blur-[65px]"
-              style={{ background: `radial-gradient(circle, ${c2 || c1} 0%, transparent 75%)`, mixBlendMode: 'multiply' }}
+              className="absolute top-[20%] left-[25%] w-[60%] h-[60%] rounded-full"
+              style={{ background: `radial-gradient(ellipse at center, ${c2 || c1}33 0%, transparent 65%)` }}
             />
           </>
         );
@@ -171,12 +171,9 @@ export default function AnimatedBackground({ section }) {
   return (
     <div 
       ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-none -z-10 select-none transition-all duration-[1200ms] ease-out ${
-        isIntersecting ? 'opacity-100 scale-100 blur-none' : 'opacity-0 scale-98 blur-sm'
-      }`}
+      className={`absolute inset-0 overflow-hidden pointer-events-none -z-10 select-none transition-opacity duration-[800ms] ease-out`}
       style={{ 
         opacity: isIntersecting ? opacity : 0,
-        transform: isIntersecting ? 'scale(1)' : 'scale(0.98)'
       }}
     >
       {renderBackgroundContent()}

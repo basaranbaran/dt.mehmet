@@ -133,16 +133,15 @@ export const clinicConfig = {
         color2: "accentColor"
       },
       features: {
-        type: "movingGrid",
-        speed: "medium",
-        opacity: 0.14,          // Görünürlük oranı (arttırıldı)
+        type: "none",
+        speed: "slow",
+        opacity: 0,
         color1: "primaryColor"
       },
       aboutDoctor: {
-        type: "blobDrift",
+        type: "gradientWave",
         speed: "slow",
-        opacity: 0.24,          // Görünürlük oranı (arttırıldı)
-        blobCount: 4,           // Yüzen organik şekil sayısı
+        opacity: 0.12,
         color1: "primaryColor",
         color2: "secondaryColor",
         color3: "accentColor"
@@ -150,21 +149,21 @@ export const clinicConfig = {
       treatments: {
         type: "particleDrift",
         speed: "slow",
-        opacity: 0.32,          // Görünürlük oranı (arttırıldı)
-        particleCount: 50,      // Canvas üzerinde yüzecek parıltı sayısı
+        opacity: 0.25,
+        particleCount: 30,
         color1: "primaryColor"
       },
       gallery: {
-        type: "particleDrift",
+        type: "none",
         speed: "slow",
-        opacity: 0.08,          // Temiz beyaz arka planı korumak için çok hafif parıltılar
-        particleCount: 25,
+        opacity: 0,
+        particleCount: 0,
         color1: "primaryColor"
       },
       contactForm: {
         type: "gradientWave",
-        speed: "medium",
-        opacity: 0.25,          // Görünürlük oranı (arttırıldı)
+        speed: "slow",
+        opacity: 0.18,
         color1: "secondaryColor",
         color2: "accentColor"
       }
