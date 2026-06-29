@@ -77,7 +77,7 @@ export default function Hero() {
           >
             {/* Background Image with Hover Zoom */}
             <img
-              src={card.bgImage}
+              src={card.bgImage.startsWith('/') || card.bgImage.startsWith('http') ? card.bgImage : `${import.meta.env.BASE_URL || '/'}${card.bgImage}`}
               alt={card.title}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               fetchPriority={idx === 0 ? "high" : "auto"}
