@@ -233,7 +233,18 @@ export const clinicConfig = {
       title: "Avrupa Standartlarında Hijyen",
       description: "Kliniğimizde Class-B otoklav sterilizasyonu ve hastalar arası tek kullanımlık sarf malzemeler titizlikle uygulanır.",
       icon: "ShieldCheck"
-          longDescription: "İmplant tedavisi, çene kemiğine yerleştirilen yapay diş kökleri sayesinde eksik dişlerin fonksiyon, konuşma ve estetik açıdan en doğal şekilde geri kazanılmasını sağlar. Kliniğimizde dikişsiz/cerrahi rehberli implant uygulamaları gerçekleştirilmektedir.",
+    }
+  ],
+
+  // ==========================================
+  // 8. TEDAVİLER / HİZMETLER KATALOĞU
+  // ==========================================
+  treatments: [
+    {
+      id: "implant",
+      title: "İmplantoloji (Diş Ekimi)",
+      shortDescription: "Eksik dişlerinizi ömür boyu kullanabileceğiniz, doğal diş hissi veren titanyum vidalarla tamamlıyoruz.",
+      longDescription: "İmplant tedavisi, çene kemiğine yerleştirilen yapay diş kökleri sayesinde eksik dişlerin fonksiyon, konuşma ve estetik açıdan en doğal şekilde geri kazanılmasını sağlar. Kliniğimizde dikişsiz/cerrahi rehberli implant uygulamaları gerçekleştirilmektedir.",
       image: "images/treatment-implant.webp",
       icon: "Sparkles"
     },
