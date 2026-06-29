@@ -19,7 +19,7 @@ export default function Hero() {
       title: "TEDAVİLERİMİZ",
       desc: "Kliniğimizde uygulanan estetik, cerrahi ve koruyucu tüm diş tedavilerini detaylarıyla inceleyin.",
       link: "#tedaviler",
-      bgImage: "/images/treatment-gulus.jpg",
+      bgImage: "images/treatment-gulus.jpg",
       gridClass: "md:col-span-2 md:row-span-1 h-[240px] md:h-full",
       textClass: "justify-end items-end text-right p-6 sm:p-8",
       titleSize: "text-xl sm:text-2xl lg:text-3xl"
@@ -37,7 +37,7 @@ export default function Hero() {
       title: "İLETİŞİM BİLGİLERİ",
       desc: "Klinik adresimiz, çalışma saatlerimiz ve telefon numaralarımıza hızlıca ulaşın.",
       link: "#iletisim",
-      bgImage: "/images/gallery-3.jpg",
+      bgImage: "images/gallery-3.jpg",
       gridClass: "md:col-span-1 md:row-span-1 h-[200px] md:h-full",
       textClass: "justify-center items-center text-center p-5 md:p-6",
       titleSize: "text-lg sm:text-xl lg:text-2xl"
