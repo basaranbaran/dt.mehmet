@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/dt-mehmet-yagci/',
+  base: '/dt.mehmet/',
   plugins: [react(), tailwindcss()],
 })
 
