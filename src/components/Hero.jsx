@@ -12,8 +12,8 @@ export default function Hero() {
       link: "#hakkimizda",
       bgImage: clinicConfig.doctor.image,
       gridClass: "md:col-span-2 md:row-span-2 h-[380px] md:h-full",
-      textClass: "justify-end items-start text-left p-6 sm:p-10",
-      titleSize: "text-2xl sm:text-3xl md:text-4xl"
+      textClass: "justify-end items-start text-left p-6 sm:p-8 md:p-10",
+      titleSize: "text-2xl sm:text-3xl lg:text-4xl"
     },
     {
       title: "TEDAVİLERİMİZ",
@@ -22,7 +22,7 @@ export default function Hero() {
       bgImage: "/images/treatment-gulus.jpg",
       gridClass: "md:col-span-2 md:row-span-1 h-[240px] md:h-full",
       textClass: "justify-end items-end text-right p-6 sm:p-8",
-      titleSize: "text-xl sm:text-2xl md:text-3xl"
+      titleSize: "text-xl sm:text-2xl lg:text-3xl"
     },
     {
       title: "KLİNİĞİMİZ",
@@ -30,8 +30,8 @@ export default function Hero() {
       link: "#galeri",
       bgImage: clinicConfig.gallery[0].image,
       gridClass: "md:col-span-1 md:row-span-1 h-[200px] md:h-full",
-      textClass: "justify-center items-center text-center p-6",
-      titleSize: "text-lg sm:text-xl md:text-2xl"
+      textClass: "justify-center items-center text-center p-5 md:p-6",
+      titleSize: "text-lg sm:text-xl lg:text-2xl"
     },
     {
       title: "İLETİŞİM BİLGİLERİ",
@@ -39,8 +39,8 @@ export default function Hero() {
       link: "#iletisim",
       bgImage: "/images/gallery-3.jpg",
       gridClass: "md:col-span-1 md:row-span-1 h-[200px] md:h-full",
-      textClass: "justify-center items-center text-center p-6",
-      titleSize: "text-lg sm:text-xl md:text-2xl"
+      textClass: "justify-center items-center text-center p-5 md:p-6",
+      titleSize: "text-lg sm:text-xl lg:text-2xl"
     }
   ];
 
@@ -61,12 +61,12 @@ export default function Hero() {
   };
 
   return (
-    <section id="anasayfa" className="pt-24 pb-4 px-4 bg-white relative overflow-hidden">
+    <section id="anasayfa" className="pt-24 pb-6 px-4 md:px-8 bg-white relative overflow-hidden flex flex-col justify-center md:h-[calc(100vh-16px)] min-h-[620px]">
       <AnimatedBackground section="hero" />
-      <FadeIn delay={100} duration={900} translate="translateY(40px)">
+      <FadeIn delay={100} duration={900} translate="translateY(40px)" className="h-full w-full flex flex-col flex-grow">
         <div 
           id="banner-grid-wrapper" 
-          className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-2 w-full h-auto md:h-[550px] lg:h-[620px] rounded-3xl overflow-hidden shadow-lg border border-gray-100"
+          className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-3 w-full h-auto md:h-full flex-grow rounded-3xl overflow-hidden shadow-lg border border-gray-100"
         >
         {cards.map((card, idx) => (
           <a
@@ -76,9 +76,12 @@ export default function Hero() {
             className={`relative overflow-hidden group block ${card.gridClass}`}
           >
             {/* Background Image with Hover Zoom */}
-            <div
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{ backgroundImage: `url(${card.bgImage})` }}
+            <img
+              src={card.bgImage}
+              alt={card.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              fetchPriority={idx === 0 ? "high" : "auto"}
+              loading={idx === 0 ? "eager" : "lazy"}
             />
             
             {/* Dark Overlay Gradient (Fades in slightly more on hover) */}

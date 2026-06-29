@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -77,31 +76,31 @@ h1, h2, h3, h4, h5, h6 {
 /* Background blob drift animations */
 @keyframes float-blob {
   0% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   33% {
-    transform: translate(30px, -50px) scale(1.1);
+    transform: translate3d(30px, -50px, 0) scale(1.1);
   }
   66% {
-    transform: translate(-20px, 20px) scale(0.9);
+    transform: translate3d(-20px, 20px, 0) scale(0.9);
   }
   100% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
 @keyframes float-blob-reverse {
   0% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   33% {
-    transform: translate(-30px, 40px) scale(0.9);
+    transform: translate3d(-30px, 40px, 0) scale(0.9);
   }
   66% {
-    transform: translate(25px, -30px) scale(1.1);
+    transform: translate3d(25px, -30px, 0) scale(1.1);
   }
   100% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -113,70 +112,65 @@ h1, h2, h3, h4, h5, h6 {
   animation: float-blob-reverse 30s infinite ease-in-out;
 }
 
-/* Advanced Liquid Morphing Animations */
+/* Advanced Liquid Morphing Animations - Optimized to prevent browser repaint storm */
 @keyframes morph-blob-1 {
   0%, 100% {
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
   33% {
-    border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%;
-    transform: translate(40px, -60px) rotate(120deg) scale(1.15);
+    transform: translate3d(40px, -60px, 0) rotate(120deg) scale(1.15);
   }
   66% {
-    border-radius: 50% 50% 30% 70% / 60% 30% 70% 40%;
-    transform: translate(-30px, 40px) rotate(240deg) scale(0.85);
+    transform: translate3d(-30px, 40px, 0) rotate(240deg) scale(0.85);
   }
 }
 
 @keyframes morph-blob-2 {
   0%, 100% {
-    border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
   50% {
-    border-radius: 30% 70% 60% 40% / 70% 60% 30% 40%;
-    transform: translate(-50px, 50px) rotate(-180deg) scale(1.1);
+    transform: translate3d(-50px, 50px, 0) rotate(-180deg) scale(1.1);
   }
 }
 
 @keyframes morph-blob-3 {
   0%, 100% {
-    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-    transform: translate(0, 0) rotate(0deg) scale(1);
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
   }
   33% {
-    border-radius: 80% 20% 80% 20% / 20% 80% 20% 80%;
-    transform: translate(60px, 30px) rotate(120deg) scale(0.9);
+    transform: translate3d(60px, 30px, 0) rotate(120deg) scale(0.9);
   }
   66% {
-    border-radius: 20% 80% 20% 80% / 80% 20% 80% 20%;
-    transform: translate(-40px, -50px) rotate(240deg) scale(1.15);
+    transform: translate3d(-40px, -50px, 0) rotate(240deg) scale(1.15);
   }
 }
 
 .animate-morph-1 {
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
   animation: morph-blob-1 25s infinite ease-in-out;
 }
 .animate-morph-2 {
+  border-radius: 60% 40% 30% 70% / 50% 30% 70% 50%;
   animation: morph-blob-2 30s infinite ease-in-out;
 }
 .animate-morph-3 {
+  border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
   animation: morph-blob-3 35s infinite ease-in-out;
 }
 
 /* Gradient Mesh Aura Waves */
 @keyframes mesh-drift-1 {
-  0%, 100% { transform: translate(0px, 0px) scale(1); }
-  50% { transform: translate(10%, -15%) scale(1.2); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(10%, -15%, 0) scale(1.2); }
 }
 @keyframes mesh-drift-2 {
-  0%, 100% { transform: translate(0px, 0px) scale(1.1); }
-  50% { transform: translate(-15%, 10%) scale(0.9); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.1); }
+  50% { transform: translate3d(-15%, 10%, 0) scale(0.9); }
 }
 @keyframes mesh-drift-3 {
-  0%, 100% { transform: translate(0px, 0px) scale(0.95); }
-  50% { transform: translate(8%, 8%) scale(1.15); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.95); }
+  50% { transform: translate3d(8%, 8%, 0) scale(1.15); }
 }
 
 .animate-mesh-1 { animation: mesh-drift-1 20s infinite ease-in-out; }
@@ -185,8 +179,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Grid scanline animation */
 @keyframes grid-sweep {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 100%, 0); }
 }
 .animate-grid-sweep {
   animation: grid-sweep 12s infinite linear;
@@ -201,10 +195,10 @@ h1, h2, h3, h4, h5, h6 {
   animation: spotlight-pulse 15s infinite ease-in-out;
 }
 
-/* Dynamic Grid scrolling motion */
+/* Dynamic Grid scrolling motion - Optimized with GPU transform */
 @keyframes grid-scroll {
-  0% { background-position: 0 0; }
-  100% { background-position: 48px 48px; }
+  0% { transform: rotateX(55deg) translate3d(0, 0, 0); }
+  100% { transform: rotateX(55deg) translate3d(0, 48px, 0); }
 }
 .animate-grid-scroll {
   animation: grid-scroll 25s infinite linear;
@@ -212,12 +206,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Animated Shape Divider waves */
 @keyframes wave-drift-left {
-  0%, 100% { transform: translateX(0) translateY(0) scaleY(1); }
-  50% { transform: translateX(-120px) translateY(-4px) scaleY(1.04); }
+  0%, 100% { transform: translate3d(0, 0, 0) scaleY(1); }
+  50% { transform: translate3d(-120px, -4px, 0) scaleY(1.04); }
 }
 @keyframes wave-drift-right {
-  0%, 100% { transform: translateX(0) translateY(0) scaleY(1); }
-  50% { transform: translateX(120px) translateY(3px) scaleY(0.96); }
+  0%, 100% { transform: translate3d(0, 0, 0) scaleY(1); }
+  50% { transform: translate3d(120px, 3px, 0) scaleY(0.96); }
 }
 .animate-wave-left {
   animation: wave-drift-left 14s infinite ease-in-out;
@@ -228,8 +222,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Slant horizontal drift animation */
 @keyframes slant-drift {
-  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
-  50% { transform: translateX(-100px) translateY(-2px) scale(1.02); }
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-100px, -2px, 0) scale(1.02); }
 }
 .animate-slant-drift {
   animation: slant-drift 12s infinite ease-in-out;
@@ -237,8 +231,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Foreground gentle motion animation */
 @keyframes wave-foreground-drift {
-  0%, 100% { transform: translateX(0) translateY(0) scaleY(1); }
-  50% { transform: translateX(-50px) translateY(2px) scaleY(1.02); }
+  0%, 100% { transform: translate3d(0, 0, 0) scaleY(1); }
+  50% { transform: translate3d(-50px, 2px, 0) scaleY(1.02); }
 }
 .animate-wave-foreground {
   animation: wave-foreground-drift 18s infinite ease-in-out;
@@ -262,5 +256,33 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotateX(55deg);
   transform-origin: top center;
 }
+
+/* Mobil Cihaz Performans Optimizasyonları (Animasyonları Kapat) */
+@media (max-width: 767px) {
+  .animate-blob-slow,
+  .animate-blob-reverse,
+  .animate-morph-1,
+  .animate-morph-2,
+  .animate-morph-3,
+  .animate-mesh-1,
+  .animate-mesh-2,
+  .animate-mesh-3,
+  .animate-grid-sweep,
+  .animate-spotlight-pulse,
+  .animate-grid-scroll,
+  .animate-wave-left,
+  .animate-wave-right,
+  .animate-wave-foreground,
+  .animate-slant-drift {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  /* Statik 3D Izgara görünümünü korumak için */
+  .perspective-grid-mesh {
+    transform: rotateX(55deg) !important;
+  }
+}
+
 
 

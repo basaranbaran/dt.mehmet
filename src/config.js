@@ -32,7 +32,7 @@ export const clinicConfig = {
     slogan: "Gülüşünüz Değerlidir",
     logoText: "Dt. Mehmet Yağcı",
     logoSubtext: "Ağız ve Diş Sağlığı",
-    logoImage: "/images/brand-logo.png",
+    logoImage: "/images/brand-logo.webp",
   },
 
   // ==========================================
@@ -204,10 +204,10 @@ export const clinicConfig = {
   doctor: {
     name: "Dt. Mehmet Yağcı",
     title: "Kurucu / Diş Hekimi",
-    image: "/images/doctor.jpg", // public/images/doctor.jpg dosyası
+    image: "/images/doctor.webp", // public/images/doctor.webp dosyası
     experienceYear: "4+ Yıl",
     experienceBadgeText: "Mesleki Deneyim ve Uzmanlık",
-    bio: "12 yılı aşkın mesleki birikimi ve dijital diş hekimliğindeki uzmanlığı ile hastalarına hizmet vermektedir. Ege Üniversitesi Diş Hekimliği Fakültesi mezunu olan Dt. Elif Temel, özellikle estetik gülüş tasarımı, zirkonyum restorasyonlar ve implant üstü protezler konusunda uzmanlaşmıştır.",
+    bio: "12 yılı aşkın mesleki birikimi ve dijital diş hekimliğindeki uzmanlığı ile hastalarına hizmet vermektedir. Ege Üniversitesi Diş Hekimliği Fakültesi mezunu olan Dt. Mehmet Yağcı, özellikle estetik gülüş tasarımı, zirkonyum restorasyonlar ve implant üstü protezler konusunda uzmanlaşmıştır.",
     education: [
       "Ege Üniversitesi Diş Hekimliği Fakültesi (Lisans, 2014)",
       "Uluslararası İmplantoloji Kongresi (ICOI) Aktif Katılımcısı",
@@ -245,7 +245,7 @@ export const clinicConfig = {
       title: "İmplantoloji (Diş Ekimi)",
       shortDescription: "Eksik dişlerinizi ömür boyu kullanabileceğiniz, doğal diş hissi veren titanyum vidalarla tamamlıyoruz.",
       longDescription: "İmplant tedavisi, çene kemiğine yerleştirilen yapay diş kökleri sayesinde eksik dişlerin fonksiyon, konuşma ve estetik açıdan en doğal şekilde geri kazanılmasını sağlar. Kliniğimizde dikişsiz/cerrahi rehberli implant uygulamaları gerçekleştirilmektedir.",
-      image: "/images/treatment-implant.jpg",
+      image: "/images/treatment-implant.webp",
       icon: "Sparkles"
     },
     {
@@ -253,7 +253,7 @@ export const clinicConfig = {
       title: "Estetik Diş Hekimliği (Hollywood Smile)",
       shortDescription: "Yüz hatlarınız, dudak yapınız ve ten renginizle uyumlu, ışıltılı porselen lamina ve beyazlatma uygulamaları.",
       longDescription: "Hollywood Smile, dijital gülüş tasarımı programları ile hastanın ağız yapısına en uygun porselen yaprak laminalar (Lumineers/Veneers), zirkonyum kronlar ve diş eti estetiği (gingivoplasti) yapılarak ideal gülüşe ulaşma sürecidir.",
-      image: "/images/treatment-gulus.jpg",
+      image: "/images/treatment-gulus.webp",
       icon: "Smile"
     },
     {
@@ -261,7 +261,7 @@ export const clinicConfig = {
       title: "Zirkonyum Porselen Kaplama",
       shortDescription: "Işık geçirgenliği son derece yüksek, diş eti morarması yapmayan estetik ve sağlam kaplamalar.",
       longDescription: "Zirkonyum, doku dostu olması ve ışığı doğal diş gibi yansıtması sebebiyle metal desteksiz köprü ve kaplamalarda tercih edilir. Zamanla renk değiştirmez, diş eti çekilmesine veya gri renk yansımasına neden olmaz.",
-      image: "/images/treatment-zirkonyum.jpg",
+      image: "/images/treatment-zirkonyum.webp",
       icon: "Shield"
     },
     {
@@ -269,7 +269,7 @@ export const clinicConfig = {
       title: "Şeffaf Plaklarla Ortodonti (Invisalign)",
       shortDescription: "Diş telleri olmadan, dışarıdan belli olmayan şeffaf ve çıkarılabilir plaklarla çapraşıklık tedavisi.",
       longDescription: "Invisalign telsiz diş düzeltme teknolojisi, bilgisayar ortamında tasarlanan kişiye özel şeffaf plaklar yardımıyla dişleri ideal konumuna getirir. Plaklar yemek yerken veya fırçalarken çıkarılabildiği için maksimum konfor sunar.",
-      image: "/images/treatment-orto.jpg",
+      image: "/images/treatment-orto.webp",
       icon: "Layers"
     },
     {
@@ -277,7 +277,7 @@ export const clinicConfig = {
       title: "Çocuk Diş Hekimliği (Pedodonti)",
       shortDescription: "Çocuklarımızın süt dişlerinin sağlığını koruyucu uygulamalar ve korkuyu ortadan kaldıran özel yaklaşım.",
       longDescription: "Pedodonti uzmanlarımız, süt ve genç kalıcı dişlerin sağlığını korumak amacıyla florür vernikleri, fissür örtücüler ve süt dişi dolguları yapar. Çocukların hekim korkusu yaşamaması için özel oyunlu seanslar düzenlenir.",
-      image: "/images/treatment-pedodonti.jpg",
+      image: "/images/treatment-pedodonti.webp",
       icon: "Heart"
     },
     {
@@ -294,9 +294,9 @@ export const clinicConfig = {
   // 9. KLİNİK GALERİ FOTOĞRAFLARI
   // ==========================================
   gallery: [
-    { title: "Giriş ve Bekleme Alanı", image: "/images/gallery-1.jpg" },
-    { title: "Modern Klinik Ünitesi (Oda 1)", image: "/images/gallery-2.jpg" },
-    { title: "Çocuk Bölümü ve Oyun Alanı", image: "/images/gallery-3.jpg" },
-    { title: "Sterilizasyon ve Cihaz Parkuru", image: "/images/gallery-4.jpg" }
+    { title: "Giriş ve Bekleme Alanı", image: "/images/gallery-1.webp" },
+    { title: "Modern Klinik Ünitesi (Oda 1)", image: "/images/gallery-2.webp" },
+    { title: "Çocuk Bölümü ve Oyun Alanı", image: "/images/gallery-3.webp" },
+    { title: "Sterilizasyon ve Cihaz Parkuru", image: "/images/gallery-4.webp" }
   ]
 };

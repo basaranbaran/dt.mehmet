@@ -5,14 +5,21 @@ export default function FadeIn({ children, delay = 0, duration = 800, translate 
   const domRef = useRef();
 
   useEffect(() => {
+    const currentRef = domRef.current;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          // Stop observing once visible to save CPU and maintain state
+          if (currentRef) {
+            observer.unobserve(currentRef);
+          }
+        }
       },
       { threshold: 0.05 }
     );
 
-    const currentRef = domRef.current;
     if (currentRef) {
       observer.observe(currentRef);
     }

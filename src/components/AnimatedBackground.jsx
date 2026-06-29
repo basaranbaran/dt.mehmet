@@ -11,9 +11,17 @@ export default function AnimatedBackground({ section }) {
 
   const currentTheme = clinicConfig.theme;
   const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
+    // Check if the screen is mobile width
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
@@ -29,11 +37,15 @@ export default function AnimatedBackground({ section }) {
     }
 
     return () => {
+      window.removeEventListener('resize', handleResize);
       if (containerRef.current) {
         observer.unobserve(containerRef.current);
       }
     };
   }, []);
+
+  // Return null on mobile to completely bypass heavy SVG/Canvas rendering
+  if (isMobile) return null;
 
   // Helper to resolve color values to palette colors or direct hex codes
   const resolveColor = (colorVal) => {
@@ -50,20 +62,25 @@ export default function AnimatedBackground({ section }) {
 
   // We wrap all backgrounds in a transition container that wakes up when intersecting
   const renderBackgroundContent = () => {
+    // If not intersecting at all, avoid rendering animation layers to save browser resources
+    if (!isIntersecting) return null;
+
+    const playState = isIntersecting ? 'running' : 'paused';
+
     switch (sectionConfig.type) {
       case 'gradientWave':
         return (
           <>
             <div 
-              className="absolute -top-[25%] -left-[15%] w-[70%] h-[70%] rounded-full blur-[140px] animate-mesh-1"
+              className="absolute -top-[25%] -left-[15%] w-[70%] h-[70%] rounded-full blur-[70px]"
               style={{ background: `radial-gradient(circle, ${c1} 0%, transparent 70%)` }}
             />
             <div 
-              className="absolute -bottom-[25%] -right-[15%] w-[80%] h-[80%] rounded-full blur-[150px] animate-mesh-2"
+              className="absolute -bottom-[25%] -right-[15%] w-[80%] h-[80%] rounded-full blur-[80px]"
               style={{ background: `radial-gradient(circle, ${c2 || c1} 0%, transparent 70%)` }}
             />
             <div 
-              className="absolute top-[20%] left-[25%] w-[60%] h-[60%] rounded-full blur-[120px] animate-mesh-3"
+              className="absolute top-[20%] left-[25%] w-[60%] h-[60%] rounded-full blur-[65px]"
               style={{ background: `radial-gradient(circle, ${c2 || c1} 0%, transparent 75%)`, mixBlendMode: 'multiply' }}
             />
           </>
@@ -75,30 +92,28 @@ export default function AnimatedBackground({ section }) {
           <>
             {blobCount >= 1 && (
               <div 
-                className="absolute -top-[10%] -left-[5%] w-[450px] h-[450px] rounded-full blur-[90px] animate-morph-1"
-                style={{ backgroundColor: c1, opacity: 0.85 }}
+                className="absolute -top-[10%] -left-[5%] w-[450px] h-[450px] rounded-full blur-[45px] animate-morph-1"
+                style={{ backgroundColor: c1, opacity: 0.65, animationPlayState: playState, willChange: 'transform, opacity' }}
               />
             )}
             {blobCount >= 2 && (
               <div 
-                className="absolute -bottom-[10%] -right-[5%] w-[550px] h-[550px] rounded-full blur-[100px] animate-morph-2"
-                style={{ backgroundColor: c2 || c1, opacity: 0.75 }}
+                className="absolute -bottom-[10%] -right-[5%] w-[550px] h-[550px] rounded-full blur-[50px] animate-morph-2"
+                style={{ backgroundColor: c2 || c1, opacity: 0.55, animationPlayState: playState, willChange: 'transform, opacity' }}
               />
             )}
             {blobCount >= 3 && (
               <div 
-                className="absolute top-[35%] right-[25%] w-[400px] h-[400px] rounded-full blur-[85px] animate-morph-3"
-                style={{ backgroundColor: c3 || c1, opacity: 0.8 }}
+                className="absolute top-[35%] right-[25%] w-[400px] h-[400px] rounded-full blur-[40px] animate-morph-3"
+                style={{ backgroundColor: c3 || c1, opacity: 0.6, animationPlayState: playState, willChange: 'transform, opacity' }}
               />
             )}
             {blobCount >= 4 && (
               <div 
-                className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full blur-[80px] animate-morph-1"
-                style={{ backgroundColor: c1, opacity: 0.7, animationDelay: '-12s' }}
+                className="absolute bottom-[20%] left-[20%] w-[350px] h-[350px] rounded-full blur-[35px] animate-morph-1"
+                style={{ backgroundColor: c1, opacity: 0.5, animationDelay: '-12s', animationPlayState: playState, willChange: 'transform, opacity' }}
               />
             )}
-            {/* Frost Glass Overlay to soften blobs and separate sections */}
-            <div className="absolute inset-0 backdrop-blur-[3px] pointer-events-none -z-10" />
           </>
         );
 
@@ -114,7 +129,9 @@ export default function AnimatedBackground({ section }) {
                   linear-gradient(to bottom, ${c1} 1.2px, transparent 1.2px)
                 `,
                 backgroundSize: '48px 48px',
-                opacity: 0.65
+                opacity: 0.65,
+                animationPlayState: playState,
+                willChange: 'transform'
               }}
             />
             {/* Moving Scanner Laser Line in 3D perspective */}
@@ -122,6 +139,8 @@ export default function AnimatedBackground({ section }) {
               className="absolute top-0 left-0 w-full h-[100px] animate-grid-sweep opacity-75"
               style={{ 
                 background: `linear-gradient(to bottom, transparent, ${c1} 50%, transparent)`,
+                animationPlayState: playState,
+                willChange: 'transform, opacity'
               }}
             />
           </div>
@@ -134,12 +153,12 @@ export default function AnimatedBackground({ section }) {
         return (
           <>
             <div 
-              className="absolute -top-[15%] -left-[15%] w-[60%] h-[60%] rounded-full blur-[110px] animate-spotlight-pulse"
-              style={{ background: `radial-gradient(circle, ${c1} 0%, transparent 80%)` }}
+              className="absolute -top-[15%] -left-[15%] w-[60%] h-[60%] rounded-full blur-[55px] animate-spotlight-pulse"
+              style={{ background: `radial-gradient(circle, ${c1} 0%, transparent 80%)`, animationPlayState: playState, willChange: 'transform, opacity' }}
             />
             <div 
-              className="absolute -bottom-[15%] -right-[15%] w-[60%] h-[60%] rounded-full blur-[110px] animate-spotlight-pulse"
-              style={{ background: `radial-gradient(circle, ${c2 || c1} 0%, transparent 80%)`, animationDelay: '-7.5s' }}
+              className="absolute -bottom-[15%] -right-[15%] w-[60%] h-[60%] rounded-full blur-[55px] animate-spotlight-pulse"
+              style={{ background: `radial-gradient(circle, ${c2 || c1} 0%, transparent 80%)`, animationDelay: '-7.5s', animationPlayState: playState, willChange: 'transform, opacity' }}
             />
           </>
         );
@@ -172,6 +191,13 @@ function CanvasParticles({ color, particleCount, opacity, isIntersecting }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // If the section is not visible, do not run anything, keep canvas blank and save CPU/GPU resources
+    if (!isIntersecting) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -292,12 +318,7 @@ function CanvasParticles({ color, particleCount, opacity, isIntersecting }) {
       animationId = requestAnimationFrame(animate);
     };
 
-    // Only run animation if section is intersecting (saves GPU/battery)
-    if (isIntersecting) {
-      animate();
-    } else {
-      ctx.clearRect(0, 0, width, height);
-    }
+    animate();
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -316,3 +337,4 @@ function CanvasParticles({ color, particleCount, opacity, isIntersecting }) {
     />
   );
 }
+
