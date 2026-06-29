@@ -296,20 +296,7 @@ export const clinicConfig = {
     { title: "Giriş ve Bekleme Alanı", image: "images/gallery-1.webp" },
     { title: "Modern Klinik Ünitesi (Oda 1)", image: "images/gallery-2.webp" },
     { title: "Çocuk Bölümü ve Oyun Alanı", image: "images/gallery-3.webp" },
+    { title: "Sterilizasyon ve Cihaz Parkuru", image: "images/gallery-4.webp" }
   ]
 };
 
-// GitHub Pages ve yerel sunucularda resim yollarının doğru çözümlenmesi için base URL ekleme işlemi
-const updateAssetPaths = (obj, baseUrl) => {
-  for (const key in obj) {
-    if (typeof obj[key] === 'string' && (obj[key].startsWith('images/') || obj[key].startsWith('/images/'))) {
-      const cleanPath = obj[key].startsWith('/') ? obj[key].slice(1) : obj[key];
-      obj[key] = `${baseUrl}${cleanPath}`;
-    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-      updateAssetPaths(obj[key], baseUrl);
-    }
-  }
-};
-
-const baseUrl = import.meta.env.BASE_URL || '/';
-updateAssetPaths(clinicConfig, baseUrl);

@@ -1,0 +1,148 @@
+---
+import { clinicConfig } from '../config.js';
+
+const { brand, contact } = clinicConfig;
+
+const navItems = [
+  { name: 'Anasayfa', href: '#anasayfa' },
+  { name: 'Hakkımızda', href: '#hakkimizda' },
+  { name: 'Tedaviler', href: '#tedaviler' },
+  { name: 'Kliniğimiz', href: '#galeri' },
+  { name: 'İletişim', href: '#iletisim' },
+];
+---
+
+<nav id="main-nav" class="fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo / Branding -->
+      <a href="#anasayfa" class="flex items-center space-x-3 group nav-link">
+        {brand.logoImage && (
+          <img
+            src={`${import.meta.env.BASE_URL}${brand.logoImage}`}
+            alt={`${brand.logoText} Logo`}
+            class="w-28 h-28 object-contain p-2"
+            loading="eager"
+          />
+        )}
+        <div class="flex flex-col">
+          <span class="text-xl sm:text-2xl font-bold tracking-wider text-brand-dark group-hover:text-brand-primary transition-colors uppercase font-display">
+            {brand.logoText}
+          </span>
+          <span class="text-[10px] tracking-widest text-brand-muted uppercase font-sans -mt-1 font-medium">
+            {brand.logoSubtext}
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="nav-link text-sm font-semibold text-brand-dark/85 hover:text-brand-primary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-brand-primary after:transition-all hover:after:w-full"
+          >
+            {item.name}
+          </a>
+        ))}
+      </div>
+
+      <!-- Action Button -->
+      <div class="hidden md:flex items-center">
+        <a
+          href={`tel:${contact.phoneClean}`}
+          class="bg-[color:var(--color-phone)] hover:opacity-90 text-white font-bold py-2.5 px-6 rounded-full shadow-lg transform hover:-translate-y-0.5 transition-all text-sm font-display flex items-center"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          {contact.phone}
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button
+          id="mobile-menu-btn"
+          class="text-brand-dark hover:text-brand-primary focus:outline-none p-2 rounded-md transition-colors"
+          aria-label="Menüyü Aç/Kapat"
+          aria-expanded="false"
+        >
+          <svg id="menu-open-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="menu-close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-menu" class="md:hidden border-b border-gray-200 bg-white">
+    <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3 shadow-inner">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="nav-link block px-3 py-3 rounded-md text-base font-semibold text-brand-dark hover:bg-brand-light hover:text-brand-primary transition-colors"
+        >
+          {item.name}
+        </a>
+      ))}
+      <div class="pt-4 pb-2 border-t border-gray-100 flex flex-col px-3">
+        <a
+          href={`tel:${contact.phoneClean}`}
+          class="bg-[color:var(--color-phone)] hover:opacity-90 text-white font-bold py-3 px-6 rounded-full text-center shadow-md transition-all text-sm font-display flex items-center justify-center"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          {contact.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = document.getElementById('menu-open-icon');
+  const closeIcon = document.getElementById('menu-close-icon');
+
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('open');
+    openIcon?.classList.toggle('hidden', isOpen);
+    closeIcon?.classList.toggle('hidden', !isOpen);
+    btn?.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close menu on nav link click
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href?.startsWith('#')) {
+        e.preventDefault();
+        menu?.classList.remove('open');
+        openIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+
+        const id = href.replace('#', '');
+        const el = document.getElementById(id);
+        if (el) {
+          const offset = window.scrollY > 20 ? 60 : 80;
+          const top = el.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // Scroll to top button in footer
+  document.getElementById('scroll-to-top')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>

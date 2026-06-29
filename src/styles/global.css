@@ -1,0 +1,153 @@
+/* Google Fonts — @import en üstte olmalı */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================
+   CSS VARIABLES — Temayı JS'ten ayarlıyoruz
+   ============================================= */
+:root {
+  --color-primary: #6fb7ffb7;
+  --color-secondary: #3a312cff;
+  --color-accent: #a7d1fcff;
+  --color-dark: #111827ff;
+  --color-light: #eee6db;
+  --color-muted: #6B7280;
+  --color-phone: #181e2b;
+}
+
+/* =============================================
+   BASE STYLES
+   ============================================= */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fafafa;
+  color: #374151;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* =============================================
+   CUSTOM SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* =============================================
+   NAVBAR GLASSMORPHISM — Sadece backdrop-blur
+   nav elementine uygulanıyor, büyük div değil
+   ============================================= */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+}
+
+/* =============================================
+   GSAP ANIMATION HELPERS
+   GSAP başlangıç durumunu CSS ile belirliyoruz
+   ============================================= */
+.gsap-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: opacity, transform;
+}
+.gsap-fade-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  will-change: opacity, transform;
+}
+.gsap-fade-right {
+  opacity: 0;
+  transform: translateX(40px);
+  will-change: opacity, transform;
+}
+.gsap-scale-in {
+  opacity: 0;
+  transform: scale(0.92);
+  will-change: opacity, transform;
+}
+
+/* =============================================
+   MODAL VE LİGHTBOX
+   ============================================= */
+.modal-overlay {
+  animation: fadeInOverlay 0.25s ease-out forwards;
+}
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =============================================
+   HERO SECTION
+   ============================================= */
+#anasayfa {
+  contain: layout style;
+}
+
+/* =============================================
+   SECTION TRANSITIONS — minimal, sadece opacity
+   ============================================= */
+section {
+  contain: layout;
+}
+
+/* =============================================
+   TREATMENT MODAL
+   ============================================= */
+#treatment-modal {
+  display: none;
+}
+#treatment-modal.open {
+  display: flex;
+}
+
+/* =============================================
+   LIGHTBOX
+   ============================================= */
+#gallery-lightbox {
+  display: none;
+}
+#gallery-lightbox.open {
+  display: flex;
+}
+
+/* =============================================
+   HOVER TRANSITIONS — GPU hızlandırmalı
+   ============================================= */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+}
+
+/* =============================================
+   MOBILE MENU
+   ============================================= */
+#mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#mobile-menu.open {
+  max-height: 500px;
+}

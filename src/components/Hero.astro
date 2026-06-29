@@ -1,0 +1,117 @@
+---
+import { clinicConfig } from '../config.js';
+
+const { doctor, gallery, contact } = clinicConfig;
+const base = import.meta.env.BASE_URL;
+
+const cards = [
+  {
+    title: doctor.name,
+    desc: doctor.bio,
+    link: '#hakkimizda',
+    bgImage: `${base}${doctor.image}`,
+    gridClass: 'md:col-span-2 md:row-span-2 h-[380px] md:h-full',
+    textClass: 'justify-end items-start text-left p-6 sm:p-8 md:p-10',
+    titleSize: 'text-2xl sm:text-3xl lg:text-4xl',
+    fetchpriority: 'high',
+    loading: 'eager',
+  },
+  {
+    title: 'TEDAVİLERİMİZ',
+    desc: 'Kliniğimizde uygulanan estetik, cerrahi ve koruyucu tüm diş tedavilerini detaylarıyla inceleyin.',
+    link: '#tedaviler',
+    bgImage: `${base}images/treatment-gulus.jpg`,
+    gridClass: 'md:col-span-2 md:row-span-1 h-[240px] md:h-full',
+    textClass: 'justify-end items-end text-right p-6 sm:p-8',
+    titleSize: 'text-xl sm:text-2xl lg:text-3xl',
+    fetchpriority: 'auto',
+    loading: 'lazy',
+  },
+  {
+    title: 'KLİNİĞİMİZ',
+    desc: 'Sizin konforunuz ve sağlığınız düşünülerek tasarlanmış modern kliniklerimiz.',
+    link: '#galeri',
+    bgImage: `${base}${gallery[0].image}`,
+    gridClass: 'md:col-span-1 md:row-span-1 h-[200px] md:h-full',
+    textClass: 'justify-center items-center text-center p-5 md:p-6',
+    titleSize: 'text-lg sm:text-xl lg:text-2xl',
+    fetchpriority: 'auto',
+    loading: 'lazy',
+  },
+  {
+    title: 'İLETİŞİM BİLGİLERİ',
+    desc: 'Klinik adresimiz, çalışma saatlerimiz ve telefon numaralarımıza hızlıca ulaşın.',
+    link: '#iletisim',
+    bgImage: `${base}images/gallery-3.jpg`,
+    gridClass: 'md:col-span-1 md:row-span-1 h-[200px] md:h-full',
+    textClass: 'justify-center items-center text-center p-5 md:p-6',
+    titleSize: 'text-lg sm:text-xl lg:text-2xl',
+    fetchpriority: 'auto',
+    loading: 'lazy',
+  },
+];
+---
+
+<section
+  id="anasayfa"
+  class="pt-24 pb-6 px-4 md:px-8 bg-white relative overflow-hidden flex flex-col justify-center md:h-[calc(100vh-16px)] min-h-[620px]"
+>
+  <div
+    id="banner-grid-wrapper"
+    class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-3 w-full h-auto md:h-full flex-grow rounded-3xl overflow-hidden shadow-lg border border-gray-100"
+  >
+    {cards.map((card, idx) => (
+      <a
+        href={card.link}
+        class={`hero-card relative overflow-hidden group block ${card.gridClass}`}
+        data-href={card.link}
+      >
+        <!-- Background Image -->
+        <img
+          src={card.bgImage}
+          alt={card.title}
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          fetchpriority={card.fetchpriority}
+          loading={card.loading}
+          decoding={idx === 0 ? 'sync' : 'async'}
+        />
+
+        <!-- Dark Overlay Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/15 transition-opacity duration-300 group-hover:from-black/90 group-hover:via-black/50" />
+
+        <!-- Content Overlay -->
+        <div class={`absolute inset-0 flex flex-col text-white z-10 ${card.textClass}`}>
+          <h2 class={`${card.titleSize} font-bold tracking-wider font-display uppercase mb-2 drop-shadow-md`}>
+            {card.title}
+          </h2>
+          {card.desc && (
+            <p class="text-xs sm:text-sm text-gray-200/90 font-light leading-relaxed max-w-md drop-shadow-sm transition-colors duration-300 group-hover:text-white line-clamp-3">
+              {card.desc}
+            </p>
+          )}
+        </div>
+
+        <!-- Hover border frame -->
+        <div class="absolute inset-4 border border-white/0 group-hover:border-white/20 rounded-2xl transition-all duration-500 pointer-events-none" />
+      </a>
+    ))}
+  </div>
+</section>
+
+<script>
+  // Hero kartları tıklanınca smooth scroll
+  document.querySelectorAll('.hero-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = card.getAttribute('data-href');
+      if (!href) return;
+      const id = href.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        const offset = 60;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>

@@ -1,0 +1,178 @@
+---
+import { clinicConfig } from '../config.js';
+
+const { treatments } = clinicConfig;
+const base = import.meta.env.BASE_URL;
+
+const iconPaths = {
+  Sparkles: 'M5 3l1.5 4L3 9l4 1.5L5 15l4-1.5L13 17l-1.5-4L15 11l-4-1.5L13 5l-4 1.5z M19 3l.94 2.06L22 6l-2.06.94L19 9l-.94-2.06L16 6l2.06-.94z',
+  Smile: 'M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10z',
+  Shield: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  Layers: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+  Heart: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+  Zap: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+};
+---
+
+<section id="tedaviler" class="pt-20 pb-40 md:pb-48 bg-brand-light relative overflow-hidden">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+
+    <!-- Başlık -->
+    <div class="treatments-heading section-heading text-center max-w-2xl mx-auto mb-16">
+      <span class="text-sm font-bold text-brand-primary uppercase tracking-widest font-display">
+        Hizmetlerimiz
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight font-display mt-2">
+        Ağız ve Diş Sağlığı Tedavileri
+      </h2>
+      <div class="w-12 h-1 bg-brand-primary mx-auto mt-4 rounded-full"></div>
+      <p class="mt-4 text-brand-muted text-sm sm:text-base">
+        Kliniğimizde uygulanan diş estetiği, cerrahi operasyonlar ve çocuk diş hekimliği tedavilerini inceleyin.
+      </p>
+    </div>
+
+    <!-- Treatments Grid -->
+    <div class="treatments-grid grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {treatments.map((treatment) => (
+        <div
+          class="treatment-card bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 flex flex-col justify-between hover:shadow-2xl hover:border-brand-primary/20 transform hover:-translate-y-1 transition-all duration-300 group h-full"
+        >
+          <!-- Kart Görseli -->
+          <div class="h-48 overflow-hidden relative">
+            <img
+              src={`${base}${treatment.image}`}
+              alt={treatment.title}
+              loading="lazy"
+              decoding="async"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <!-- Floating Icon -->
+            <div class="absolute bottom-4 right-4 w-12 h-12 bg-white rounded-2xl shadow-md border border-gray-100 flex items-center justify-center text-brand-primary">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d={iconPaths[treatment.icon] || iconPaths.Heart} />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Kart İçeriği -->
+          <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between text-left">
+            <div class="space-y-3 mb-6">
+              <h3 class="text-xl font-bold text-brand-dark font-display group-hover:text-brand-primary transition-colors">
+                {treatment.title}
+              </h3>
+              <p class="text-sm text-brand-muted leading-relaxed line-clamp-3">
+                {treatment.shortDescription}
+              </p>
+            </div>
+
+            <button
+              class="treatment-detail-btn inline-flex items-center text-sm font-bold text-brand-primary group-hover:text-brand-secondary transition-colors cursor-pointer"
+              data-id={treatment.id}
+              data-title={treatment.title}
+              data-desc={treatment.longDescription}
+              data-img={`${base}${treatment.image}`}
+            >
+              Detayları İncele
+              <svg class="w-4 h-4 ml-1.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Treatment Detail Modal -->
+  <div id="treatment-modal" class="fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 modal-overlay" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl border border-gray-100">
+
+      <!-- Modal Görseli -->
+      <div class="h-60 sm:h-72 overflow-hidden relative">
+        <img id="modal-img" src="" alt="" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+          <h3 id="modal-title" class="text-2xl font-bold text-white font-display"></h3>
+        </div>
+        <button
+          id="modal-close"
+          class="absolute top-4 right-4 p-2 bg-black/45 hover:bg-black/70 text-white rounded-full transition-colors"
+          aria-label="Kapat"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal İçeriği -->
+      <div class="p-6 sm:p-8 text-left space-y-4">
+        <p id="modal-desc" class="text-sm sm:text-base text-brand-muted leading-relaxed"></p>
+        <div class="flex items-center space-x-2.5 p-3 rounded-2xl bg-brand-light/30 border border-brand-primary/10">
+          <svg class="w-5 h-5 text-brand-primary shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span class="text-xs sm:text-sm text-brand-secondary font-medium">
+            Bu tedavi kliniğimizde uzman hekimimiz tarafından dijital protokollerle sunulmaktadır.
+          </span>
+        </div>
+        <div class="pt-4 border-t border-gray-100">
+          <button
+            id="modal-close-btn"
+            class="w-full bg-brand-primary hover:bg-brand-secondary text-white font-bold py-3 px-6 rounded-full text-center shadow-lg transition-colors text-sm font-display cursor-pointer"
+          >
+            Kapat
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave Divider -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full" style="height: clamp(100px, 11vw, 160px);" aria-hidden="true">
+      <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z" class="fill-white" />
+    </svg>
+  </div>
+</section>
+
+<script>
+  const modal = document.getElementById('treatment-modal');
+  const modalImg = document.getElementById('modal-img') as HTMLImageElement;
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+
+  function openModal(title: string, desc: string, img: string) {
+    if (!modal || !modalImg || !modalTitle || !modalDesc) return;
+    modalImg.src = img;
+    modalImg.alt = title;
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.treatment-detail-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const title = btn.getAttribute('data-title') || '';
+      const desc = btn.getAttribute('data-desc') || '';
+      const img = btn.getAttribute('data-img') || '';
+      openModal(title, desc, img);
+    });
+  });
+
+  document.getElementById('modal-close')?.addEventListener('click', closeModal);
+  document.getElementById('modal-close-btn')?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>

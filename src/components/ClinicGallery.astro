@@ -1,0 +1,168 @@
+---
+import { clinicConfig } from '../config.js';
+
+const { gallery } = clinicConfig;
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="galeri" class="pt-20 pb-40 md:pb-48 bg-white relative overflow-hidden">
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+
+    <!-- Başlık -->
+    <div class="section-heading text-center max-w-2xl mx-auto mb-16">
+      <span class="text-sm font-bold text-brand-primary uppercase tracking-widest font-display">
+        Kliniğimiz
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight font-display mt-2">
+        Tedavi ve Teknoloji Alanlarımız
+      </h2>
+      <div class="w-12 h-1 bg-brand-primary mx-auto mt-4 rounded-full"></div>
+      <p class="mt-4 text-brand-muted text-sm sm:text-base">
+        Sterilizasyon standartlarımızı, modern kliniklerimizi ve son teknoloji görüntüleme cihazlarımızı yakından inceleyin.
+      </p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid grid grid-cols-2 md:grid-cols-4 gap-6">
+      {gallery.map((item, idx) => (
+        <div
+          class="gallery-item relative aspect-square rounded-3xl overflow-hidden shadow-md group cursor-pointer border border-gray-100 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+          data-index={idx}
+          data-src={`${base}${item.image}`}
+          data-title={item.title}
+          role="button"
+          tabindex="0"
+          aria-label={`${item.title} - büyütmek için tıklayın`}
+        >
+          <img
+            src={`${base}${item.image}`}
+            alt={item.title}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <!-- Hover Overlay -->
+          <div class="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-left">
+            <div class="p-2 bg-white/20 rounded-xl w-fit text-white mb-2 self-end">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"/>
+              </svg>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold text-white font-display leading-tight">{item.title}</h3>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Gallery Lightbox -->
+  <div
+    id="gallery-lightbox"
+    class="fixed inset-0 z-50 bg-black/95 items-center justify-center p-4 modal-overlay"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Kapat -->
+    <button
+      id="lightbox-close"
+      class="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50"
+      aria-label="Kapat"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Önceki -->
+    <button
+      id="lightbox-prev"
+      class="absolute left-4 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50"
+      aria-label="Önceki Görsel"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Sonraki -->
+    <button
+      id="lightbox-next"
+      class="absolute right-4 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50"
+      aria-label="Sonraki Görsel"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+    <!-- Görsel -->
+    <div class="relative max-w-4xl max-h-[85vh] w-full flex flex-col items-center justify-center space-y-4">
+      <img id="lightbox-img" src="" alt="" class="max-h-[75vh] object-contain rounded-xl shadow-2xl" />
+      <p id="lightbox-title" class="text-white text-base sm:text-lg font-bold font-display tracking-wide"></p>
+    </div>
+  </div>
+
+  <!-- Wave Divider -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full" style="height: clamp(100px, 11vw, 160px);" aria-hidden="true">
+      <path d="M0,40 C360,100 720,0 1080,60 C1260,90 1380,30 1440,50 L1440,120 L0,120 Z" style="fill: var(--color-light);" />
+      <path d="M0,70 C300,20 600,100 900,50 C1100,20 1300,80 1440,60 L1440,120 L0,120 Z" style="fill: var(--color-light); opacity: 0.5;" />
+    </svg>
+  </div>
+</section>
+
+<script>
+  // Gallery data from DOM
+  const items = Array.from(document.querySelectorAll('.gallery-item')).map(el => ({
+    src: el.getAttribute('data-src') || '',
+    title: el.getAttribute('data-title') || '',
+  }));
+
+  let currentIndex = 0;
+  const lightbox = document.getElementById('gallery-lightbox');
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxTitle = document.getElementById('lightbox-title');
+
+  function openLightbox(index: number) {
+    currentIndex = index;
+    if (!lightbox || !lightboxImg || !lightboxTitle) return;
+    lightboxImg.src = items[index].src;
+    lightboxImg.alt = items[index].title;
+    lightboxTitle.textContent = items[index].title;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function navigate(dir: number) {
+    currentIndex = (currentIndex + dir + items.length) % items.length;
+    if (!lightboxImg || !lightboxTitle) return;
+    lightboxImg.src = items[currentIndex].src;
+    lightboxImg.alt = items[currentIndex].title;
+    lightboxTitle.textContent = items[currentIndex].title;
+  }
+
+  document.querySelectorAll('.gallery-item').forEach((el, idx) => {
+    el.addEventListener('click', () => openLightbox(idx));
+    el.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter') openLightbox(idx);
+    });
+  });
+
+  document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev')?.addEventListener('click', () => navigate(-1));
+  document.getElementById('lightbox-next')?.addEventListener('click', () => navigate(1));
+  lightbox?.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox?.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+</script>

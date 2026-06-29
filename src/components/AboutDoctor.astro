@@ -1,0 +1,112 @@
+---
+import { clinicConfig } from '../config.js';
+
+const { doctor } = clinicConfig;
+const base = import.meta.env.BASE_URL;
+---
+
+<section id="hakkimizda" class="pt-20 pb-40 md:pb-48 bg-white relative overflow-hidden">
+
+  <!-- Subtle background gradient, hiç blur yok -->
+  <div class="absolute inset-0 pointer-events-none -z-10"
+    style="background: radial-gradient(ellipse at 20% 50%, var(--color-primary) 0%, transparent 60%); opacity: 0.06;" />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+    <div class="grid lg:grid-cols-12 gap-12 items-center">
+
+      <!-- Sol Kolon: Doktor Fotoğrafı -->
+      <div class="doctor-photo-col lg:col-span-5 relative">
+        <div class="relative mx-auto max-w-[360px] lg:max-w-full">
+          <!-- Dekoratif arka plan şekli -->
+          <div class="absolute -inset-4 bg-brand-primary/10 rounded-[2.5rem] -rotate-3 z-0"></div>
+
+          <!-- Fotoğraf Çerçevesi -->
+          <div class="relative z-10 rounded-[2.2rem] overflow-hidden shadow-xl border-4 border-white bg-white aspect-[4/5]">
+            <img
+              src={`${base}${doctor.image}`}
+              alt={doctor.name}
+              class="doctor-parallax w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <!-- Deneyim Rozeti -->
+          <div class="absolute -bottom-6 -right-6 bg-brand-accent text-white p-5 rounded-2xl shadow-xl z-20 max-w-[150px] text-left hover:scale-105 transition-transform duration-300">
+            <div class="flex items-center space-x-2">
+              <!-- Award icon -->
+              <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+              </svg>
+              <span class="text-xl font-bold font-display">{doctor.experienceYear}</span>
+            </div>
+            <p class="text-[10px] uppercase font-bold tracking-wide mt-1 text-white/90">
+              {doctor.experienceBadgeText}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ Kolon: Doktor Bilgisi -->
+      <div class="doctor-bio-col lg:col-span-7 space-y-6 text-left">
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <span class="section-heading text-sm font-bold text-brand-primary uppercase tracking-widest font-display">
+              Hekimimizi Tanıyın
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark font-display">
+              {doctor.name}
+            </h2>
+            <p class="text-lg font-medium text-brand-muted/90 italic">{doctor.title}</p>
+            <div class="w-12 h-1 bg-brand-primary rounded-full mt-2"></div>
+          </div>
+
+          <!-- Biyografi -->
+          <p class="text-brand-muted leading-relaxed text-base">{doctor.bio}</p>
+
+          <!-- Tedavi Felsefesi -->
+          <div class="p-5 rounded-2xl bg-white border border-gray-100 flex items-start space-x-4 shadow-sm">
+            <div class="p-3 bg-brand-primary/10 rounded-xl text-brand-primary shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-bold text-brand-dark text-sm sm:text-base">Kişiselleştirilmiş Tedavi Felsefesi</h4>
+              <p class="text-xs sm:text-sm text-brand-muted mt-1">
+                Her hastanın gülüş tasarımı ve ağız yapısı kendine özgüdür. Kliniğimizde tedaviler hastalarımızın yüz hatlarına, beklentilerine ve konforuna göre özelleştirilir.
+              </p>
+            </div>
+          </div>
+
+          <!-- Eğitim ve Üyelikler -->
+          <div class="space-y-3">
+            <h4 class="font-bold text-brand-dark flex items-center text-base font-display">
+              <svg class="w-5 h-5 text-brand-primary mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+              Eğitim ve Üyelikler
+            </h4>
+            <ul class="grid sm:grid-cols-1 gap-2.5">
+              {doctor.education.map((edu) => (
+                <li class="flex items-start space-x-2.5 text-sm text-brand-muted">
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-primary mt-2 shrink-0"></span>
+                  <span>{edu}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Wave Divider -->
+  <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full" style="height: clamp(100px, 11vw, 160px);" aria-hidden="true">
+      <path d="M0,40 C360,100 720,0 1080,60 C1260,90 1380,30 1440,50 L1440,120 L0,120 Z" style="fill: var(--color-light);" />
+      <path d="M0,70 C300,20 600,100 900,50 C1100,20 1300,80 1440,60 L1440,120 L0,120 Z" style="fill: var(--color-light); opacity: 0.5;" />
+    </svg>
+  </div>
+</section>
