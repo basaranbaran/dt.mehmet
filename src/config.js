@@ -203,7 +203,7 @@ export const clinicConfig = {
   doctor: {
     name: "Dt. Mehmet Yağcı",
     title: "Kurucu / Diş Hekimi",
-    image: "images/doctor.webp", // public/images/doctor.webp dosyası
+    image: "images/doctor.png", // public/images/doctor.png dosyası
     experienceYear: "12+ Yıl",
     experienceBadgeText: "Mesleki Deneyim ve Uzmanlık",
     bio: "12 yılı aşkın mesleki birikimi ve dijital diş hekimliğindeki uzmanlığı ile hastalarına hizmet vermektedir. Ege Üniversitesi Diş Hekimliği Fakültesi mezunu olan Dt. Mehmet Yağcı, özellikle estetik gülüş tasarımı, zirkonyum restorasyonlar ve implant üstü protezler konusunda uzmanlaşmıştır.",
