@@ -74,13 +74,13 @@ function initFeatures() {
 
   gsap.from(featureCards, {
     opacity: 0,
-    y: 55,
-    duration: 0.75,
+    y: 30,
+    duration: 0.5,
     ease: 'power2.out',
-    stagger: 0.15,
+    stagger: 0.08,
     scrollTrigger: {
       trigger: '.features-grid',
-      start: 'top 82%',
+      start: 'top 92%',
       toggleActions: 'play none none none',
     },
     clearProps: 'all',
@@ -90,12 +90,12 @@ function initFeatures() {
   if (featuresHeading) {
     gsap.from(featuresHeading, {
       opacity: 0,
-      y: 30,
-      duration: 0.7,
+      y: 20,
+      duration: 0.45,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: featuresHeading,
-        start: 'top 88%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -113,12 +113,12 @@ function initAboutDoctor() {
   if (photoCol) {
     gsap.from(photoCol, {
       opacity: 0,
-      x: -60,
-      duration: 0.9,
+      x: -30,
+      duration: 0.55,
       ease: 'power3.out',
       scrollTrigger: {
         trigger: '#hakkimizda',
-        start: 'top 80%',
+        start: 'top 90%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -128,13 +128,13 @@ function initAboutDoctor() {
   if (bioCol) {
     gsap.from(bioCol, {
       opacity: 0,
-      x: 60,
-      duration: 0.9,
+      x: 30,
+      duration: 0.55,
       ease: 'power3.out',
-      delay: 0.15,
+      delay: 0.1,
       scrollTrigger: {
         trigger: '#hakkimizda',
-        start: 'top 80%',
+        start: 'top 90%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -151,14 +151,14 @@ function initTreatments() {
 
   gsap.from(treatmentCards, {
     opacity: 0,
-    y: 60,
-    scale: 0.95,
-    duration: 0.7,
+    y: 30,
+    scale: 0.96,
+    duration: 0.5,
     ease: 'power2.out',
-    stagger: 0.1,
+    stagger: 0.08,
     scrollTrigger: {
       trigger: '.treatments-grid',
-      start: 'top 80%',
+      start: 'top 92%',
       toggleActions: 'play none none none',
     },
     clearProps: 'all',
@@ -168,12 +168,12 @@ function initTreatments() {
   if (treatmentsHeading) {
     gsap.from(treatmentsHeading, {
       opacity: 0,
-      y: 30,
-      duration: 0.65,
+      y: 20,
+      duration: 0.45,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: treatmentsHeading,
-        start: 'top 88%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -190,13 +190,13 @@ function initGallery() {
 
   gsap.from(galleryItems, {
     opacity: 0,
-    scale: 0.88,
-    duration: 0.65,
-    ease: 'back.out(1.4)',
-    stagger: 0.08,
+    scale: 0.94,
+    duration: 0.45,
+    ease: 'back.out(1.2)',
+    stagger: 0.06,
     scrollTrigger: {
       trigger: '.gallery-grid',
-      start: 'top 82%',
+      start: 'top 92%',
       toggleActions: 'play none none none',
     },
     clearProps: 'all',
@@ -213,12 +213,12 @@ function initContact() {
   if (contactInfo) {
     gsap.from(contactInfo, {
       opacity: 0,
-      x: -50,
-      duration: 0.85,
+      x: -30,
+      duration: 0.55,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: '#iletisim',
-        start: 'top 82%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -228,13 +228,13 @@ function initContact() {
   if (contactForm) {
     gsap.from(contactForm, {
       opacity: 0,
-      x: 50,
-      duration: 0.85,
+      x: 30,
+      duration: 0.55,
       ease: 'power2.out',
-      delay: 0.2,
+      delay: 0.1,
       scrollTrigger: {
         trigger: '#iletisim',
-        start: 'top 82%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -250,12 +250,12 @@ function initSectionHeadings() {
   headings.forEach((heading) => {
     gsap.from(heading, {
       opacity: 0,
-      y: 30,
-      duration: 0.65,
+      y: 20,
+      duration: 0.45,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: heading,
-        start: 'top 88%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       clearProps: 'all',
@@ -272,13 +272,13 @@ function initFooter() {
 
   gsap.from(footerCols, {
     opacity: 0,
-    y: 35,
-    duration: 0.6,
+    y: 20,
+    duration: 0.45,
     ease: 'power2.out',
-    stagger: 0.12,
+    stagger: 0.08,
     scrollTrigger: {
       trigger: 'footer',
-      start: 'top 90%',
+      start: 'top 95%',
       toggleActions: 'play none none none',
     },
     clearProps: 'all',
