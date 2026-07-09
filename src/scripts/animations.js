@@ -208,7 +208,7 @@ function initGallery() {
 // =============================================
 function initContact() {
   const contactInfo = document.querySelector('.contact-info-col');
-  const contactMap = document.querySelector('.contact-map-col');
+  const contactForm = document.querySelector('.contact-form-col');
 
   if (contactInfo) {
     gsap.from(contactInfo, {
@@ -225,8 +225,8 @@ function initContact() {
     });
   }
 
-  if (contactMap) {
-    gsap.from(contactMap, {
+  if (contactForm) {
+    gsap.from(contactForm, {
       opacity: 0,
       x: 50,
       duration: 0.85,
