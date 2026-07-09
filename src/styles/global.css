@@ -151,3 +151,12 @@ section {
 #mobile-menu.open {
   max-height: 500px;
 }
+
+/* =============================================
+   LOGO DARK MODE FILTER
+   ============================================= */
+@media (prefers-color-scheme: dark) {
+  .logo-invert {
+    filter: invert(1) brightness(1.2);
+  }
+}
