@@ -98,18 +98,18 @@
       "icon": "Shield"
     },
     {
-      "id": "ortodonti",
-      "title": "Şeffaf Plaklarla Ortodonti (Invisalign)",
-      "shortDescription": "Diş telleri olmadan, dışarıdan belli olmayan şeffaf ve çıkarılabilir plaklarla çapraşıklık tedavisi.",
-      "longDescription": "Invisalign telsiz diş düzeltme teknolojisi, bilgisayar ortamında tasarlanan kişiye özel şeffaf plaklar yardımıyla dişleri ideal konumuna getirir. Plaklar yemek yerken veya fırçalarken çıkarılabildiği için maksimum konfor sunar.",
+      "id": "Kök Kanal Tedavisi",
+      "title": "Kök Kanal Tedavisi",
+      "shortDescription": "İleri derecede zarar görmüş dişleri ağrısız yöntemlerle çekilmekten kurtaran ve ömrünü uzatan koruyucu tedaviler.",
+      "longDescription": "Kök Kanal Tedavisi, derin çürük veya travma nedeniyle zarar görmüş dişleri çekilmekten kurtarmayı amaçlar; tamamen ağrısız ve sızdırmaz şekilde temizlenip doldurularak kendi dişinizin ömrünü uzatır.",
       "image": "images/treatment-orto.webp",
       "icon": "Layers"
     },
     {
-      "id": "pedodonti",
-      "title": "Çocuk Diş Hekimliği (Pedodonti)",
-      "shortDescription": "Çocuklarımızın süt dişlerinin sağlığını koruyucu uygulamalar ve korkuyu ortadan kaldıran özel yaklaşım.",
-      "longDescription": "Pedodonti uzmanlarımız, süt ve geniş kalıcı dişlerin sağlığını korumak amacıyla florür vernikleri, fissür örtücüler ve süt dişi dolguları yapar. Çocukların hekim korkusu yaşamaması için özel oyunlu seanslar düzenlenir.",
+      "id": "Estetik Dolgu",
+      "title": "Estetik Dolgu",
+      "shortDescription": "Kendi dişinizden ayırt edilemeyen, formunu ve gücünü uzun yıllar koruyan estetik dolgular.",
+      "longDescription": "Diş rengiyle uyumlu estetik dolgular, yüksek dayanıklılığı sayesinde hem ön hem de arka dişlerde güvenle kullanılır. Doğal diş formunu ve çiğneme gücünü geri kazandırır; uzun yıllar estetik yapısını korur.",
       "image": "images/treatment-pedodonti.webp",
       "icon": "Heart"
     },
