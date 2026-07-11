@@ -79,7 +79,7 @@
       "shortDescription": "Eksik dişlerinizi ömür boyu kullanabileceğiniz, doğal diş hissi veren titanyum vidalarla tamamlıyoruz.",
       "longDescription": "İmplant tedavisi, çene kemiğine yerleştirilen yapay diş kökleri sayesinde eksik dişlerin fonksiyon, konuşma ve estetik açıdan en doğal şekilde geri kazanılmasını sağlar.",
       "image": "images/treatment-implant.webp",
-      "icon": "Sparkles"
+      "icon": "Zap"
     },
     {
       "id": "gulus-tasarimi",
@@ -119,7 +119,7 @@
       "shortDescription": "Hekim kontrolünde özel beyazlatma ışığı ile sadece 45 dakikada 3-4 tona kadar beyazlık elde edin.",
       "longDescription": "Klinikte uygulanan ofis tipi beyazlatma (Power Bleaching), diş hekimi gözetiminde dişlerin üzerine sürülen beyazlatıcı jelin özel bir mavi ışık kaynağıyla aktive edilmesiyle yapılır. Çay, kahve ve sigara lekelerine karşı en etkili ve hızlı çözümdür.",
       "image": "images/treatment-beyazlatma.jpg",
-      "icon": "Zap"
+      "icon": "Sparkles"
     }
   ],
   "gallery": [
