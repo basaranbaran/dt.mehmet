@@ -16,9 +16,6 @@ public_folder: /images
 site_url: https://dtmehmetyagci.com
 display_url: https://dtmehmetyagci.com
 
-# Türkçe yerelleştirme
-locale: tr
-
 # ================================================================
 # KOLEKSİYONLAR — Düzenlenebilir İçerikler
 # ================================================================
@@ -29,6 +26,8 @@ collections:
   # ============================================================
   - name: site_settings
     label: "⚙️ Site Ayarları"
+    editor:
+      preview: false
     files:
 
       # ----------------------------------------------------------
@@ -137,8 +136,11 @@ collections:
                 widget: string
               - name: bio
                 label: "Biyografi"
-                widget: text
-                hint: "Doktorun kendini tanıttığı metin. Admin panelindeki metin editörüyle düzenleyebilirsiniz."
+                widget: markdown
+                buttons: [bold, italic, link]
+                editor_components: []
+                modes: [rich-text]
+                hint: "Doktorun kendini tanıttığı metin. Metinleri kalın, italik yapabilir veya link ekleyebilirsiniz."
               - name: education
                 label: "Eğitim ve Üyelikler"
                 widget: list
@@ -250,7 +252,10 @@ collections:
                 widget: text
               - name: longDescription
                 label: "Detaylı Açıklama (Modal'da görünür)"
-                widget: text
+                widget: markdown
+                buttons: [bold, italic, link, bulleted-list, numbered-list]
+                editor_components: []
+                modes: [rich-text]
               - name: image
                 label: "Tedavi Görseli"
                 widget: image

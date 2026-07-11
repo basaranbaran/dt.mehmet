@@ -3,6 +3,14 @@ import { clinicConfig } from '../config.js';
 
 const { doctor } = clinicConfig;
 const base = import.meta.env.BASE_URL;
+
+// Basit Markdown formatlama (bold, italic ve yeni satırlar için)
+const formattedBio = doctor.bio
+  ? doctor.bio
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\r?\n/g, '<br />')
+  : '';
 ---
 
 <section id="hakkimizda" class="pt-20 pb-40 md:pb-48 bg-white relative overflow-hidden">
@@ -62,7 +70,7 @@ const base = import.meta.env.BASE_URL;
           </div>
 
           <!-- Biyografi -->
-          <p class="text-brand-muted leading-relaxed text-base">{doctor.bio}</p>
+          <p class="text-brand-muted leading-relaxed text-base" set:html={formattedBio}></p>
 
           <!-- Tedavi Felsefesi -->
           <div class="p-5 rounded-2xl bg-white border border-gray-100 flex items-start space-x-4 shadow-sm">

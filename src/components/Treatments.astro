@@ -153,7 +153,13 @@ const iconPaths = {
     modalImg.src = img;
     modalImg.alt = title;
     modalTitle.textContent = title;
-    modalDesc.textContent = desc;
+    
+    // Basit Markdown formatlama (bold, italic ve yeni satırlar için)
+    const formattedDesc = desc
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\r?\n/g, '<br />');
+    modalDesc.innerHTML = formattedDesc;
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
