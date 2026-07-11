@@ -5,7 +5,7 @@
 
 backend:
   name: github
-  repo: mtyagci/dt-mehmet-yagci
+  repo: basaranbaran/dt.mehmet
   branch: main
 
 # Görsel yükleme ayarları
