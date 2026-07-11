@@ -1,7 +1,8 @@
 ---
 import { clinicConfig } from '../config.js';
 
-const { brand, contact, socials } = clinicConfig;
+const { config = clinicConfig } = Astro.props;
+const { brand, contact, socials } = config;
 
 const navLinks = [
   { name: 'Anasayfa', href: '#anasayfa' },

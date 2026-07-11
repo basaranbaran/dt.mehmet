@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -30,6 +30,27 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Check Publish Status (Editorial Workflow)
+        run: |
+          if grep -q '"publishStatus": "live"' src/content/config-draft.json; then
+            echo "Draft is marked as LIVE. Publishing..."
+            # 1. Taslağı canlı dosyanın üzerine kopyala
+            cp src/content/config-draft.json src/content/config.json
+            
+            # 2. Yayın durumlarını tekrar draft moduna çek
+            sed -i 's/"publishStatus": "live"/"publishStatus": "draft"/' src/content/config.json
+            sed -i 's/"publishStatus": "live"/"publishStatus": "draft"/' src/content/config-draft.json
+            
+            # 3. Değişiklikleri otomatik commit/push yap ([skip ci] sonsuz döngüyü önler)
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add src/content/config.json src/content/config-draft.json
+            git commit -m "chore: auto-publish draft contents to live [skip ci]"
+            git push origin main
+          else
+            echo "Draft is in DRAFT mode. No changes pushed to live."
+          fi
 
       - name: Build with Astro
         run: npm run build

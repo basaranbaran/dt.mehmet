@@ -1,7 +1,8 @@
 ---
 import { clinicConfig } from '../config.js';
 
-const { contact } = clinicConfig;
+const { config = clinicConfig } = Astro.props;
+const { contact } = config;
 ---
 
 <section id="iletisim" class="py-20 bg-brand-light relative overflow-hidden">

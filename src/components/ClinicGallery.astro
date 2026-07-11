@@ -1,7 +1,8 @@
 ---
 import { clinicConfig } from '../config.js';
 
-const { gallery } = clinicConfig;
+const { config = clinicConfig } = Astro.props;
+const { gallery } = config;
 const base = import.meta.env.BASE_URL;
 
 // Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu

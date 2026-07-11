@@ -35,8 +35,18 @@ collections:
       # ----------------------------------------------------------
       - name: config
         label: "Tüm Site İçerikleri"
-        file: src/content/config.json
+        file: src/content/config-draft.json
         fields:
+
+          # ========== YAYINLAMA DURUMU ==========
+          - name: publishStatus
+            label: "🚀 Yayın Durumu (Canlıya Alma)"
+            widget: select
+            default: "draft"
+            hint: "Varsayılan olarak 'Taslak' kalmalıdır. Değişiklikleri bitirip '/taslak' sayfasında inceledikten sonra canlıya almak için 'Canlıda Yayınla'yı seçip Kaydet'e basın."
+            options:
+              - { label: "📝 Taslak (Canlıya yansımaz, /taslak sayfasında görünür)", value: "draft" }
+              - { label: "🚀 Canlıda Yayınla (dtmehmetyagci.com üzerinde yayınlanır)", value: "live" }
 
           # ========== TEMA SEÇİMİ ==========
           - name: activePalette

@@ -1,0 +1,97 @@
+---
+import draftContentData from '../content/config-draft.json';
+import { clinicConfig } from '../config.js';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Features from '../components/Features.astro';
+import AboutDoctor from '../components/AboutDoctor.astro';
+import Treatments from '../components/Treatments.astro';
+import ClinicGallery from '../components/ClinicGallery.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+// Taslak verilerini tema ayarlarıyla birleştirerek draft konfigürasyonunu oluştur
+const draftClinicConfig = {
+  ...clinicConfig,
+  ...draftContentData,
+  get theme() {
+    return this.themePalettes[this.activePalette] || this.themePalettes.tealFresh;
+  }
+};
+
+const { metadata, theme } = draftClinicConfig;
+
+// Tema renklerini CSS değişkenlerine dönüştür
+const themeVars = `
+  :root {
+    --color-primary: ${theme.primaryColor};
+    --color-secondary: ${theme.secondaryColor};
+    --color-accent: ${theme.accentColor};
+    --color-dark: ${theme.darkColor};
+    --color-light: ${theme.lightColor};
+    --color-phone: ${theme.phoneColor};
+    --color-muted: #6B7280;
+  }
+`;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={metadata.description} />
+    <meta name="keywords" content={metadata.keywords} />
+    <meta name="author" content={metadata.author} />
+
+    <title>[TASLAK] {metadata.title}</title>
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`[TASLAK] ${metadata.title}`} />
+    <meta property="og:description" content={metadata.description} />
+    <meta property="og:url" content={metadata.ogUrl} />
+    <meta property="og:image" content={`${import.meta.env.BASE_URL}${metadata.ogImage}`} />
+
+    <!-- Tema renkleri (build zamanında oluşturulur, JS çalışmaz) -->
+    <style set:html={themeVars}></style>
+
+    <!-- Google Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- LCP Image preload -->
+    <link rel="preload" as="image" href={`${import.meta.env.BASE_URL}images/doctor.png`} type="image/png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href={`${import.meta.env.BASE_URL}images/brand-logo.webp`} />
+  </head>
+  <body class="pt-8">
+    <!-- Taslak Uyarı Barı -->
+    <div class="fixed top-0 left-0 w-full bg-amber-500 text-white text-xs font-bold text-center py-2 z-[9999] shadow-md flex items-center justify-center space-x-2">
+      <span>⚠️ TASLAK ÖNİZLEME MODU: Bu sayfadaki değişiklikler henüz canlıya alınmamıştır.</span>
+    </div>
+
+    <Navbar config={draftClinicConfig} />
+    <main>
+      <Hero config={draftClinicConfig} />
+      <Features config={draftClinicConfig} />
+      <AboutDoctor config={draftClinicConfig} />
+      <Treatments config={draftClinicConfig} />
+      <ClinicGallery config={draftClinicConfig} />
+      <ContactForm config={draftClinicConfig} />
+    </main>
+    <Footer config={draftClinicConfig} />
+
+    <!-- GSAP Animasyonlar — sayfa yüklendikten sonra çalışır -->
+    <script>
+      import { initAnimations } from '../scripts/animations.js';
+      document.addEventListener('DOMContentLoaded', () => {
+        initAnimations();
+      });
+    </script>
+  </body>
+</html>
