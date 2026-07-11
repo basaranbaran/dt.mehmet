@@ -15,6 +15,29 @@
     "subtitle": "Tedavi ve Teknoloji Alanlarımız",
     "description": "Sterilizasyon standartlarımızı, modern kliniklerimizi ve son teknoloji görüntüleme cihazlarımızı yakından inceleyin."
   },
+  "hero": {
+    "treatmentsCard": {
+      "title": "TEDAVİLERİMİZ",
+      "description": "Kliniğimizde uygulanan estetik, cerrahi ve koruyucu tüm diş tedavilerini detaylarıyla inceleyin.",
+      "image": "images/treatment-gulus.jpg"
+    },
+    "clinicCard": {
+      "title": "KLİNİĞİMİZ",
+      "description": "Sizin konforunuz ve sağlığınız düşünülerek tasarlanmış modern kliniklerimiz."
+    },
+    "contactCard": {
+      "title": "İLETİŞİM BİLGİLERİ",
+      "description": "Klinik adresimiz, çalışma saatlerimiz ve telefon numaralarımıza hızlıca ulaşın.",
+      "image": "images/gallery-3.jpg"
+    }
+  },
+  "contactHeading": {
+    "title": "İletişim",
+    "subtitle": "İletişim ve Randevu",
+    "description": "Çalışma saatleri içerisinde bize ulaşabilir veya hızlıca mesajınızı iletebilirsiniz.",
+    "infoTitle": "Klinik Detayları",
+    "formTitle": "Bize Mesaj Gönderin"
+  },
   "metadata": {
     "title": "Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği",
     "description": "Modern diş kliniğimizde implant, zirkonyum kaplama, Hollywood smile gülüş tasarımı, ortodonti ve çocuk diş hekimliği. Randevunuzu hemen online oluşturun.",

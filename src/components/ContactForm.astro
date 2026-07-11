@@ -2,7 +2,7 @@
 import { clinicConfig } from '../config.js';
 
 const { config = clinicConfig } = Astro.props;
-const { contact } = config;
+const { contact, contactHeading } = config;
 ---
 
 <section id="iletisim" class="py-20 bg-brand-light relative overflow-hidden">
@@ -12,14 +12,14 @@ const { contact } = config;
     <!-- Başlık -->
     <div class="section-heading text-center max-w-2xl mx-auto mb-16">
       <span class="text-sm font-bold text-brand-primary uppercase tracking-widest font-display">
-        İletişim
+        {contactHeading?.title || 'İletişim'}
       </span>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight font-display mt-2">
-        İletişim ve Randevu
+        {contactHeading?.subtitle || 'İletişim ve Randevu'}
       </h2>
       <div class="w-12 h-1 bg-brand-primary mx-auto mt-4 rounded-full"></div>
       <p class="mt-4 text-brand-muted text-sm sm:text-base">
-        Çalışma saatleri içerisinde bize ulaşabilir veya hızlıca mesajınızı iletebilirsiniz.
+        {contactHeading?.description || 'Çalışma saatleri içerisinde bize ulaşabilir veya hızlıca mesajınızı iletebilirsiniz.'}
       </p>
     </div>
 
@@ -28,7 +28,7 @@ const { contact } = config;
       <!-- Sol: İletişim Bilgileri & Harita -->
       <div class="contact-info-col lg:col-span-5 text-left flex flex-col space-y-6">
         <div class="space-y-4">
-          <h3 class="text-2xl font-bold text-brand-dark font-display mb-2">Klinik Detayları</h3>
+          <h3 class="text-2xl font-bold text-brand-dark font-display mb-2">{contactHeading?.infoTitle || 'Klinik Detayları'}</h3>
 
           <!-- Telefon -->
           <a
@@ -112,7 +112,7 @@ const { contact } = config;
 
       <!-- Sağ: İletişim Formu -->
       <div class="contact-form-col lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 flex flex-col justify-center">
-        <h3 class="text-2xl font-bold text-brand-dark font-display mb-6">Bize Mesaj Gönderin</h3>
+        <h3 class="text-2xl font-bold text-brand-dark font-display mb-6">{contactHeading?.formTitle || 'Bize Mesaj Gönderin'}</h3>
         <form id="contact-form-element" class="space-y-5">
           <div class="grid sm:grid-cols-2 gap-5">
             <div>

@@ -110,6 +110,69 @@ collections:
                 label: "Açıklama Yazısı"
                 widget: text
 
+          - name: hero
+            label: "⚡ Hero Giriş Kartları"
+            widget: object
+            collapsed: true
+            fields:
+              - name: treatmentsCard
+                label: "Tedavilerimiz Kartı"
+                widget: object
+                fields:
+                  - name: title
+                    label: "Kart Başlığı"
+                    widget: string
+                  - name: description
+                    label: "Kart Açıklaması"
+                    widget: text
+                  - name: image
+                    label: "Kart Arka Plan Görseli"
+                    widget: image
+              - name: clinicCard
+                label: "Kliniğimiz Kartı"
+                widget: object
+                fields:
+                  - name: title
+                    label: "Kart Başlığı"
+                    widget: string
+                  - name: description
+                    label: "Kart Açıklaması"
+                    widget: text
+              - name: contactCard
+                label: "İletişim Bilgileri Kartı"
+                widget: object
+                fields:
+                  - name: title
+                    label: "Kart Başlığı"
+                    widget: string
+                  - name: description
+                    label: "Kart Açıklaması"
+                    widget: text
+                  - name: image
+                    label: "Kart Arka Plan Görseli"
+                    widget: image
+
+          - name: contactHeading
+            label: "📞 İletişim Bölüm Başlıkları"
+            widget: object
+            collapsed: true
+            fields:
+              - name: title
+                label: "Üst Başlık"
+                widget: string
+              - name: subtitle
+                label: "Ana Başlık"
+                widget: string
+              - name: description
+                label: "Açıklama Yazısı"
+                widget: text
+              - name: infoTitle
+                label: "Sol Sütun (Bilgiler) Başlığı"
+                widget: string
+              - name: formTitle
+                label: "Sağ Sütun (Form) Başlığı"
+                widget: string
+
           # ========== SEO & METADATA ==========
           - name: metadata
             label: "🔍 SEO & Google Ayarları"
