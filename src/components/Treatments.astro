@@ -2,7 +2,7 @@
 import { clinicConfig } from '../config.js';
 
 const { config = clinicConfig } = Astro.props;
-const { treatments } = config;
+const { treatments, treatmentsHeading } = config;
 const base = import.meta.env.BASE_URL;
 
 // Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
@@ -30,14 +30,14 @@ const iconPaths = {
     <!-- Başlık -->
     <div class="treatments-heading section-heading text-center max-w-2xl mx-auto mb-16">
       <span class="text-sm font-bold text-brand-primary uppercase tracking-widest font-display">
-        Hizmetlerimiz
+        {treatmentsHeading?.title || 'Hizmetlerimiz'}
       </span>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight font-display mt-2">
-        Ağız ve Diş Sağlığı Tedavileri
+        {treatmentsHeading?.subtitle || 'Ağız ve Diş Sağlığı Tedavileri'}
       </h2>
       <div class="w-12 h-1 bg-brand-primary mx-auto mt-4 rounded-full"></div>
       <p class="mt-4 text-brand-muted text-sm sm:text-base">
-        Kliniğimizde uygulanan diş estetiği, cerrahi operasyonlar ve çocuk diş hekimliği tedavilerini inceleyin.
+        {treatmentsHeading?.description || 'Kliniğimizde uygulanan diş estetiği, cerrahi operasyonlar ve çocuk diş hekimliği tedavilerini inceleyin.'}
       </p>
     </div>
 

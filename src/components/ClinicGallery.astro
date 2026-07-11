@@ -2,7 +2,7 @@
 import { clinicConfig } from '../config.js';
 
 const { config = clinicConfig } = Astro.props;
-const { gallery } = config;
+const { gallery, galleryHeading } = config;
 const base = import.meta.env.BASE_URL;
 
 // Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
@@ -21,14 +21,14 @@ const cleanImageUrl = (img: string) => {
     <!-- Başlık -->
     <div class="section-heading text-center max-w-2xl mx-auto mb-16">
       <span class="text-sm font-bold text-brand-primary uppercase tracking-widest font-display">
-        Kliniğimiz
+        {galleryHeading?.title || 'Kliniğimiz'}
       </span>
       <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight font-display mt-2">
-        Tedavi ve Teknoloji Alanlarımız
+        {galleryHeading?.subtitle || 'Tedavi ve Teknoloji Alanlarımız'}
       </h2>
       <div class="w-12 h-1 bg-brand-primary mx-auto mt-4 rounded-full"></div>
       <p class="mt-4 text-brand-muted text-sm sm:text-base">
-        Sterilizasyon standartlarımızı, modern kliniklerimizi ve son teknoloji görüntüleme cihazlarımızı yakından inceleyin.
+        {galleryHeading?.description || 'Sterilizasyon standartlarımızı, modern kliniklerimizi ve son teknoloji görüntüleme cihazlarımızı yakından inceleyin.'}
       </p>
     </div>
 

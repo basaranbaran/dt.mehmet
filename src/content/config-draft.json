@@ -1,6 +1,21 @@
 {
   "publishStatus": "draft",
   "activePalette": "premiumClinicTheme",
+  "featuresHeading": {
+    "title": "Neden Kliniğimiz?",
+    "subtitle": "Diş Kliniğimizin Farkı",
+    "description": "Kliniğimizde her detayı konforunuz, güvenliğiniz ve en yüksek tedavi başarısı için tasarladık."
+  },
+  "treatmentsHeading": {
+    "title": "Hizmetlerimiz",
+    "subtitle": "Ağız ve Diş Sağlığı Tedavileri",
+    "description": "Kliniğimizde uygulanan diş estetiği, cerrahi operasyonlar ve çocuk diş hekimliği tedavilerini inceleyin."
+  },
+  "galleryHeading": {
+    "title": "Kliniğimiz",
+    "subtitle": "Tedavi ve Teknoloji Alanlarımız",
+    "description": "Sterilizasyon standartlarımızı, modern kliniklerimizi ve son teknoloji görüntüleme cihazlarımızı yakından inceleyin."
+  },
   "metadata": {
     "title": "Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği",
     "description": "Modern diş kliniğimizde implant, zirkonyum kaplama, Hollywood smile gülüş tasarımı, ortodonti ve çocuk diş hekimliği. Randevunuzu hemen online oluşturun.",

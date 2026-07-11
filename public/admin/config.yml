@@ -64,6 +64,52 @@ collections:
               - { label: "🤎 Yumuşak Bej", value: "softBeigeTheme" }
               - { label: "🩶 Modern Yumuşak", value: "softModern" }
 
+          # ========== BÖLÜM BAŞLIKLARI ==========
+          - name: featuresHeading
+            label: "⭐ Klinik Özellikleri Bölüm Başlığı"
+            widget: object
+            collapsed: true
+            fields:
+              - name: title
+                label: "Üst Başlık"
+                widget: string
+              - name: subtitle
+                label: "Ana Başlık"
+                widget: string
+              - name: description
+                label: "Açıklama Yazısı"
+                widget: text
+
+          - name: treatmentsHeading
+            label: "🦷 Tedaviler Bölüm Başlığı"
+            widget: object
+            collapsed: true
+            fields:
+              - name: title
+                label: "Üst Başlık"
+                widget: string
+              - name: subtitle
+                label: "Ana Başlık"
+                widget: string
+              - name: description
+                label: "Açıklama Yazısı"
+                widget: text
+
+          - name: galleryHeading
+            label: "🖼️ Galeri Bölüm Başlığı"
+            widget: object
+            collapsed: true
+            fields:
+              - name: title
+                label: "Üst Başlık"
+                widget: string
+              - name: subtitle
+                label: "Ana Başlık"
+                widget: string
+              - name: description
+                label: "Açıklama Yazısı"
+                widget: text
+
           # ========== SEO & METADATA ==========
           - name: metadata
             label: "🔍 SEO & Google Ayarları"
