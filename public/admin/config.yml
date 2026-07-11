@@ -1,0 +1,282 @@
+# ================================================================
+# Sveltia CMS Yapılandırma Dosyası
+# Dt. Mehmet Yağcı - Diş Kliniği Admin Paneli
+# ================================================================
+
+backend:
+  name: github
+  repo: mtyagci/dt-mehmet-yagci
+  branch: main
+
+# Görsel yükleme ayarları
+media_folder: public/images
+public_folder: /images
+
+# Site URL
+site_url: https://dtmehmetyagci.com
+display_url: https://dtmehmetyagci.com
+
+# Türkçe yerelleştirme
+locale: tr
+
+# ================================================================
+# KOLEKSİYONLAR — Düzenlenebilir İçerikler
+# ================================================================
+collections:
+
+  # ============================================================
+  # SITE AYARLARI (Tek dosya koleksiyonu)
+  # ============================================================
+  - name: site_settings
+    label: "⚙️ Site Ayarları"
+    files:
+
+      # ----------------------------------------------------------
+      # ANA İÇERİK DOSYASI
+      # ----------------------------------------------------------
+      - name: config
+        label: "Tüm Site İçerikleri"
+        file: src/content/config.json
+        fields:
+
+          # ========== TEMA SEÇİMİ ==========
+          - name: activePalette
+            label: "🎨 Renk Teması"
+            widget: select
+            hint: "Sitenin genel renk paletini buradan değiştirebilirsiniz. Kaydet'e bastığınızda site yeni renklerle yayınlanır."
+            options:
+              - { label: "💎 Premium Klinik (Lacivert & Bej)", value: "premiumClinicTheme" }
+              - { label: "🌊 Okyanus Mavisi", value: "oceanBlue" }
+              - { label: "🌿 Taze Turkuaz", value: "tealFresh" }
+              - { label: "🌅 Gün Batımı (Pembe & Turuncu)", value: "sunsetGlow" }
+              - { label: "👑 Kraliyet İndigo", value: "royalIndigo" }
+              - { label: "🍀 Zümrüt Yeşili", value: "emeraldBio" }
+              - { label: "🪵 Sıcak Ahşap (Kahve & Altın)", value: "warmWoodenTheme" }
+              - { label: "🤎 Yumuşak Bej", value: "softBeigeTheme" }
+              - { label: "🩶 Modern Yumuşak", value: "softModern" }
+
+          # ========== SEO & METADATA ==========
+          - name: metadata
+            label: "🔍 SEO & Google Ayarları"
+            widget: object
+            collapsed: true
+            fields:
+              - name: title
+                label: "Sayfa Başlığı (Google'da görünür)"
+                widget: string
+                hint: "Tarayıcı sekmesinde ve Google arama sonuçlarında görünecek başlık."
+              - name: description
+                label: "Sayfa Açıklaması (Google'da görünür)"
+                widget: text
+                hint: "Google arama sonuçlarında başlığın altında görünecek açıklama. 150-160 karakter ideal."
+              - name: keywords
+                label: "Anahtar Kelimeler"
+                widget: string
+                hint: "Virgülle ayrılmış anahtar kelimeler. Örn: diş hekimi, implant, izmir"
+              - name: author
+                label: "Yazar / Kuruluş Adı"
+                widget: string
+              - name: ogType
+                label: "OG Tipi"
+                widget: hidden
+                default: "website"
+              - name: ogUrl
+                label: "Site Adresi (URL)"
+                widget: string
+              - name: ogImage
+                label: "Sosyal Medya Paylaşım Görseli"
+                widget: image
+                hint: "Facebook, WhatsApp vb.'de paylaşıldığında görünecek resim."
+                required: false
+
+          # ========== MARKA BİLGİLERİ ==========
+          - name: brand
+            label: "🏷️ Marka & Logo"
+            widget: object
+            collapsed: true
+            fields:
+              - name: name
+                label: "Klinik Adı"
+                widget: string
+              - name: slogan
+                label: "Slogan"
+                widget: string
+              - name: logoText
+                label: "Logo Yazısı (Üst Satır)"
+                widget: string
+              - name: logoSubtext
+                label: "Logo Alt Yazısı"
+                widget: string
+              - name: logoImage
+                label: "Logo Görseli"
+                widget: image
+                required: false
+
+          # ========== DOKTOR BİLGİLERİ ==========
+          - name: doctor
+            label: "👨‍⚕️ Doktor Bilgileri"
+            widget: object
+            collapsed: true
+            fields:
+              - name: name
+                label: "Doktor Adı"
+                widget: string
+              - name: title
+                label: "Unvan"
+                widget: string
+                hint: "Örn: Kurucu / Diş Hekimi"
+              - name: image
+                label: "Doktor Fotoğrafı"
+                widget: image
+              - name: experienceYear
+                label: "Deneyim Yılı"
+                widget: string
+                hint: "Örn: 12+ Yıl"
+              - name: experienceBadgeText
+                label: "Deneyim Rozeti Yazısı"
+                widget: string
+              - name: bio
+                label: "Biyografi"
+                widget: text
+                hint: "Doktorun kendini tanıttığı metin. Admin panelindeki metin editörüyle düzenleyebilirsiniz."
+              - name: education
+                label: "Eğitim ve Üyelikler"
+                widget: list
+                field:
+                  name: item
+                  label: "Madde"
+                  widget: string
+                hint: "Her maddeyi ayrı ekleyin. Örn: Ege Üniversitesi Diş Hekimliği Fakültesi"
+
+          # ========== İLETİŞİM BİLGİLERİ ==========
+          - name: contact
+            label: "📞 İletişim Bilgileri"
+            widget: object
+            collapsed: true
+            fields:
+              - name: phone
+                label: "Telefon (Görünen)"
+                widget: string
+                hint: "Sitede görünecek formatlı numara. Örn: +90 (232) 444 0 555"
+              - name: phoneClean
+                label: "Telefon (Arama İçin)"
+                widget: string
+                hint: "Boşluksuz, tıklanınca arama yapılacak numara. Örn: +902324440555"
+              - name: email
+                label: "E-Posta Adresi"
+                widget: string
+              - name: address
+                label: "Adres"
+                widget: text
+              - name: googleMapsEmbedUrl
+                label: "Google Haritalar Embed URL"
+                widget: string
+                hint: "Google Maps'ten 'Paylaş > Haritayı Göm' ile alınan URL."
+              - name: workingHours
+                label: "Çalışma Saatleri"
+                widget: list
+                fields:
+                  - name: days
+                    label: "Günler"
+                    widget: string
+                    hint: "Örn: Pazartesi - Cuma"
+                  - name: hours
+                    label: "Saatler"
+                    widget: string
+                    hint: "Örn: 09:00 - 19:00"
+
+          # ========== SOSYAL MEDYA ==========
+          - name: socials
+            label: "📱 Sosyal Medya Linkleri"
+            widget: object
+            collapsed: true
+            fields:
+              - name: facebook
+                label: "Facebook URL"
+                widget: string
+                required: false
+              - name: instagram
+                label: "Instagram URL"
+                widget: string
+                required: false
+              - name: twitter
+                label: "Twitter/X URL"
+                widget: string
+                required: false
+              - name: youtube
+                label: "YouTube URL"
+                widget: string
+                required: false
+
+          # ========== KLİNİK ÖZELLİKLERİ ==========
+          - name: features
+            label: "⭐ Klinik Özellikleri / Avantajları"
+            widget: list
+            collapsed: true
+            fields:
+              - name: title
+                label: "Başlık"
+                widget: string
+              - name: description
+                label: "Açıklama"
+                widget: text
+              - name: icon
+                label: "İkon"
+                widget: select
+                options:
+                  - { label: "✓ Kullanıcı Onayı (UserCheck)", value: "UserCheck" }
+                  - { label: "⚙️ İşlemci (Cpu)", value: "Cpu" }
+                  - { label: "🛡️ Kalkan Onay (ShieldCheck)", value: "ShieldCheck" }
+                  - { label: "✨ Parıltı (Sparkles)", value: "Sparkles" }
+                  - { label: "😊 Gülümseme (Smile)", value: "Smile" }
+                  - { label: "❤️ Kalp (Heart)", value: "Heart" }
+                  - { label: "⚡ Şimşek (Zap)", value: "Zap" }
+
+          # ========== TEDAVİLER ==========
+          - name: treatments
+            label: "🦷 Tedaviler / Hizmetler"
+            widget: list
+            collapsed: true
+            fields:
+              - name: id
+                label: "Tedavi ID (URL dostu, küçük harf)"
+                widget: string
+                hint: "Küçük harf ve tire kullanın. Örn: dis-beyazlatma"
+              - name: title
+                label: "Tedavi Başlığı"
+                widget: string
+              - name: shortDescription
+                label: "Kısa Açıklama (Kartlarda görünür)"
+                widget: text
+              - name: longDescription
+                label: "Detaylı Açıklama (Modal'da görünür)"
+                widget: text
+              - name: image
+                label: "Tedavi Görseli"
+                widget: image
+              - name: icon
+                label: "İkon"
+                widget: select
+                options:
+                  - { label: "✨ Parıltı (Sparkles)", value: "Sparkles" }
+                  - { label: "😊 Gülümseme (Smile)", value: "Smile" }
+                  - { label: "🛡️ Kalkan (Shield)", value: "Shield" }
+                  - { label: "📄 Katmanlar (Layers)", value: "Layers" }
+                  - { label: "❤️ Kalp (Heart)", value: "Heart" }
+                  - { label: "⚡ Şimşek (Zap)", value: "Zap" }
+                  - { label: "✓ Kullanıcı Onayı (UserCheck)", value: "UserCheck" }
+                  - { label: "⚙️ İşlemci (Cpu)", value: "Cpu" }
+                  - { label: "🛡️ Kalkan Onay (ShieldCheck)", value: "ShieldCheck" }
+
+          # ========== GALERİ ==========
+          - name: gallery
+            label: "🖼️ Klinik Galerisi"
+            widget: list
+            collapsed: true
+            fields:
+              - name: title
+                label: "Fotoğraf Başlığı"
+                widget: string
+              - name: image
+                label: "Fotoğraf"
+                widget: image
