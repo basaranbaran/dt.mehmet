@@ -11,6 +11,14 @@ const formattedBio = doctor.bio
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/\r?\n/g, '<br />')
   : '';
+
+// Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
+const cleanImageUrl = (img: string) => {
+  if (!img) return '';
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const cleanImg = img.startsWith('/') ? img : '/' + img;
+  return cleanBase + cleanImg;
+};
 ---
 
 <section id="hakkimizda" class="pt-20 pb-40 md:pb-48 bg-white relative overflow-hidden">
@@ -31,7 +39,7 @@ const formattedBio = doctor.bio
           <!-- Fotoğraf Çerçevesi -->
           <div class="relative z-10 rounded-[2.2rem] overflow-hidden shadow-xl border-4 border-white bg-white aspect-[4/5]">
             <img
-              src={`${base}${doctor.image}`}
+              src={cleanImageUrl(doctor.image)}
               alt={doctor.name}
               class="doctor-parallax w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
               loading="lazy"

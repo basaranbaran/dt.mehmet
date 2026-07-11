@@ -3,6 +3,14 @@ import { clinicConfig } from '../config.js';
 
 const { gallery } = clinicConfig;
 const base = import.meta.env.BASE_URL;
+
+// Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
+const cleanImageUrl = (img: string) => {
+  if (!img) return '';
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const cleanImg = img.startsWith('/') ? img : '/' + img;
+  return cleanBase + cleanImg;
+};
 ---
 
 <section id="galeri" class="pt-20 pb-40 md:pb-48 bg-white relative overflow-hidden">
@@ -29,14 +37,14 @@ const base = import.meta.env.BASE_URL;
         <div
           class="gallery-item relative aspect-square rounded-3xl overflow-hidden shadow-md group cursor-pointer border border-gray-100 hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
           data-index={idx}
-          data-src={`${base}${item.image}`}
+          data-src={cleanImageUrl(item.image)}
           data-title={item.title}
           role="button"
           tabindex="0"
           aria-label={`${item.title} - büyütmek için tıklayın`}
         >
           <img
-            src={`${base}${item.image}`}
+            src={cleanImageUrl(item.image)}
             alt={item.title}
             loading="lazy"
             decoding="async"

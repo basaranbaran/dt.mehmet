@@ -10,6 +10,16 @@ const navItems = [
   { name: 'Kliniğimiz', href: '#galeri' },
   { name: 'İletişim', href: '#iletisim' },
 ];
+
+const base = import.meta.env.BASE_URL;
+
+// Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
+const cleanImageUrl = (img: string) => {
+  if (!img) return '';
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const cleanImg = img.startsWith('/') ? img : '/' + img;
+  return cleanBase + cleanImg;
+};
 ---
 
 <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300">
@@ -20,7 +30,7 @@ const navItems = [
       <a href="#anasayfa" class="flex items-center space-x-3 group nav-link">
         {brand.logoImage && (
           <img
-            src={`${import.meta.env.BASE_URL}${brand.logoImage}`}
+            src={cleanImageUrl(brand.logoImage)}
             alt={`${brand.logoText} Logo`}
             class="w-28 h-28 object-contain p-2 logo-invert"
             loading="eager"

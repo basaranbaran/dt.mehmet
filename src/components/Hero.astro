@@ -4,12 +4,20 @@ import { clinicConfig } from '../config.js';
 const { doctor, gallery, contact } = clinicConfig;
 const base = import.meta.env.BASE_URL;
 
+// Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
+const cleanImageUrl = (img: string) => {
+  if (!img) return '';
+  const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  const cleanImg = img.startsWith('/') ? img : '/' + img;
+  return cleanBase + cleanImg;
+};
+
 const cards = [
   {
     title: doctor.name,
     desc: doctor.bio,
     link: '#hakkimizda',
-    bgImage: `${base}${doctor.image}`,
+    bgImage: cleanImageUrl(doctor.image),
     gridClass: 'md:col-span-2 md:row-span-2 h-[380px] md:h-full',
     textClass: 'justify-end items-start text-left p-6 sm:p-8 md:p-10',
     titleSize: 'text-2xl sm:text-3xl lg:text-4xl',
@@ -20,7 +28,7 @@ const cards = [
     title: 'TEDAVİLERİMİZ',
     desc: 'Kliniğimizde uygulanan estetik, cerrahi ve koruyucu tüm diş tedavilerini detaylarıyla inceleyin.',
     link: '#tedaviler',
-    bgImage: `${base}images/treatment-gulus.jpg`,
+    bgImage: cleanImageUrl('images/treatment-gulus.jpg'),
     gridClass: 'md:col-span-2 md:row-span-1 h-[240px] md:h-full',
     textClass: 'justify-end items-end text-right p-6 sm:p-8',
     titleSize: 'text-xl sm:text-2xl lg:text-3xl',
@@ -31,7 +39,7 @@ const cards = [
     title: 'KLİNİĞİMİZ',
     desc: 'Sizin konforunuz ve sağlığınız düşünülerek tasarlanmış modern kliniklerimiz.',
     link: '#galeri',
-    bgImage: `${base}${gallery[0].image}`,
+    bgImage: cleanImageUrl(gallery[0].image),
     gridClass: 'md:col-span-1 md:row-span-1 h-[200px] md:h-full',
     textClass: 'justify-center items-center text-center p-5 md:p-6',
     titleSize: 'text-lg sm:text-xl lg:text-2xl',
@@ -42,7 +50,7 @@ const cards = [
     title: 'İLETİŞİM BİLGİLERİ',
     desc: 'Klinik adresimiz, çalışma saatlerimiz ve telefon numaralarımıza hızlıca ulaşın.',
     link: '#iletisim',
-    bgImage: `${base}images/gallery-3.jpg`,
+    bgImage: cleanImageUrl('images/gallery-3.jpg'),
     gridClass: 'md:col-span-1 md:row-span-1 h-[200px] md:h-full',
     textClass: 'justify-center items-center text-center p-5 md:p-6',
     titleSize: 'text-lg sm:text-xl lg:text-2xl',
