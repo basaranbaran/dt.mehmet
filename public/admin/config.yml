@@ -127,6 +127,15 @@ collections:
               - name: image
                 label: "Doktor Fotoğrafı"
                 widget: image
+              - name: imageAlign
+                label: "Doktor Fotoğrafı Odak Noktası (Kırpma Ayarı)"
+                widget: select
+                default: "object-top"
+                hint: "Fotoğrafın en-boy oranı tam uymadığında hangi kısmın ortalanacağını seçin. Portreler için genellikle 'Üst / Kafa Kısmı' idealdir."
+                options:
+                  - { label: "⬆️ Üst / Kafa Kısmı (object-top)", value: "object-top" }
+                  - { label: "🎯 Orta (object-center)", value: "object-center" }
+                  - { label: "⬇️ Alt (object-bottom)", value: "object-bottom" }
               - name: experienceYear
                 label: "Deneyim Yılı"
                 widget: string
@@ -259,6 +268,17 @@ collections:
               - name: image
                 label: "Tedavi Görseli"
                 widget: image
+              - name: imageAlign
+                label: "Tedavi Fotoğrafı Odak Noktası (Kırpma Ayarı)"
+                widget: select
+                default: "object-center"
+                hint: "Fotoğrafın en-boy oranı tam uymadığında hangi kısmın ortalanacağını seçin. Manzaralar/yatay resimler için genellikle 'Orta' idealdir."
+                options:
+                  - { label: "🎯 Orta (object-center)", value: "object-center" }
+                  - { label: "⬆️ Üst (object-top)", value: "object-top" }
+                  - { label: "⬇️ Alt (object-bottom)", value: "object-bottom" }
+                  - { label: "⬅️ Sol (object-left)", value: "object-left" }
+                  - { label: "➡️ Sağ (object-right)", value: "object-right" }
               - name: icon
                 label: "İkon"
                 widget: select

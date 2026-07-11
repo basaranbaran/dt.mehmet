@@ -41,7 +41,7 @@ const cleanImageUrl = (img: string) => {
             <img
               src={cleanImageUrl(doctor.image)}
               alt={doctor.name}
-              class="doctor-parallax w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500"
+              class={`doctor-parallax w-full h-full object-cover ${doctor.imageAlign || 'object-top'} hover:scale-105 transition-transform duration-500`}
               loading="lazy"
               decoding="async"
             />

@@ -53,7 +53,7 @@ const iconPaths = {
               alt={treatment.title}
               loading="lazy"
               decoding="async"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              class={`w-full h-full object-cover ${treatment.imageAlign || 'object-center'} group-hover:scale-105 transition-transform duration-700`}
             />
             <!-- Floating Icon -->
             <div class="absolute bottom-4 right-4 w-12 h-12 bg-white rounded-2xl shadow-md border border-gray-100 flex items-center justify-center text-brand-primary">
@@ -80,6 +80,7 @@ const iconPaths = {
               data-title={treatment.title}
               data-desc={treatment.longDescription}
               data-img={cleanImageUrl(treatment.image)}
+              data-img-align={treatment.imageAlign || 'object-center'}
             >
               Detayları İncele
               <svg class="w-4 h-4 ml-1.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -156,10 +157,11 @@ const iconPaths = {
   const modalTitle = document.getElementById('modal-title');
   const modalDesc = document.getElementById('modal-desc');
 
-  function openModal(title: string, desc: string, img: string) {
+  function openModal(title: string, desc: string, img: string, align: string) {
     if (!modal || !modalImg || !modalTitle || !modalDesc) return;
     modalImg.src = img;
     modalImg.alt = title;
+    modalImg.className = `w-full h-full object-cover ${align}`;
     modalTitle.textContent = title;
     
     // Basit Markdown formatlama (bold, italic ve yeni satırlar için)
@@ -182,7 +184,8 @@ const iconPaths = {
       const title = btn.getAttribute('data-title') || '';
       const desc = btn.getAttribute('data-desc') || '';
       const img = btn.getAttribute('data-img') || '';
-      openModal(title, desc, img);
+      const align = btn.getAttribute('data-img-align') || 'object-center';
+      openModal(title, desc, img, align);
     });
   });
 
