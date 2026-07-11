@@ -11,7 +11,7 @@
   },
   "brand": {
     "name": "Dt. Mehmet Yağcı",
-    "slogan": "Gülüşünüz Değerlidir",
+    "slogan": "Gülüşünüz Değerlidir.",
     "logoText": "Dt. Mehmet Yağcı",
     "logoSubtext": "Ağız ve Diş Sağlığı",
     "logoImage": "images/brand-logo.webp"
@@ -36,9 +36,18 @@
     "address": "Atatürk Caddesi No: 123, Kat: 2, Alsancak, Konak / İzmir",
     "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d379.1168818719706!2d28.33702575105927!3d37.9204163614518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b8b8d067b2d347%3A0x2322eabff4ca8d69!2zWWXFn2lsLCA3MjcuIFNrLiBObzoyNiwgMDk4MDAgTmF6aWxsaS9BeWTEsW4!5e0!3m2!1str!2str!4v1781123725973!5m2!1str!2str",
     "workingHours": [
-      { "days": "Pazartesi - Cuma", "hours": "09:00 - 19:00" },
-      { "days": "Cumartesi", "hours": "09:00 - 15:00" },
-      { "days": "Pazar", "hours": "Kapalı (Yalnızca Acil)" }
+      {
+        "days": "Pazartesi - Cuma",
+        "hours": "09:00 - 19:00"
+      },
+      {
+        "days": "Cumartesi",
+        "hours": "09:00 - 15:00"
+      },
+      {
+        "days": "Pazar",
+        "hours": "Kapalı (Yalnızca Acil)"
+      }
     ]
   },
   "socials": {
@@ -115,9 +124,21 @@
     }
   ],
   "gallery": [
-    { "title": "Giriş ve Bekleme Alanı", "image": "images/gallery-1.webp" },
-    { "title": "Modern Klinik Ünitesi (Oda 1)", "image": "images/gallery-2.webp" },
-    { "title": "Çocuk Bölümü ve Oyun Alanı", "image": "images/gallery-3.webp" },
-    { "title": "Sterilizasyon ve Cihaz Parkuru", "image": "images/gallery-4.webp" }
+    {
+      "title": "Giriş ve Bekleme Alanı",
+      "image": "images/gallery-1.webp"
+    },
+    {
+      "title": "Modern Klinik Ünitesi (Oda 1)",
+      "image": "images/gallery-2.webp"
+    },
+    {
+      "title": "Çocuk Bölümü ve Oyun Alanı",
+      "image": "images/gallery-3.webp"
+    },
+    {
+      "title": "Sterilizasyon ve Cihaz Parkuru",
+      "image": "images/gallery-4.webp"
+    }
   ]
 }
