@@ -11,26 +11,25 @@
   },
   "brand": {
     "name": "Dt. Mehmet Yağcı",
-    "slogan": "Gülüşünüz Değerlidir.",
+    "slogan": "Smile Together",
     "logoText": "Dt. Mehmet Yağcı",
-    "logoSubtext": "Ağız ve Diş Sağlığı",
+    "logoSubtext": "Ağız ve Diş Sağlığı Kliniği",
     "logoImage": "images/brand-logo.webp"
   },
   "doctor": {
     "name": "Dt. Mehmet Yağcı",
     "title": "Kurucu / Diş Hekimi",
     "image": "images/doctor.png",
-    "experienceYear": "BİLGİ VE SAMİMİYETİN BULUŞMASI",
-    "experienceBadgeText": "Mesleki Deneyim ve Uzmanlık",
+    "experienceYear": "5+",
+    "experienceBadgeText": "BİLGİ VE SAMİMİYETİN BULUŞMASI",
     "bio": "İstanbul ve Nazilli’deki klinik tecrübelerimin ardından, estetik ve dijital diş hekimliği üzerine çok sayıda güncel kursa katılarak kendimi sürekli geliştirdim. Amacım, her hastamı dikkatle dinleyerek tam da hayal ettikleri sağlıklı ve estetik gülüşe kavuşmalarını sağlamak.\nKliniğimizde, dijital çağa uygun en yeni tedavi yöntemlerini bir araya getirerek; gülüş estetiğinden implant uygulamalarına, zirkonyum kaplamalardan dolgu ve kanal tedavilerine kadar aradığınız tüm çözümleri tek çatı altında sunuyorum.",
     "education": [
       "Medipol Üniversitesi Diş Hekimliği Fakültesi",
-      "Türk Diş Hekimleri Birliği",
-      "Aydın Diş Hekimleri Odası"
+      "Türk Diş Hekimleri Birliği,"
     ]
   },
   "contact": {
-    "phone": "+90 (232) 444 0 555",
+    "phone": "+90 (530) 508 4484",
     "phoneClean": "+902324440555",
     "email": "info@dtmehmetyagci.com",
     "address": "Atatürk Caddesi No: 123, Kat: 2, Alsancak, Konak / İzmir",
