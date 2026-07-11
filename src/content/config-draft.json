@@ -30,7 +30,8 @@
     "slogan": "Smile Together",
     "logoText": "Dt. Mehmet Yağcı",
     "logoSubtext": "Ağız ve Diş Sağlığı Kliniği",
-    "logoImage": "images/brand-logo.webp"
+    "logoImage": "images/brand-logo.webp",
+    "description": "Alsancak'ta modern teknolojiler, tecrübeli hekim kadrosu ve üstün hijyen standartlarıyla ağız ve diş sağlığınız için en iyi çözümleri üretiyoruz."
   },
   "doctor": {
     "name": "Dt. Mehmet Yağcı",

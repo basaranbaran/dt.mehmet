@@ -166,6 +166,10 @@ collections:
                 label: "Logo Görseli"
                 widget: image
                 required: false
+              - name: description
+                label: "Klinik Açıklaması (Footer/Alt Bilgide görünür)"
+                widget: text
+                hint: "Sitenin en altında yer alan klinik tanıtım yazısı. Konum veya şehir değişikliğini buradan yapabilirsiniz."
 
           # ========== DOKTOR BİLGİLERİ ==========
           - name: doctor
