@@ -1,5 +1,5 @@
 {
-  "publishStatus": "draft",
+  "publishStatus": "live",
   "activePalette": "premiumClinicTheme",
   "featuresHeading": {
     "title": "Neden Kliniğimiz?",
@@ -46,7 +46,7 @@
     "author": "Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği",
     "ogType": "website",
     "ogUrl": "https://dtmehmetyagci.com",
-    "ogImage": "images/brand-logo.jpg"
+    "ogImage": "/images/d01117d8-d34b-4f7e-b372-0a29d7e3fcdd.png"
   },
   "brand": {
     "name": "Dt. Mehmet Yağcı",
