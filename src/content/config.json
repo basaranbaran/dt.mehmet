@@ -1,4 +1,5 @@
 {
+  "publishStatus": "draft",
   "activePalette": "premiumClinicTheme",
   "featuresHeading": {
     "title": "Neden Kliniğimiz?",
@@ -52,8 +53,8 @@
     "slogan": "Smile Together",
     "logoText": "Dt. Mehmet Yağcı",
     "logoSubtext": "Ağız ve Diş Sağlığı Kliniği",
-    "logoImage": "images/brand-logo.webp",
-    "description": "Alsancak'ta modern teknolojiler, tecrübeli hekim kadrosu ve üstün hijyen standartlarıyla ağız ve diş sağlığınız için en iyi çözümleri üretiyoruz."
+    "logoImage": "/images/Mehmet_Yagci_Logo_4x.png",
+    "description": "Nazilli'de modern teknolojiler, tecrübeli hekim kadrosu ve üstün hijyen standartlarıyla ağız ve diş sağlığınız için en iyi çözümleri üretiyoruz."
   },
   "doctor": {
     "name": "Dt. Mehmet Yağcı",
@@ -119,6 +120,7 @@
       "shortDescription": "Eksik dişlerinizi ömür boyu kullanabileceğiniz, doğal diş hissi veren titanyum vidalarla tamamlıyoruz.",
       "longDescription": "İmplant tedavisi, çene kemiğine yerleştirilen yapay diş kökleri sayesinde eksik dişlerin fonksiyon, konuşma ve estetik açıdan en doğal şekilde geri kazanılmasını sağlar.",
       "image": "/images/implantoloji.webp",
+      "imageAlign": "object-bottom",
       "icon": "Zap"
     },
     {
