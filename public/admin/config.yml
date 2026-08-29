@@ -158,20 +158,36 @@ collections:
             collapsed: true
             fields:
               - name: title
-                label: "Üst Başlık"
+                label: "En Üst Başlık (Küçük Etiket)"
                 widget: string
               - name: subtitle
-                label: "Ana Başlık"
+                label: "En Üst Ana Başlık"
                 widget: string
+                hint: "Örn: İletişim ve Randevu"
               - name: description
-                label: "Açıklama Yazısı"
+                label: "En Üst Açıklama Yazısı"
                 widget: text
               - name: infoTitle
-                label: "Sol Sütun (Bilgiler) Başlığı"
+                label: "İletişim Bilgi Kartı Başlığı"
                 widget: string
+                hint: "Harita ile yan yana görünen bilgi kartının başlığı. Örn: İletişim & Randevu"
+              - name: infoSubtitle
+                label: "İletişim Bilgi Kartı Alt Yazısı"
+                widget: string
+                required: false
               - name: formTitle
-                label: "Sağ Sütun (Form) Başlığı"
+                label: "E-Posta Formu Başlığı"
                 widget: string
+              - name: mapEyebrow
+                label: "Harita Bölümü Küçük Etiket"
+                widget: string
+                required: false
+                hint: "Örn: İletişim & Ulaşım"
+              - name: mapTitle
+                label: "Harita Bölümü Ana Başlığı"
+                widget: string
+                required: false
+                hint: "Örn: Bize Ulaşın & Ziyaret Edin"
 
           # ========== SEO & METADATA ==========
           - name: metadata
