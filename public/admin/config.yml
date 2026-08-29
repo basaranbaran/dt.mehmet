@@ -138,19 +138,6 @@ collections:
                   - name: description
                     label: "Kart Açıklaması"
                     widget: text
-              - name: contactCard
-                label: "İletişim Bilgileri Kartı"
-                widget: object
-                fields:
-                  - name: title
-                    label: "Kart Başlığı"
-                    widget: string
-                  - name: description
-                    label: "Kart Açıklaması"
-                    widget: text
-                  - name: image
-                    label: "Kart Arka Plan Görseli"
-                    widget: image
 
           - name: contactHeading
             label: "📞 İletişim Bölüm Başlıkları"

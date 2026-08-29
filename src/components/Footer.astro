@@ -2,7 +2,7 @@
 import { clinicConfig } from '../config.js';
 
 const { config = clinicConfig } = Astro.props;
-const { brand, contact, socials } = config;
+const { brand, socials } = config;
 
 const navLinks = [
   { name: 'Anasayfa', href: '#anasayfa' },
@@ -36,7 +36,7 @@ const year = new Date().getFullYear();
   </button>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 text-left border-b border-gray-800 pb-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 text-left border-b border-gray-800 pb-12">
 
       <!-- 1. Logo & Klinik Tanıtımı -->
       <div class="footer-col space-y-4">
@@ -53,42 +53,7 @@ const year = new Date().getFullYear();
         </p>
       </div>
 
-      <!-- 2. İletişim Bilgileri (Mehmet YAĞCI) -->
-      <div class="footer-col space-y-3">
-        <h4 class="text-sm font-bold uppercase tracking-wider font-display text-white border-b border-gray-800 pb-2">
-          İletişim &amp; Adres
-        </h4>
-        <div class="space-y-2 text-xs sm:text-sm text-gray-300">
-          <p class="font-bold text-white text-sm">{contact.doctorName || 'Mehmet YAĞCI'}</p>
-
-          <p class="flex items-center space-x-2">
-            <span class="text-emerald-400 font-bold text-[11px] uppercase tracking-wider">Mobil / WhatsApp:</span>
-            <a href={`https://wa.me/${contact.phoneClean || '905305084484'}`} target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors font-semibold">
-              {contact.phone || '+90 (530) 508 44 84'}
-            </a>
-          </p>
-
-          <p class="flex items-center space-x-2">
-            <span class="text-brand-accent font-bold text-[11px] uppercase tracking-wider">Sabit Hat:</span>
-            <a href={`tel:${contact.landlineClean || '02563134884'}`} class="hover:text-brand-accent transition-colors font-semibold">
-              {contact.landlinePhone || '0 (256) 313 48 84'}
-            </a>
-          </p>
-
-          <p class="flex items-start space-x-2">
-            <span class="text-gray-400 font-bold text-[11px] uppercase tracking-wider shrink-0 mt-0.5">E-Posta:</span>
-            <a href={`mailto:${contact.email}`} class="hover:text-brand-accent transition-colors text-xs truncate">
-              {contact.email || 'dt.mehmetyagci@gmail.com'}
-            </a>
-          </p>
-
-          <p class="text-xs text-gray-400 pt-1 leading-relaxed border-t border-gray-800/60">
-            📍 {contact.address || 'Yeşil Mahalle 727. Sokak No:24 Kat:1 (Devlet Hastanesi Poliklinik Girişi Karşısı)'}
-          </p>
-        </div>
-      </div>
-
-      <!-- 3. Hızlı Erişim Menüsü -->
+      <!-- 2. Hızlı Erişim Menüsü -->
       <div class="footer-col space-y-3">
         <h4 class="text-sm font-bold uppercase tracking-wider font-display text-white border-b border-gray-800 pb-2">
           Hızlı Erişim
@@ -100,7 +65,7 @@ const year = new Date().getFullYear();
         </div>
       </div>
 
-      <!-- 4. Sosyal Medya & Çalışma Saatleri -->
+      <!-- 3. Sosyal Medya -->
       <div class="footer-col space-y-3">
         <h4 class="text-sm font-bold uppercase tracking-wider font-display text-white border-b border-gray-800 pb-2">
           Bizi Takip Edin
@@ -126,10 +91,6 @@ const year = new Date().getFullYear();
               </svg>
             </a>
           ))}
-        </div>
-        <div class="pt-2 text-xs text-gray-400 leading-relaxed border-t border-gray-800/60 space-y-1">
-          <p class="font-bold text-gray-300">⏰ Pzt — Cts: 08:00 — 20:00</p>
-          <p class="text-gray-500">Pazar: Kapalı (Randevu &amp; İletişim)</p>
         </div>
       </div>
     </div>

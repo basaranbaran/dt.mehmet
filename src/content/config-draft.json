@@ -25,11 +25,6 @@
     "clinicCard": {
       "title": "KLİNİĞİMİZ",
       "description": "Sizin konforunuz ve sağlığınız düşünülerek tasarlanmış modern kliniklerimiz."
-    },
-    "contactCard": {
-      "title": "İLETİŞİM BİLGİLERİ",
-      "description": "Klinik adresimiz, çalışma saatlerimiz ve telefon numaralarımıza hızlıca ulaşın.",
-      "image": "images/gallery-3.jpg"
     }
   },
   "contactHeading": {
@@ -178,14 +173,6 @@
     {
       "title": "Modern Klinik Ünitesi (Oda 1)",
       "image": "images/gallery-2.webp"
-    },
-    {
-      "title": "Çocuk Bölümü ve Oyun Alanı",
-      "image": "images/gallery-3.webp"
-    },
-    {
-      "title": "Sterilizasyon ve Cihaz Parkuru",
-      "image": "images/gallery-4.webp"
     }
   ]
 }

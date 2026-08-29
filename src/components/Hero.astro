@@ -2,7 +2,7 @@
 import { clinicConfig } from '../config.js';
 
 const { config = clinicConfig } = Astro.props;
-const { doctor, gallery, contact, hero } = config;
+const { doctor, gallery, hero } = config;
 const base = import.meta.env.BASE_URL;
 
 // Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
@@ -42,18 +42,7 @@ const cards = [
     desc: hero?.clinicCard?.description || 'Sizin konforunuz ve sağlığınız düşünelerek tasarlanmış modern kliniklerimiz.',
     link: '#galeri',
     bgImage: cleanImageUrl(hero?.clinicCard?.image || gallery[0]?.image || 'images/gallery-1.webp'),
-    gridClass: 'md:col-span-1 md:row-span-1 h-[200px] md:h-full',
-    textClass: 'justify-center items-center text-center p-5 md:p-6',
-    titleSize: 'text-lg sm:text-xl lg:text-2xl',
-    fetchpriority: 'auto',
-    loading: 'lazy',
-  },
-  {
-    title: hero?.contactCard?.title || 'İLETİŞİM BİLGİLERİ',
-    desc: hero?.contactCard?.description || 'Klinik adresimiz, çalışma saatlerimiz ve telefon numaralarımıza hızlıca ulaşın.',
-    link: '#iletisim',
-    bgImage: cleanImageUrl(hero?.contactCard?.image || 'images/gallery-3.jpg'),
-    gridClass: 'md:col-span-1 md:row-span-1 h-[200px] md:h-full',
+    gridClass: 'md:col-span-2 md:row-span-1 h-[200px] md:h-full',
     textClass: 'justify-center items-center text-center p-5 md:p-6',
     titleSize: 'text-lg sm:text-xl lg:text-2xl',
     fetchpriority: 'auto',
