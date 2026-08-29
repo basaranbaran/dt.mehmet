@@ -2,7 +2,7 @@
 import { clinicConfig } from '../config.js';
 
 const { config = clinicConfig } = Astro.props;
-const { contact, contactHeading } = config;
+const { contact, contactHeading, doctor } = config;
 
 // Google Maps iframe veya direkt URL desteği
 const cleanMapsUrl = (raw: string) => {
@@ -16,7 +16,9 @@ const mapUrl = cleanMapsUrl(contact.googleMapsEmbedUrl);
 const directionsUrl = contact.googleMapsShareUrl || contact.googleMapsDirectionsUrl || 'https://share.google/YQ6vVbmg2UtP1O5TT';
 
 const doctorName = contact.doctorName || 'Mehmet YAĞCI';
-const whatsappMessage = encodeURIComponent(`Merhaba ${doctorName}, randevu almak istiyorum.`);
+const whatsappGreetingName = doctor?.name || `Dt. ${doctorName}`;
+const whatsappMessageText = `Merhaba ${whatsappGreetingName}, randevu almak istiyorum, bilgi alabilir miyim?`;
+const whatsappMessage = encodeURIComponent(whatsappMessageText);
 const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=${whatsappMessage}`;
 const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
 ---
@@ -38,17 +40,17 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
       </p>
     </div>
 
-    <!-- WhatsApp Randevu + E-Posta Formu — alt alta, tek sütun, yanlarında başka bir şey yok -->
-    <div class="contact-form-col max-w-3xl mx-auto space-y-8">
+    <!-- WhatsApp Randevu + E-Posta Formu — yan yana, eşit yükseklikte -->
+    <div class="contact-form-col grid lg:grid-cols-2 gap-8 items-stretch">
 
       <!-- Doğrudan WhatsApp Randevu Kartı -->
-      <div class="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl p-6 sm:p-9 text-white shadow-2xl relative overflow-hidden">
+      <div class="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl p-6 sm:p-9 text-white shadow-2xl relative overflow-hidden flex flex-col h-full">
 
         <!-- Arka Plan Dekoratif Halka -->
         <div class="absolute -right-12 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
         <div class="absolute -left-12 -bottom-12 w-48 h-48 bg-emerald-400/20 rounded-full blur-xl pointer-events-none"></div>
 
-        <div class="relative z-10 space-y-6 text-left">
+        <div class="relative z-10 space-y-6 text-left flex flex-col h-full">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider w-fit">
             <span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping"></span>
             <span>Hızlı &amp; Kolay Randevu</span>
@@ -69,12 +71,12 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
               Gönderilecek Hazır Mesaj:
             </span>
             <p class="text-sm font-semibold text-white italic">
-              "Merhaba {doctorName}, randevu almak istiyorum."
+              "{whatsappMessageText}"
             </p>
           </div>
 
           <!-- Doğrudan WhatsApp Yönlendirme Butonu -->
-          <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-auto">
             <a
               href={whatsappUrl}
               target="_blank"
@@ -104,7 +106,7 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
       </div>
 
       <!-- Alternatif: E-Posta ile İletişim Formu -->
-      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 text-left">
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 text-left flex flex-col h-full">
         <div class="border-b border-gray-100 pb-4 mb-6">
           <h3 class="text-xl font-bold text-brand-dark font-display">{contactHeading?.formTitle || 'Bize E-Posta Gönderin'}</h3>
           <p class="text-xs sm:text-sm text-brand-muted mt-1">
@@ -112,7 +114,7 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
           </p>
         </div>
 
-        <form id="contact-form-element" data-recipient={recipientEmail} class="space-y-4">
+        <form id="contact-form-element" data-recipient={recipientEmail} class="space-y-4 flex-1 flex flex-col">
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
               <label for="form-name" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">Adınız Soyadınız *</label>
@@ -129,9 +131,9 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
             <input type="email" id="form-email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium" placeholder="Örn: ahmet@example.com" />
           </div>
 
-          <div>
+          <div class="flex-1 flex flex-col">
             <label for="form-message" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">Mesajınız / Talebiniz *</label>
-            <textarea id="form-message" name="message" rows="3" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium resize-none" placeholder="Randevu talebinizi veya sorunuzu yazın..."></textarea>
+            <textarea id="form-message" name="message" rows="3" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium resize-none flex-1" placeholder="Randevu talebinizi veya sorunuzu yazın..."></textarea>
           </div>
 
           <button
