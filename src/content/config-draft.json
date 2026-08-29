@@ -36,10 +36,7 @@
     "title": "İletişim",
     "subtitle": "İletişim ve Randevu",
     "description": "Çalışma saatleri içerisinde bize ulaşabilir veya hızlıca mesajınızı iletebilirsiniz.",
-    "infoTitle": "İletişim & Randevu",
-    "infoSubtitle": "Sorularınız ve randevu talepleriniz için doğrudan bize ulaşın.",
-    "mapEyebrow": "İletişim & Ulaşım",
-    "mapTitle": "Bize Ulaşın & Ziyaret Edin",
+    "infoTitle": "Klinik Detayları",
     "formTitle": "Bize Mesaj Gönderin"
   },
   "metadata": {
@@ -88,11 +85,11 @@
     "workingHours": [
       {
         "days": "Pazartesi — Cumartesi",
-        "hours": "08:00 — 20:00"
+        "hours": "Yakında Hizmetinizdeyiz"
       },
       {
         "days": "Pazar",
-        "hours": "Kapalı (Randevu & İletişim)"
+        "hours": "Yakında Hizmetinizdeyiz"
       }
     ]
   },
@@ -135,6 +132,7 @@
       "shortDescription": "Yüz hatlarınız, dudak yapınız ve ten renginizle uyumlu, ışıltılı porselen lamina ve beyazlatma uygulamaları.",
       "longDescription": "Hollywood Smile, dijital gülüş tasarımı programları ile hastanın ağız yapısına en uygun porselen yaprak laminalar (Lumineers/Veneers), zirkonyum kronlar ve diş eti estetiği (gingivoplasti) yapılarak ideal gülüşe ulaşma sürecidir.",
       "image": "/images/the-hollywood-smile-makeover-process-what-to-expect_81afcdcbb3b5_1200x630_c.webp",
+      "imageAlign": "object-center",
       "icon": "Smile"
     },
     {
@@ -143,6 +141,7 @@
       "shortDescription": "Işık geçirgenliği son derece yüksek, diş eti morarması yapmayan estetik ve sağlam kaplamalar.",
       "longDescription": "Zirkonyum, doku dostu olması ve ışığı doğal diş gibi yansıtması sebebiyle metal desteksiz köprü ve kaplamalarda tercih edilir. Zamanla renk değiştirmez, diş eti çekilmesine veya gri renk yansımasına neden olmaz.",
       "image": "images/treatment-zirkonyum.webp",
+      "imageAlign": "object-center",
       "icon": "Shield"
     },
     {
@@ -151,6 +150,7 @@
       "shortDescription": "İleri derecede zarar görmüş dişleri ağrısız yöntemlerle çekilmekten kurtaran ve ömrünü uzatan koruyucu tedaviler.",
       "longDescription": "Kök Kanal Tedavisi, derin çürük veya travma nedeniyle zarar görmüş dişleri çekilmekten kurtarmayı amaçlar; tamamen ağrısız ve sızdırmaz şekilde temizlenip doldurularak kendi dişinizin ömrünü uzatır.",
       "image": "/images/images.jpg",
+      "imageAlign": "object-center",
       "icon": "Layers"
     },
     {
@@ -159,6 +159,7 @@
       "shortDescription": "Kendi dişinizden ayırt edilemeyen, formunu ve gücünü uzun yıllar koruyan estetik dolgular.",
       "longDescription": "Diş rengiyle uyumlu estetik dolgular, yüksek dayanıklılığı sayesinde hem ön hem de arka dişlerde güvenle kullanılır. Doğal diş formunu ve çiğneme gücünü geri kazandırır; uzun yıllar estetik yapısını korur.",
       "image": "/images/kompozit.jpg",
+      "imageAlign": "object-center",
       "icon": "Heart"
     },
     {
@@ -167,6 +168,7 @@
       "shortDescription": "Hekim kontrolünde özel beyazlatma ışığı ile sadece 45 dakikada 3-4 tona kadar beyazlık elde edin.",
       "longDescription": "Klinikte uygulanan ofis tipi beyazlatma (Power Bleaching), diş hekimi gözetiminde dişlerin üzerine sürülen beyazlatıcı jelin özel bir mavi ışık kaynağıyla aktive edilmesiyle yapılır. Çay, kahve ve sigara lekelerine karşı en etkili ve hızlı çözümdür.",
       "image": "/images/woman-teeth-before-after-whitening-white-background-dental-clinic-patient-image-symbolizes-min-scaled.jpg",
+      "imageAlign": "object-center",
       "icon": "Sparkles"
     }
   ],
