@@ -162,9 +162,6 @@ collections:
                 label: "İletişim Bilgi Kartı Alt Yazısı"
                 widget: string
                 required: false
-              - name: formTitle
-                label: "E-Posta Formu Başlığı"
-                widget: string
               - name: mapEyebrow
                 label: "Harita Bölümü Küçük Etiket"
                 widget: string

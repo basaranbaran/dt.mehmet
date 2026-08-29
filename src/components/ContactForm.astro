@@ -20,7 +20,6 @@ const whatsappGreetingName = doctor?.name || `Dt. ${doctorName}`;
 const whatsappMessageText = `Merhaba ${whatsappGreetingName}, randevu almak istiyorum, bilgi alabilir miyim?`;
 const whatsappMessage = encodeURIComponent(whatsappMessageText);
 const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=${whatsappMessage}`;
-const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
 ---
 
 <section id="iletisim" class="py-20 bg-brand-light relative overflow-hidden">
@@ -40,17 +39,17 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
       </p>
     </div>
 
-    <!-- WhatsApp Randevu + E-Posta Formu — yan yana, eşit yükseklikte -->
-    <div class="contact-form-col grid lg:grid-cols-2 gap-8 items-stretch">
+    <!-- WhatsApp Randevu Kartı — tek başına, ortalanmış -->
+    <div class="contact-form-col max-w-2xl mx-auto">
 
       <!-- Doğrudan WhatsApp Randevu Kartı -->
-      <div class="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl p-6 sm:p-9 text-white shadow-2xl relative overflow-hidden flex flex-col h-full">
+      <div class="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 rounded-3xl p-6 sm:p-9 text-white shadow-2xl relative overflow-hidden">
 
         <!-- Arka Plan Dekoratif Halka -->
         <div class="absolute -right-12 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
         <div class="absolute -left-12 -bottom-12 w-48 h-48 bg-emerald-400/20 rounded-full blur-xl pointer-events-none"></div>
 
-        <div class="relative z-10 space-y-6 text-left flex flex-col h-full">
+        <div class="relative z-10 space-y-6 text-left">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider w-fit">
             <span class="w-2 h-2 rounded-full bg-emerald-300 animate-ping"></span>
             <span>Hızlı &amp; Kolay Randevu</span>
@@ -76,7 +75,7 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
           </div>
 
           <!-- Doğrudan WhatsApp Yönlendirme Butonu -->
-          <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-auto">
+          <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <a
               href={whatsappUrl}
               target="_blank"
@@ -102,72 +101,6 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
           <p class="text-[11px] text-emerald-100">
             * Tıkladığınızda doğrudan {contact.phone || '+90 (530) 508 44 84'} WhatsApp sohbeti açılır.
           </p>
-        </div>
-      </div>
-
-      <!-- Alternatif: E-Posta ile İletişim Formu -->
-      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-gray-100 text-left flex flex-col h-full">
-        <div class="border-b border-gray-100 pb-4 mb-6">
-          <h3 class="text-xl font-bold text-brand-dark font-display">{contactHeading?.formTitle || 'Bize E-Posta Gönderin'}</h3>
-          <p class="text-xs sm:text-sm text-brand-muted mt-1">
-            Sorularınız ve talepleriniz doğrudan <strong class="text-brand-dark">{contact.email}</strong> adresimize iletilir.
-          </p>
-        </div>
-
-        <form id="contact-form-element" data-recipient={recipientEmail} class="space-y-4 flex-1 flex flex-col">
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label for="form-name" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">Adınız Soyadınız *</label>
-              <input type="text" id="form-name" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium" placeholder="Örn: Ahmet Yılmaz" />
-            </div>
-            <div>
-              <label for="form-phone" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">Telefon Numaranız *</label>
-              <input type="tel" id="form-phone" name="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium" placeholder="Örn: 0530 508 44 84" />
-            </div>
-          </div>
-
-          <div>
-            <label for="form-email" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">E-Posta Adresiniz *</label>
-            <input type="email" id="form-email" name="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium" placeholder="Örn: ahmet@example.com" />
-          </div>
-
-          <div class="flex-1 flex flex-col">
-            <label for="form-message" class="block text-xs font-bold text-brand-dark uppercase tracking-wider mb-2">Mesajınız / Talebiniz *</label>
-            <textarea id="form-message" name="message" rows="3" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 outline-none transition-all text-sm font-medium resize-none flex-1" placeholder="Randevu talebinizi veya sorunuzu yazın..."></textarea>
-          </div>
-
-          <button
-            type="submit"
-            id="btnSubmitEmailForm"
-            class="w-full bg-brand-primary hover:bg-brand-secondary text-white font-bold py-3.5 px-6 rounded-2xl shadow-md transform hover:-translate-y-0.5 transition-all text-sm font-display flex items-center justify-center space-x-2 cursor-pointer"
-          >
-            <span id="btnSubmitText">E-Posta Olarak Gönder</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-            </svg>
-          </button>
-        </form>
-
-        <!-- Başarı Bildirimi -->
-        <div id="form-success-message" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-sm font-semibold flex items-center space-x-3">
-          <svg class="w-6 h-6 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <div>
-            <span class="block font-bold">Mesajınız Başarıyla İletildi!</span>
-            <span class="text-xs text-emerald-700 font-normal">Kliniğimiz en kısa sürede sizinle iletişime geçecektir.</span>
-          </div>
-        </div>
-
-        <!-- Hata Bildirimi -->
-        <div id="form-error-message" class="hidden mt-4 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-sm font-semibold flex items-center space-x-3">
-          <svg class="w-6 h-6 text-rose-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          <div>
-            <span class="block font-bold">Mesaj Gönderilemedi</span>
-            <span class="text-xs text-rose-700 font-normal">Lütfen doğrudan WhatsApp hattımızdan bize ulaşın.</span>
-          </div>
         </div>
       </div>
 
@@ -408,61 +341,6 @@ const recipientEmail = contact.email || 'dt.mehmetyagci@gmail.com';
       console.error(e);
     }
   }
-
-  // ========================================================================
-  // 2. E-Posta AJAX Formu (FormSubmit.co ile admin panelinden ayarlanan
-  //    e-posta adresine gönderim — form[data-recipient] üzerinden okunur)
-  // ========================================================================
-  const form = document.getElementById('contact-form-element') as HTMLFormElement;
-  const successMsg = document.getElementById('form-success-message');
-  const errorMsg = document.getElementById('form-error-message');
-  const btnSubmitText = document.getElementById('btnSubmitText');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    successMsg?.classList.add('hidden');
-    errorMsg?.classList.add('hidden');
-
-    const name = (document.getElementById('form-name') as HTMLInputElement)?.value;
-    const phone = (document.getElementById('form-phone') as HTMLInputElement)?.value;
-    const email = (document.getElementById('form-email') as HTMLInputElement)?.value;
-    const message = (document.getElementById('form-message') as HTMLTextAreaElement)?.value;
-    const recipient = form.dataset.recipient || 'dt.mehmetyagci@gmail.com';
-
-    if (btnSubmitText) btnSubmitText.textContent = 'Gönderiliyor...';
-
-    try {
-      const response = await fetch(`https://formsubmit.co/ajax/${recipient}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `Yeni Randevu / Mesaj Talebi: ${name}`,
-          _template: 'table',
-          _captcha: 'false',
-          'Ad Soyad': name,
-          'Telefon': phone,
-          'E-Posta': email,
-          'Mesaj': message,
-          'Tarih': new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' })
-        })
-      });
-
-      if (response.ok) {
-        successMsg?.classList.remove('hidden');
-        form.reset();
-      } else {
-        errorMsg?.classList.remove('hidden');
-      }
-    } catch (err) {
-      console.error(err);
-      errorMsg?.classList.remove('hidden');
-    } finally {
-      if (btnSubmitText) btnSubmitText.textContent = 'E-Posta Olarak Gönder';
-    }
-  });
 
   // Sayfa yüklendiğinde ve her dakika çalışma durumunu güncelle
   calculateClinicOpenStatus();
