@@ -288,24 +288,49 @@ collections:
             widget: object
             collapsed: true
             fields:
+              - name: doctorName
+                label: "Doktor Adı (İletişim Kartında Görünür)"
+                widget: string
+                hint: "İletişim bölümündeki bilgi kartında ve WhatsApp hazır mesajında görünen isim."
               - name: phone
-                label: "Telefon (Görünen)"
+                label: "Telefon / WhatsApp (Görünen)"
                 widget: string
                 hint: "Sitede görünecek formatlı numara. Örn: +90 (232) 444 0 555"
               - name: phoneClean
-                label: "Telefon (Arama İçin)"
+                label: "Telefon / WhatsApp (Arama İçin)"
                 widget: string
-                hint: "Boşluksuz, tıklanınca arama yapılacak numara. Örn: +902324440555"
+                hint: "Boşluksuz, tıklanınca arama/whatsapp açılacak numara. Örn: +902324440555"
+              - name: landlinePhone
+                label: "Sabit Hat (Görünen)"
+                widget: string
+                required: false
+                hint: "Klinik sabit telefonu. Örn: 0 (256) 313 48 84"
+              - name: landlineClean
+                label: "Sabit Hat (Arama İçin)"
+                widget: string
+                required: false
+                hint: "Boşluksuz, tıklanınca arama yapılacak sabit hat. Örn: 02563134884"
               - name: email
                 label: "E-Posta Adresi"
                 widget: string
+                hint: "İletişim formundaki mesajlar da bu adrese gönderilir."
               - name: address
                 label: "Adres"
                 widget: text
+              - name: addressNote
+                label: "Adres Notu (Harita Kartının Altında Görünür)"
+                widget: string
+                required: false
+                hint: "Örn: Devlet Hastanesi Poliklinik Girişi Karşısı, Nazilli / Aydın"
               - name: googleMapsEmbedUrl
                 label: "Google Haritalar Embed URL"
                 widget: string
                 hint: "Google Maps'ten 'Paylaş > Haritayı Göm' ile alınan URL."
+              - name: googleMapsShareUrl
+                label: "Google Haritalar Yol Tarifi Linki"
+                widget: string
+                required: false
+                hint: "Google Maps'ten 'Paylaş' ile alınan kısa link. 'Yol Tarifi Al' butonunda kullanılır."
               - name: workingHours
                 label: "Çalışma Saatleri"
                 widget: list

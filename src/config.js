@@ -69,12 +69,12 @@ const themePalettes = {
     phoneColor: "#575B5F",      // Telefon / İletişim Rengi (Koyu Gri)
   },
   premiumClinicTheme: {
-    primaryColor: "#6fb7ffb7",    // Gece Laciverti (Güven ve profesyonellik için ana gövde rengi)
-    secondaryColor: "#3a312cff",  // Eskitme Ahşap (Detaylar, ikonlar ve yardımcı vurgular)
-    accentColor: "#a7d1fcff",     // Altın Sarısı (Butonlar, önemli call-to-action'lar ve lüks detaylar)
-    darkColor: "#111827ff",       // Derin Lacivert (Footer veya başlık alanı gibi koyu zeminler)
-    lightColor: "#eee6db",        // Bej/Kum (Ana içerik alanı arka planı, okunabilirliği artırır)
-    phoneColor: "#181e2b",      // Telefon / İletişim Rengi (Eskitme Ahşap)
+    primaryColor: "#1E3A5F",    // Gece Laciverti (Güven ve profesyonellik için ana gövde rengi)
+    secondaryColor: "#15263D",  // Koyu Lacivert (Hover durumları)
+    accentColor: "#B08D57",     // Altın Sarısı (Butonlar, önemli call-to-action'lar ve lüks detaylar)
+    darkColor: "#10192B",       // Derin Lacivert (Footer veya başlık alanı gibi koyu zeminler)
+    lightColor: "#F4EEE3",      // Bej/Kum (Ana içerik alanı arka planı, okunabilirliği artırır)
+    phoneColor: "#B08D57",      // Telefon / İletişim Rengi (Altın Sarısı — dikkat çeken CTA)
   },
   warmWoodenTheme: {
     primaryColor: "#5D4037",    // Koyu Kahve (Ahşap detaylar ve güçlü vurgular için)

@@ -50,6 +50,7 @@ const cleanImageUrl = (img: string) => {
             loading="lazy"
             decoding="async"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            style={item.focalPosition ? `object-position: ${item.focalPosition};` : (item.focalX !== undefined ? `object-position: ${item.focalX}% ${item.focalY}%;` : undefined)}
           />
           <!-- Hover Overlay -->
           <div class="absolute inset-0 bg-brand-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 text-left">

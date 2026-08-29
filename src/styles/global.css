@@ -9,13 +9,13 @@
    CSS VARIABLES — Temayı JS'ten ayarlıyoruz
    ============================================= */
 :root {
-  --color-primary: #6fb7ffb7;
-  --color-secondary: #3a312cff;
-  --color-accent: #a7d1fcff;
-  --color-dark: #111827ff;
-  --color-light: #eee6db;
+  --color-primary: #1E3A5F;
+  --color-secondary: #15263D;
+  --color-accent: #B08D57;
+  --color-dark: #10192B;
+  --color-light: #F4EEE3;
   --color-muted: #6B7280;
-  --color-phone: #181e2b;
+  --color-phone: #B08D57;
 }
 
 /* =============================================
@@ -152,11 +152,3 @@ section {
   max-height: 500px;
 }
 
-/* =============================================
-   LOGO DARK MODE FILTER
-   ============================================= */
-@media (prefers-color-scheme: dark) {
-  .logo-invert {
-    filter: invert(1) brightness(1.2);
-  }
-}

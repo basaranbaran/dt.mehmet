@@ -26,9 +26,9 @@ function initNavbar() {
   if (!nav) return;
 
   ScrollTrigger.create({
-    start: 'top -60',
-    onEnter: () => nav.classList.add('glass-nav', 'shadow-md'),
-    onLeaveBack: () => nav.classList.remove('glass-nav', 'shadow-md'),
+    start: 'top -30',
+    onEnter: () => nav.classList.add('shadow-md', 'py-2'),
+    onLeaveBack: () => nav.classList.remove('shadow-md', 'py-2'),
   });
 }
 

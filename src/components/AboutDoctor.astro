@@ -43,6 +43,7 @@ const cleanImageUrl = (img: string) => {
               src={cleanImageUrl(doctor.image)}
               alt={doctor.name}
               class={`doctor-parallax w-full h-full object-cover ${doctor.imageAlign || 'object-top'} hover:scale-105 transition-transform duration-500`}
+              style={doctor.focalPosition ? `object-position: ${doctor.focalPosition};` : (doctor.focalX !== undefined ? `object-position: ${doctor.focalX}% ${doctor.focalY}%;` : undefined)}
               loading="lazy"
               decoding="async"
             />
@@ -57,7 +58,7 @@ const cleanImageUrl = (img: string) => {
               </svg>
               <span class="text-xl font-bold font-display">{doctor.experienceYear}</span>
             </div>
-            <p class="text-[10px] uppercase font-bold tracking-wide mt-1 text-white/90">
+            <p class="text-[10px] uppercase font-bold tracking-wide mt-1 text-brand-dark/80">
               {doctor.experienceBadgeText}
             </p>
           </div>

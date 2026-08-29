@@ -1,12 +1,763 @@
 <!DOCTYPE html>
 <html lang="tr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Admin Paneli — Dt. Mehmet Yağcı</title>
-  </head>
-  <body>
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Yönetim Paneli | Dt. Mehmet Yağcı Diş Kliniği</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <link rel="icon" type="image/webp" href="/images/brand-logo.webp">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================================================
+       1. Giriş / Kilit Ekranı
+       ========================================================================== -->
+  <div class="admin-auth-screen" id="adminAuthScreen">
+    <div class="auth-card">
+      <div class="auth-logo-badge">MY</div>
+      <h2 class="auth-title">Yönetici Girişi</h2>
+      <p class="auth-subtitle">Dt. Mehmet Yağcı — Diş Kliniği Yönetim Paneli</p>
+
+      <form id="adminLoginForm" class="auth-form" autocomplete="on">
+        <div id="authErrorMsg" class="auth-error-msg" role="alert">
+          Kullanıcı adı veya şifre hatalı!
+        </div>
+
+        <div class="form-group-admin">
+          <label for="adminUsername">Kullanıcı Adı</label>
+          <input type="text" id="adminUsername" class="admin-input" placeholder="admin" value="admin" required autocomplete="username">
+        </div>
+
+        <div class="form-group-admin">
+          <label for="adminPassword">Yönetici Şifresi</label>
+          <input type="password" id="adminPassword" class="admin-input" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" id="btnAdminLogin" class="btn-admin-primary" style="justify-content: center; width: 100%; margin-top: 6px; padding: 12px;">
+          Giriş Yap
+        </button>
+      </form>
+
+      <p class="auth-note">
+        Varsayılan şifre: <code>admin123</code> veya <code>admin</code>
+      </p>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       2. Mobil Üst Bar
+       ========================================================================== -->
+  <div class="admin-mobile-header">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button type="button" class="mobile-sidebar-toggle" id="mobileSidebarToggle" aria-label="Menü">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <span style="font-weight: 800; font-size: 1rem; color: var(--admin-primary);">Dt. Mehmet Yağcı</span>
+    </div>
+    <button type="button" class="btn-admin-primary" id="btnPublishMobile" style="font-size: 0.78rem; padding: 6px 12px;">
+      Yayınla 🚀
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       3. Ana Layout & Sidebar
+       ========================================================================== -->
+  <div class="admin-layout" id="adminLayout">
+
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div>
+        <div class="sidebar-brand">
+          <div class="sidebar-logo">MY</div>
+          <div class="sidebar-brand-text">
+            <span class="sidebar-brand-title">Dt. Mehmet Yağcı</span>
+            <span class="sidebar-brand-sub">Yönetim Paneli</span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Panel bölümleri">
+          <button type="button" class="sidebar-link active" data-tab="tab-overview">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Genel Bakış</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-treatments">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            <span>Tedaviler &amp; Hizmetler</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-features">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Neden Kliniğimiz?</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-doctor">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Hekim Bilgileri</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-gallery">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+            <span>Klinik Galerisi</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-hero">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Hero &amp; Başlıklar</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-contact">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <span>İletişim &amp; Saatler</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-theme">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+            <span>Renk Teması &amp; SEO</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-images">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <span>Görseller &amp; Kadraj</span>
+          </button>
+
+          <button type="button" class="sidebar-link" data-tab="tab-publish">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Yayınla &amp; Yedek</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="draft-status" id="draftStatusBox">
+          <span class="draft-dot"></span>
+          <span id="draftStatusText">Veri yükleniyor…</span>
+        </div>
+        <a href="/" target="_blank" rel="noopener" class="btn-admin-secondary" style="justify-content: center; width: 100%;">
+          Canlı Siteyi Gör ↗
+        </a>
+        <button type="button" id="btnAdminLogout" class="btn-admin-danger" style="justify-content: center; width: 100%;">
+          Çıkış Yap
+        </button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+
+      <!-- Yayınlanmamış değişiklik şeridi -->
+      <div class="publish-bar" id="publishBar" hidden>
+        <div class="publish-bar-text">
+          <strong>Yayınlanmamış değişiklikler var</strong>
+          <span>Değişiklikler tarayıcınızda taslak olarak saklanıyor.</span>
+        </div>
+        <div class="publish-bar-actions">
+          <a href="/taslak" target="_blank" rel="noopener" class="btn-admin-secondary" style="font-size: 0.82rem; background: #fff; color: #1E3A8A;">Taslağı Önizle ↗</a>
+          <button type="button" class="btn-admin-primary" id="btnPublishTop" style="font-size: 0.82rem; background: #10B981;">Siteye Yayınla 🚀</button>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           Sekme 1: Genel Bakış
+           ====================================================================== -->
+      <section class="tab-pane active" id="tab-overview">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Klinik Yönetim Özeti</h1>
+            <p>Tedavileri, hekim bilgilerini, fotoğrafları ve metinleri buradan kolayca düzenleyip tek tuşla yayınlayın.</p>
+          </div>
+          <div class="admin-actions-group">
+            <a href="/taslak" target="_blank" rel="noopener" class="btn-admin-secondary">Taslağı Önizle ↗</a>
+            <button type="button" class="btn-admin-primary" data-goto-tab="tab-treatments">+ Tedavi Düzenle</button>
+          </div>
+        </div>
+
+        <div class="admin-stats-grid" id="adminStatsGrid"></div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">💡 Nasıl Çalışıyor?</h3>
+          </div>
+          <ol class="admin-help-list" style="margin-left: 20px; line-height: 1.8; font-size: 0.9rem; color: var(--admin-text-sub);">
+            <li><strong>Düzenle:</strong> Sol menüden istediğiniz bölüme geçip bilgileri güncelleyin. Her değişiklik anında cihazınızda taslak olarak kaydedilir.</li>
+            <li><strong>Önizle:</strong> Üstteki <em>"Taslağı Önizle"</em> butonu ile <code>/taslak</code> sayfasında canlıya almadan önce değişikliklerinizi inceleyin.</li>
+            <li><strong>Yayınla:</strong> <em>"Siteye Yayınla"</em> butonuna bastığınızda veriler doğrudan GitHub deponuza gönderilir ve GitHub Actions siteyi 1-2 dakika içinde günceller.</li>
+          </ol>
+
+          <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+            <button type="button" class="btn-admin-primary" data-goto-tab="tab-treatments">🦷 Tedaviler</button>
+            <button type="button" class="btn-admin-secondary" data-goto-tab="tab-doctor">👨‍⚕️ Hekim Profili</button>
+            <button type="button" class="btn-admin-secondary" data-goto-tab="tab-gallery">🖼️ Klinik Galerisi</button>
+            <button type="button" class="btn-admin-secondary" data-goto-tab="tab-theme">🎨 Renk Teması &amp; SEO</button>
+            <button type="button" class="btn-admin-secondary" data-goto-tab="tab-contact">📍 İletişim &amp; Saatler</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 2: Tedaviler & Hizmetler
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-treatments">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Tedaviler &amp; Hizmetler</h1>
+            <p>Kliniğinizde sunulan tedavileri ekleyin, düzenleyin, sıralayın veya görsel kadrajlarını belirleyin.</p>
+          </div>
+          <div class="admin-actions-group">
+            <button type="button" class="btn-admin-primary" id="btnAddTreatment">+ Yeni Tedavi Ekle</button>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Bölüm Başlığı ve Açıklamaları</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Üst Rozet Metni</label>
+              <input type="text" class="admin-input" data-bind="treatmentsHeading.title" placeholder="Hizmetlerimiz" />
+            </div>
+            <div class="form-group-admin">
+              <label>Ana Başlık</label>
+              <input type="text" class="admin-input" data-bind="treatmentsHeading.subtitle" placeholder="Ağız ve Diş Sağlığı Tedavileri" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Alt Açıklama</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="treatmentsHeading.description"></textarea>
+          </div>
+        </div>
+
+        <div id="treatmentsContainer"></div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 3: Neden Kliniğimiz?
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-features">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Neden Kliniğimiz? (Klinik Farkı)</h1>
+            <p>Kliniğinizin teknoloji, hijyen ve uzmanlık gibi öne çıkan 3 temel farkını yönetin.</p>
+          </div>
+          <div class="admin-actions-group">
+            <button type="button" class="btn-admin-primary" id="btnAddFeature">+ Yeni Madde Ekle</button>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Bölüm Başlığı</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Üst Rozet Metni</label>
+              <input type="text" class="admin-input" data-bind="featuresHeading.title" placeholder="Neden Kliniğimiz?" />
+            </div>
+            <div class="form-group-admin">
+              <label>Ana Başlık</label>
+              <input type="text" class="admin-input" data-bind="featuresHeading.subtitle" placeholder="Diş Kliniğimizin Farkı" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Alt Açıklama</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="featuresHeading.description"></textarea>
+          </div>
+        </div>
+
+        <div id="featuresContainer"></div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 4: Hekim Bilgileri
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-doctor">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Hekim Profili &amp; Biyografi</h1>
+            <p>Hekim adı, unvanı, deneyim yılı, özgeçmiş metni ve eğitim geçmişini yönetin.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Temel Bilgiler</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Hekim Adı Soyadı</label>
+              <input type="text" class="admin-input" data-bind="doctor.name" placeholder="Dt. Mehmet Yağcı" />
+            </div>
+            <div class="form-group-admin">
+              <label>Unvan / Uzmanlık</label>
+              <input type="text" class="admin-input" data-bind="doctor.title" placeholder="Kurucu / Diş Hekimi" />
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Deneyim Yılı</label>
+              <input type="text" class="admin-input" data-bind="doctor.experienceYear" placeholder="5+ Yıl" />
+            </div>
+            <div class="form-group-admin">
+              <label>Deneyim Rozet Metni</label>
+              <input type="text" class="admin-input" data-bind="doctor.experienceBadgeText" placeholder="BİLGİ VE SAMİMİYETİN BULUŞMASI" />
+            </div>
+          </div>
+
+          <div class="form-group-admin">
+            <label>Hekim Biyografisi (Özgeçmiş)</label>
+            <textarea class="admin-textarea" style="min-height: 140px;" data-bind="doctor.bio"></textarea>
+            <span class="admin-help-text">Kalın metin için **yazı**, italik için *yazı* kullanabilirsiniz. Paragraflar için Enter'a basmanız yeterlidir.</span>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Hekim Fotoğrafı &amp; Kadraj</label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" class="admin-input" data-bind="doctor.image" style="flex: 1;" />
+                <label class="btn-admin-secondary" style="cursor: pointer; white-space: nowrap;">
+                  📁 Fotoğraf Seç
+                  <input type="file" id="fileDoctorUpload" accept="image/*" style="display: none;" />
+                </label>
+                <button type="button" class="btn-admin-primary" id="btnDoctorCrop" style="white-space: nowrap;">
+                  📐 Kadraj &amp; Odak Noktası
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Eğitim ve Üyelikler</h3>
+            <button type="button" class="btn-admin-primary" id="btnAddDoctorEdu" style="font-size: 0.8rem;">+ Madde Ekle</button>
+          </div>
+          <div id="doctorEduContainer"></div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 5: Klinik Galerisi
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-gallery">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Klinik Galerisi</h1>
+            <p>Kliniğinizin bekleme salonu, tedavi üniteleri ve teknolojik cihaz fotoğraflarını yönetin.</p>
+          </div>
+          <div class="admin-actions-group">
+            <button type="button" class="btn-admin-primary" id="btnAddGalleryImage">+ Yeni Fotoğraf Ekle</button>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Bölüm Başlığı</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Üst Rozet Metni</label>
+              <input type="text" class="admin-input" data-bind="galleryHeading.title" placeholder="Kliniğimiz" />
+            </div>
+            <div class="form-group-admin">
+              <label>Ana Başlık</label>
+              <input type="text" class="admin-input" data-bind="galleryHeading.subtitle" placeholder="Tedavi ve Teknoloji Alanlarımız" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Alt Açıklama</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="galleryHeading.description"></textarea>
+          </div>
+        </div>
+
+        <div id="galleryContainer"></div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 6: Hero & Başlıklar
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-hero">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Hero Kartları &amp; Başlıklar</h1>
+            <p>Ana sayfanın en üstündeki interaktif 4'lü kart ızgarasının metin ve görsellerini yönetin.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Kart 1: Tedavilerimiz Kartı (Sağ Üst)</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Kart Başlığı</label>
+              <input type="text" class="admin-input" data-bind="hero.treatmentsCard.title" />
+            </div>
+            <div class="form-group-admin">
+              <label>Arka Plan Görseli</label>
+              <input type="text" class="admin-input" data-bind="hero.treatmentsCard.image" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Açıklama Metni</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="hero.treatmentsCard.description"></textarea>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Kart 2: Kliniğimiz Kartı (Sağ Alt Sol)</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Kart Başlığı</label>
+              <input type="text" class="admin-input" data-bind="hero.clinicCard.title" />
+            </div>
+            <div class="form-group-admin">
+              <label>Arka Plan Görseli (Boş bırakılırsa galerinin ilk fotoğrafı kullanılır)</label>
+              <input type="text" class="admin-input" data-bind="hero.clinicCard.image" placeholder="images/gallery-1.webp" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Açıklama Metni</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="hero.clinicCard.description"></textarea>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Kart 3: İletişim Kartı (Sağ Alt Sağ)</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Kart Başlığı</label>
+              <input type="text" class="admin-input" data-bind="hero.contactCard.title" />
+            </div>
+            <div class="form-group-admin">
+              <label>Arka Plan Görseli</label>
+              <input type="text" class="admin-input" data-bind="hero.contactCard.image" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Açıklama Metni</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="hero.contactCard.description"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 7: İletişim & Saatler
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-contact">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>İletişim, Harita &amp; Çalışma Saatleri</h1>
+            <p>Telefon, adres, Google Haritalar konumu, çalışma saatleri ve sosyal medya bağlantılarını yönetin.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Bölüm Başlığı ve Form Başlıkları</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Üst Rozet Metni</label>
+              <input type="text" class="admin-input" data-bind="contactHeading.title" placeholder="İletişim" />
+            </div>
+            <div class="form-group-admin">
+              <label>Ana Başlık</label>
+              <input type="text" class="admin-input" data-bind="contactHeading.subtitle" placeholder="İletişim ve Randevu" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Alt Açıklama</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="contactHeading.description"></textarea>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>İletişim Bilgileri Kart Başlığı</label>
+              <input type="text" class="admin-input" data-bind="contactHeading.infoTitle" placeholder="Klinik Detayları" />
+            </div>
+            <div class="form-group-admin">
+              <label>Mesaj Formu Kart Başlığı</label>
+              <input type="text" class="admin-input" data-bind="contactHeading.formTitle" placeholder="Bize Mesaj Gönderin" />
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">İletişim Bilgileri</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Hekim / Yetkili Adı</label>
+              <input type="text" class="admin-input" data-bind="contact.doctorName" placeholder="Mehmet YAĞCI" />
+            </div>
+            <div class="form-group-admin">
+              <label>E-Posta Adresi</label>
+              <input type="email" class="admin-input" data-bind="contact.email" placeholder="dt.mehmetyagci@gmail.com" />
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group-admin">
+              <label>Mobil / WhatsApp Numarası</label>
+              <input type="text" class="admin-input" data-bind="contact.phone" placeholder="+90 (530) 508 44 84" />
+            </div>
+            <div class="form-group-admin">
+              <label>WhatsApp Temiz No (Boşluksuz)</label>
+              <input type="text" class="admin-input" data-bind="contact.phoneClean" placeholder="905305084484" />
+            </div>
+            <div class="form-group-admin">
+              <label>Sabit Klinik Hattı</label>
+              <input type="text" class="admin-input" data-bind="contact.landlinePhone" placeholder="0 (256) 313 48 84" />
+            </div>
+          </div>
+
+          <div class="form-group-admin">
+            <label>Açık Adres</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="contact.address" placeholder="Yeşil Mahalle 727. Sokak No:24 Kat:1 (Devlet Hastanesi Poliklinik Girişi Karşısı)"></textarea>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Google Maps Embed URL / Iframe Kodu</label>
+              <textarea class="admin-textarea" style="min-height: 70px; font-family: monospace; font-size: 0.8rem;" data-bind="contact.googleMapsEmbedUrl"></textarea>
+            </div>
+            <div class="form-group-admin">
+              <label>Google Haritalar Yol Tarifi / Paylaşım Linki</label>
+              <input type="text" class="admin-input" data-bind="contact.googleMapsShareUrl" placeholder="https://share.google/YQ6vVbmg2UtP1O5TT" />
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Çalışma Saatleri</h3>
+            <button type="button" class="btn-admin-primary" id="btnAddWorkingHourRow" style="font-size: 0.8rem;">+ Saat Satırı Ekle</button>
+          </div>
+          <div id="workingHoursContainer"></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Sosyal Medya Hesapları</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Instagram URL</label>
+              <input type="text" class="admin-input" data-bind="socials.instagram" placeholder="https://instagram.com/dt.mehmetyagci" />
+            </div>
+            <div class="form-group-admin">
+              <label>Facebook URL</label>
+              <input type="text" class="admin-input" data-bind="socials.facebook" />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Twitter / X URL</label>
+              <input type="text" class="admin-input" data-bind="socials.twitter" placeholder="https://x.com/..." />
+            </div>
+            <div class="form-group-admin">
+              <label>YouTube URL</label>
+              <input type="text" class="admin-input" data-bind="socials.youtube" placeholder="https://youtube.com/..." />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 8: Renk Teması & SEO
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-theme">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Renk Paleti, Marka &amp; SEO Ayarları</h1>
+            <p>Sitenin tüm renklerini tek tıkla değiştirin, marka logolarını ve arama motoru (SEO) ayarlarını yönetin.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">🎨 Aktif Renk Paleti</h3>
+            <span class="admin-inline-hint">Seçtiğiniz tema kaydedildiğinde tüm site renkleri anında güncellenir.</span>
+          </div>
+          <div class="palette-grid" id="paletteGridContainer"></div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">🏷️ Marka &amp; Logo Ayarları</h3>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Marka / Klinik Adı</label>
+              <input type="text" class="admin-input" data-bind="brand.name" />
+            </div>
+            <div class="form-group-admin">
+              <label>Slogan</label>
+              <input type="text" class="admin-input" data-bind="brand.slogan" placeholder="Smile Together" />
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Logo Üst Metni</label>
+              <input type="text" class="admin-input" data-bind="brand.logoText" placeholder="Dt. Mehmet Yağcı" />
+            </div>
+            <div class="form-group-admin">
+              <label>Logo Alt Metni</label>
+              <input type="text" class="admin-input" data-bind="brand.logoSubtext" placeholder="Ağız ve Diş Sağlığı Kliniği" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>Logo Görsel Yolu</label>
+            <input type="text" class="admin-input" data-bind="brand.logoImage" />
+          </div>
+          <div class="form-group-admin">
+            <label>Footer Tanıtım Açıklaması</label>
+            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="brand.description"></textarea>
+          </div>
+          <div class="form-group-admin">
+            <label>Telif Hakkı / Footer Alt Bar Metni</label>
+            <input type="text" class="admin-input" data-bind="brand.copyrightText" placeholder="© {year} Dt. Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği. Tüm Hakları Saklıdır." />
+            <span class="admin-help-text">"{year}" yazıldığında otomatik olarak güncel yılı ekler.</span>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">🔍 Arama Motoru Optimizasyonu (SEO)</h3>
+          </div>
+          <div class="form-group-admin">
+            <label>Sayfa Başlığı (Browser Title)</label>
+            <input type="text" class="admin-input" data-bind="metadata.title" />
+          </div>
+          <div class="form-group-admin">
+            <label>Meta Açıklaması (Google Arama Özeti)</label>
+            <textarea class="admin-textarea" style="min-height: 70px;" data-bind="metadata.description"></textarea>
+          </div>
+          <div class="form-group-admin">
+            <label>Anahtar Kelimeler (Keywords)</label>
+            <input type="text" class="admin-input" data-bind="metadata.keywords" />
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group-admin">
+              <label>Site URL</label>
+              <input type="text" class="admin-input" data-bind="metadata.ogUrl" placeholder="https://dtmehmetyagci.com" />
+            </div>
+            <div class="form-group-admin">
+              <label>Sosyal Medya Paylaşım Görseli (OG Image)</label>
+              <input type="text" class="admin-input" data-bind="metadata.ogImage" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 9: Görseller & Kadraj
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-images">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Görseller &amp; Kadraj Yöneticisi</h1>
+            <p>Sitedeki tüm fotoğrafları tek ekranda görün, bilgisayarınızdan yeni fotoğraflar yükleyin ve kadrajlarını belirleyin.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">Sitedeki Tüm Görseller</h3>
+          </div>
+          <div class="images-admin-grid" id="imagesGridContainer"></div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           Sekme 10: Yayınla & Yedek
+           ====================================================================== -->
+      <section class="tab-pane" id="tab-publish">
+        <div class="admin-top-bar">
+          <div class="page-title-group">
+            <h1>Yayınlama &amp; Yedek Yönetimi</h1>
+            <p>Değişikliklerinizi tek tıkla GitHub üzerinden yayına alın veya site ayarlarınızı JSON olarak yedekleyin.</p>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">🚀 Canlı Siteye Yayınla</h3>
+          </div>
+          <p class="admin-help-text" style="margin-bottom: 16px;">
+            Yaptığınız değişiklikleri <code>dtmehmetyagci.com</code> üzerinde canlıya almak için aşağıdaki butona basın.
+            GitHub API aracılığıyla verileriniz doğrudan depoya commit edilecek ve GitHub Actions otomatik build alacaktır.
+          </p>
+          <button type="button" class="btn-admin-primary" id="btnPublishDirect" style="padding: 12px 24px; font-size: 1rem;">
+            🚀 Siteye Yayınla (Commit &amp; Deploy)
+          </button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">🔗 GitHub Depo Bağlantısı</h3>
+          </div>
+          <div class="form-grid-3">
+            <div class="form-group-admin">
+              <label>GitHub Kullanıcı Adı</label>
+              <input type="text" id="ghOwner" class="admin-input" value="basaranbaran" />
+            </div>
+            <div class="form-group-admin">
+              <label>Depo Adı (Repo)</label>
+              <input type="text" id="ghRepo" class="admin-input" value="dt.mehmet" />
+            </div>
+            <div class="form-group-admin">
+              <label>Dal (Branch)</label>
+              <input type="text" id="ghBranch" class="admin-input" value="main" />
+            </div>
+          </div>
+          <div class="form-group-admin">
+            <label>GitHub Personal Access Token (PAT)</label>
+            <input type="password" id="ghToken" class="admin-input" placeholder="github_pat_..." />
+            <span class="admin-help-text">
+              GitHub &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens &rarr; Fine-grained tokens üzerinden sadece bu depoya <strong>Contents: Read and write</strong> izni olan bir token oluşturup buraya girin. Token güvenle yalnızca tarayıcınızda saklanır.
+            </span>
+          </div>
+          <button type="button" class="btn-admin-secondary" id="btnSaveGitHubCfg">
+            💾 GitHub Bağlantısını Kaydet &amp; Test Et
+          </button>
+        </div>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title">💾 Yedekleme &amp; Sıfırlama</h3>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button type="button" class="btn-admin-secondary" id="btnExportBackup">
+              📥 JSON Yedek İndir
+            </button>
+            <label class="btn-admin-secondary" style="cursor: pointer;">
+              📤 JSON Yedek Yükle
+              <input type="file" id="fileImportBackup" accept=".json" style="display: none;" />
+            </label>
+            <button type="button" class="btn-admin-danger" id="btnResetDraft">
+              ⚠️ Taslağı Sıfırla (Canlıya Dön)
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Bildirimi -->
+  <div class="admin-toast" id="adminToast">
+    <span id="adminToastMsg"></span>
+  </div>
+
+  <!-- JS Dosyaları -->
+  <script src="site-data.js"></script>
+  <script src="cropper.js"></script>
+  <script src="admin.js"></script>
+</body>
 </html>

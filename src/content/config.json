@@ -54,7 +54,8 @@
     "logoText": "Dt. Mehmet Yağcı",
     "logoSubtext": "Ağız ve Diş Sağlığı Kliniği",
     "logoImage": "/images/d01117d8-d34b-4f7e-b372-0a29d7e3fcdd.png",
-    "description": "Nazilli'de modern teknolojiler, tecrübeli hekim kadrosu ve üstün hijyen standartlarıyla ağız ve diş sağlığınız için en iyi çözümleri üretiyoruz."
+    "description": "Nazilli'de modern teknolojiler, tecrübeli hekim kadrosu ve üstün hijyen standartlarıyla ağız ve diş sağlığınız için en iyi çözümleri üretiyoruz.",
+    "copyrightText": "© {year} Dt. Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği. Tüm Hakları Saklıdır."
   },
   "doctor": {
     "name": "Dt. Mehmet Yağcı",
@@ -70,23 +71,25 @@
     ]
   },
   "contact": {
-    "phone": "+90 (530) 508 4484",
-    "phoneClean": "+90 (530) 508 4484",
+    "doctorName": "Mehmet YAĞCI",
+    "phone": "+90 (530) 508 44 84",
+    "phoneClean": "+905305084484",
+    "landlinePhone": "0 (256) 313 48 84",
+    "landlineClean": "02563134884",
     "email": "dt.mehmetyagci@gmail.com",
-    "address": "Yeşil Mahalle 727. Sokak No:24 Kat:1 (Devlet Hastanesi Girişi Karşısı)",
-    "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d342.50021048011234!2d28.336696361341964!3d37.920266726387865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b8b9d0befc509b%3A0x4979b98d3adb6512!2sDi%C5%9F%20Hekimi%20Mehmet%20YA%C4%9ECI!5e0!3m2!1str!2str!4v1785443097720!5m2!1str!2str\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin",
+    "address": "Yeşil Mahalle 727. Sokak No:24 Kat:1 (Devlet Hastanesi Poliklinik Girişi Karşısı)",
+    "addressNote": "Devlet Hastanesi Poliklinik Girişi Karşısı, Nazilli / Aydın",
+    "googleMapsEmbedUrl": "https://maps.google.com/maps?q=Dt.+Mehmet+Ya%C4%9Fc%C4%B1+A%C4%9F%C4%B1z+ve+Di%C5%9F+Sa%C4%9Fl%C4%B1%C4%9F%C4%B1+Klini%C4%9Fi+Nazilli&t=&z=16&ie=UTF8&iwloc=&output=embed",
+    "googleMapsShareUrl": "https://share.google/YQ6vVbmg2UtP1O5TT",
+    "googleMapsDirectionsUrl": "https://share.google/YQ6vVbmg2UtP1O5TT",
     "workingHours": [
       {
-        "days": "Pazartesi - Cumartesi",
-        "hours": "09:00 - 19:00"
-      },
-      {
-        "days": "Cumartesi",
-        "hours": "09:00 - 19:00"
+        "days": "Pazartesi — Cumartesi",
+        "hours": "08:00 — 20:00"
       },
       {
         "days": "Pazar",
-        "hours": "Kapalı (Yalnızca Acil)"
+        "hours": "Kapalı (Randevu & İletişim)"
       }
     ]
   },
