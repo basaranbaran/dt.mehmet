@@ -31,7 +31,10 @@
     "title": "İletişim",
     "subtitle": "İletişim ve Randevu",
     "description": "Çalışma saatleri içerisinde bize ulaşabilir veya hızlıca mesajınızı iletebilirsiniz.",
-    "infoTitle": "Klinik Detayları",
+    "infoTitle": "İletişim & Randevu",
+    "infoSubtitle": "Sorularınız ve randevu talepleriniz için doğrudan bize ulaşın.",
+    "mapEyebrow": "İletişim & Ulaşım",
+    "mapTitle": "Bize Ulaşın & Ziyaret Edin",
     "formTitle": "Bize Mesaj Gönderin"
   },
   "metadata": {
