@@ -24,6 +24,22 @@ const cleanImageUrl = (img: string) => {
   const cleanImg = img.startsWith('/') ? img : '/' + img;
   return cleanBase + cleanImg;
 };
+
+// Çalışma saatleri özeti (SSR varsayılanı)
+let defaultWorkingHoursDisplay = '09:00-19:00';
+if (Array.isArray(contact.workingHours) && contact.workingHours.length > 0) {
+  const activeDay = contact.workingHours.find((item: any) => item.hours && !item.hours.toLowerCase().includes('kapalı'));
+  if (activeDay) {
+    const m = activeDay.hours.match(/(\d{1,2})[:.](\d{2})\s*[-—–]\s*(\d{1,2})[:.](\d{2})/);
+    if (m) {
+      defaultWorkingHoursDisplay = `${m[1].padStart(2, '0')}:${m[2]}-${m[3].padStart(2, '0')}:${m[4]}`;
+    }
+  }
+}
+const workingHoursJson = JSON.stringify(contact.workingHours || [
+  { days: 'Pazartesi — Cumartesi', hours: '09:00 — 19:00' },
+  { days: 'Pazar', hours: 'Kapalı (Randevu & İletişim)' }
+]);
 ---
 
 <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 py-3 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100 transition-all duration-300">
@@ -64,10 +80,13 @@ const cleanImageUrl = (img: string) => {
 
       <!-- Action Button & Live Open Badge -->
       <div class="hidden md:flex items-center space-x-3">
-        <!-- Canlı Açık / Kapalı Durumu -->
-        <div id="navbarLiveStatusBadge" class="hidden xl:flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200">
+        <div
+          id="navbarLiveStatusBadge"
+          data-working-hours={workingHoursJson}
+          class="hidden xl:flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200"
+        >
           <span class="w-2 h-2 rounded-full animate-pulse bg-emerald-500"></span>
-          <span id="navbarLiveStatusText">Şu an Açık (08:00-20:00)</span>
+          <span id="navbarLiveStatusText">Şu an Açık ({defaultWorkingHoursDisplay})</span>
         </div>
 
         <a

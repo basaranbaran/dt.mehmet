@@ -41,11 +41,11 @@ const cleanImageUrl = (img: string) => {
           <div class="absolute -inset-4 bg-brand-primary/10 rounded-[2.5rem] -rotate-3 z-0"></div>
 
           <!-- Fotoğraf Çerçevesi -->
-          <div class="relative z-10 rounded-[2.2rem] overflow-hidden shadow-xl border-4 border-white bg-white aspect-[4/5]">
+          <div class="relative z-10 rounded-[2.2rem] overflow-hidden shadow-xl border-4 border-white bg-[#2f353e] aspect-[4/5]">
             <img
               src={cleanImageUrl(doctor.image)}
               alt={doctor.name}
-              class={`doctor-parallax w-full h-full object-cover ${doctor.imageAlign || 'object-top'} hover:scale-105 transition-transform duration-500`}
+              class={`doctor-parallax w-full h-full min-h-full block object-cover ${doctor.imageAlign || 'object-top'} hover:scale-105 transition-transform duration-500`}
               style={doctor.focalPosition ? `object-position: ${doctor.focalPosition};` : (doctor.focalX !== undefined ? `object-position: ${doctor.focalX}% ${doctor.focalY}%;` : undefined)}
               loading="lazy"
               decoding="async"

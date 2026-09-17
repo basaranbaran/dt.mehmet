@@ -42,14 +42,15 @@ const cards = [
   },
   {
     title: hero?.clinicCard?.title || 'KLİNİĞİMİZ',
-    desc: hero?.clinicCard?.description || 'Sizin konforunuz ve sağlığınız düşünelerek tasarlanmış modern kliniklerimiz.',
+    desc: hero?.clinicCard?.description || 'Sizin konforunuz ve sağlığınız düşünülerek tasarlanmış modern kliniklerimiz.',
     link: '#galeri',
     bgImage: cleanImageUrl(hero?.clinicCard?.image || gallery[0]?.image || 'images/gallery-1.webp'),
     gridClass: 'md:col-span-2 md:row-span-1 h-[200px] md:h-full',
-    textClass: 'justify-center items-center text-center p-5 md:p-6',
+    textClass: 'justify-end items-center text-center p-5 md:p-6 pb-6',
     titleSize: 'text-lg sm:text-xl lg:text-2xl',
     fetchpriority: 'auto',
     loading: 'lazy',
+    isZoomedOut: true,
   },
 ];
 ---
@@ -69,15 +70,36 @@ const cards = [
         data-href={card.link}
       >
         <!-- Background Image -->
-        <img
-          src={card.bgImage}
-          alt={card.title}
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          style={card.focalPosition ? `object-position: ${card.focalPosition};` : undefined}
-          fetchpriority={card.fetchpriority}
-          loading={card.loading}
-          decoding={idx === 0 ? 'sync' : 'async'}
-        />
+        {card.isZoomedOut ? (
+          <div class="absolute inset-0 overflow-hidden bg-slate-950">
+            <!-- Ambiyans Arka Planı (Tüm kartı dolduran yumuşak bulanıklık) -->
+            <img
+              src={card.bgImage}
+              alt=""
+              aria-hidden="true"
+              class="absolute inset-0 w-full h-full object-cover filter blur-2xl scale-125 opacity-50 brightness-75 transition-transform duration-700 ease-out group-hover:scale-130"
+            />
+            <!-- Net, uzaklaştırılmış ve tüm odayı gösteren fotoğraf -->
+            <img
+              src={card.bgImage}
+              alt={card.title}
+              class="relative z-0 w-full h-full object-contain p-1 transition-transform duration-700 ease-out group-hover:scale-105"
+              fetchpriority={card.fetchpriority}
+              loading={card.loading}
+              decoding="async"
+            />
+          </div>
+        ) : (
+          <img
+            src={card.bgImage}
+            alt={card.title}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            style={card.focalPosition ? `object-position: ${card.focalPosition};` : undefined}
+            fetchpriority={card.fetchpriority}
+            loading={card.loading}
+            decoding={idx === 0 ? 'sync' : 'async'}
+          />
+        )}
 
         <!-- Dark Overlay Gradient -->
         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/15 transition-opacity duration-300 group-hover:from-black/90 group-hover:via-black/50" />

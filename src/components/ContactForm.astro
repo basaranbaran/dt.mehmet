@@ -13,7 +13,14 @@ const cleanMapsUrl = (raw: string) => {
 };
 
 const mapUrl = cleanMapsUrl(contact.googleMapsEmbedUrl);
-const directionsUrl = contact.googleMapsShareUrl || contact.googleMapsDirectionsUrl || 'https://share.google/YQ6vVbmg2UtP1O5TT';
+const directMapsDefault = 'https://www.google.com/maps/search/?api=1&query=Dt.+Mehmet+Ya%C4%9Fc%C4%B1+A%C4%9F%C4%B1z+ve+Di%C5%9F+Sa%C4%9Fl%C4%B1%C4%9F%C4%B1+Klini%C4%9Fi+Nazilli';
+const rawDirections = contact.googleMapsDirectionsUrl || contact.googleMapsShareUrl;
+const directionsUrl = (rawDirections && !rawDirections.includes('share.google')) ? rawDirections : directMapsDefault;
+
+const workingHoursJson = JSON.stringify(contact.workingHours || [
+  { days: 'Pazartesi — Cumartesi', hours: '09:00 — 19:00' },
+  { days: 'Pazar', hours: 'Kapalı (Randevu & İletişim)' }
+]);
 
 const doctorName = contact.doctorName || 'Mehmet YAĞCI';
 const whatsappGreetingName = doctor?.name || `Dt. ${doctorName}`;
@@ -210,7 +217,7 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
             </div>
 
             <!-- Canlı Açık / Kapalı Durumu -->
-            <div id="contactLiveStatusBadge" class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-white">
+            <div id="contactLiveStatusBadge" data-working-hours={workingHoursJson} class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-white">
               <span class="w-2 h-2 rounded-full animate-pulse bg-emerald-500"></span>
               <span id="contactLiveStatusText">Yükleniyor...</span>
             </div>
@@ -218,7 +225,7 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
 
           <div class="space-y-1.5">
             {(contact.workingHours || [
-              { days: 'Pazartesi — Cumartesi', hours: '08:00 — 20:00' },
+              { days: 'Pazartesi — Cumartesi', hours: '09:00 — 19:00' },
               { days: 'Pazar', hours: 'Kapalı (Randevu & İletişim)' }
             ]).map((item) => (
               <div class="flex justify-between text-xs font-medium text-brand-dark py-0.5 border-b border-gray-200/40 last:border-0">
@@ -271,74 +278,158 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
 
 <script>
   // ========================================================================
-  // 1. Canlı Açık / Kapalı Hesaplayıcı (Europe/Istanbul)
+  // 1. Canlı Açık / Kapalı Hesaplayıcı (Europe/Istanbul) — Dinamik Saatler
   // ========================================================================
   function calculateClinicOpenStatus() {
     const badge = document.getElementById('contactLiveStatusBadge');
     const text = document.getElementById('contactLiveStatusText');
     const navBadge = document.getElementById('navbarLiveStatusBadge');
     const navText = document.getElementById('navbarLiveStatusText');
-    if (!badge || !text) return;
+    if (!badge && !navBadge) return;
 
     try {
       const now = new Date();
-      // Türkiye saatine çevir
+      // Türkiye saatine çevir (Europe/Istanbul)
       const trDate = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Istanbul' }));
-      const day = trDate.getDay(); // 0: Pazar, 1: Pzt, ..., 6: Cts
+      const day = trDate.getDay(); // 0: Pazar, 1: Pazartesi, ..., 6: Cumartesi
       const hours = trDate.getHours();
       const minutes = trDate.getMinutes();
       const currentMins = hours * 60 + minutes;
 
-      const openMins = 8 * 60;   // 08:00
-      const closeMins = 20 * 60; // 20:00
+      // JSON verisini oku
+      let rawHours = [];
+      const rawData = badge?.getAttribute('data-working-hours') || navBadge?.getAttribute('data-working-hours');
+      if (rawData) {
+        try {
+          rawHours = JSON.parse(rawData);
+        } catch (err) {}
+      }
+      if (!Array.isArray(rawHours) || rawHours.length === 0) {
+        rawHours = [
+          { days: 'Pazartesi — Cumartesi', hours: '09:00 — 19:00' },
+          { days: 'Pazar', hours: 'Kapalı' }
+        ];
+      }
+
+      // 0: Pazar, 1: Pzt, 2: Salı, 3: Çar, 4: Per, 5: Cuma, 6: Cts
+      const dayNames = ['pazar', 'pazartesi', 'salı', 'çarşamba', 'perşembe', 'cuma', 'cumartesi'];
+      const dayAliases = {
+        0: ['pazar', 'paz'],
+        1: ['pazartesi', 'pzt'],
+        2: ['salı', 'sali', 'sal'],
+        3: ['çarşamba', 'carsamba', 'çar', 'car'],
+        4: ['perşembe', 'persembe', 'per'],
+        5: ['cuma', 'cum'],
+        6: ['cumartesi', 'cts', 'cmt']
+      };
+
+      function matchesDay(daysStr, targetDay) {
+        if (!daysStr) return false;
+        const s = daysStr.toLowerCase().trim();
+        if (s.includes('her gün') || s.includes('hergun')) return true;
+        if (s.includes('hafta içi') || s.includes('haftaici')) {
+          return targetDay >= 1 && targetDay <= 5;
+        }
+        if (s.includes('hafta sonu') || s.includes('haftasonu')) {
+          return targetDay === 0 || targetDay === 6;
+        }
+
+        const rangeSplit = s.split(/[-—–/]+/);
+        if (rangeSplit.length === 2) {
+          const startStr = rangeSplit[0].trim();
+          const endStr = rangeSplit[1].trim();
+          const startIdx = dayNames.findIndex((dn, i) => dayAliases[i].some(a => startStr.includes(a)));
+          const endIdx = dayNames.findIndex((dn, i) => dayAliases[i].some(a => endStr.includes(a)));
+          if (startIdx !== -1 && endIdx !== -1) {
+            if (startIdx <= endIdx) {
+              return targetDay >= startIdx && targetDay <= endIdx;
+            } else {
+              return targetDay >= startIdx || targetDay <= endIdx;
+            }
+          }
+        }
+
+        return dayAliases[targetDay].some(a => s.includes(a));
+      }
+
+      function parseTimes(hoursStr) {
+        if (!hoursStr) return null;
+        if (hoursStr.toLowerCase().includes('kapalı') || hoursStr.toLowerCase().includes('closed')) {
+          return { isClosed: true };
+        }
+        const match = hoursStr.match(/(\d{1,2})[:.](\d{2})\s*[-—–to/]\s*(\d{1,2})[:.](\d{2})/);
+        if (match) {
+          const sH = parseInt(match[1], 10);
+          const sM = parseInt(match[2], 10);
+          const eH = parseInt(match[3], 10);
+          const eM = parseInt(match[4], 10);
+          return {
+            isClosed: false,
+            startMins: sH * 60 + sM,
+            endMins: eH * 60 + eM,
+            startFormatted: `${String(sH).padStart(2, '0')}:${String(sM).padStart(2, '0')}`,
+            endFormatted: `${String(eH).padStart(2, '0')}:${String(eM).padStart(2, '0')}`
+          };
+        }
+        return null;
+      }
+
+      const todaySchedule = rawHours.find(item => matchesDay(item.days, day));
+      const parsed = todaySchedule ? parseTimes(todaySchedule.hours) : null;
 
       let isOpen = false;
       let statusStr = '';
+      let navbarStatusStr = '';
 
-      if (day === 0) {
-        // Pazar: Kapalı
+      if (!parsed || parsed.isClosed) {
         isOpen = false;
-        statusStr = 'Şu an Kapalı (Pzt 08:00 Açılıyor)';
+        statusStr = 'Şu an Kapalı (Randevu & İletişim)';
+        navbarStatusStr = 'Şu an Kapalı';
       } else {
-        // Pazartesi — Cumartesi
-        if (currentMins >= openMins && currentMins < closeMins) {
+        const timeRangeStr = `${parsed.startFormatted}-${parsed.endFormatted}`;
+        if (currentMins >= parsed.startMins && currentMins < parsed.endMins) {
           isOpen = true;
-          statusStr = 'Şu an Açık (20:00\'ye kadar)';
-        } else if (currentMins < openMins) {
+          statusStr = `Şu an Açık (${parsed.endFormatted}'a kadar)`;
+          navbarStatusStr = `Şu an Açık (${timeRangeStr})`;
+        } else if (currentMins < parsed.startMins) {
           isOpen = false;
-          statusStr = 'Şu an Kapalı (Bugün 08:00 Açılıyor)';
+          statusStr = `Şu an Kapalı (Bugün ${parsed.startFormatted}'da Açılıyor)`;
+          navbarStatusStr = `Şu an Kapalı (${parsed.startFormatted}'da Açılıyor)`;
         } else {
           isOpen = false;
-          statusStr = day === 6 ? 'Şu an Kapalı (Pzt 08:00 Açılıyor)' : 'Şu an Kapalı (Yarın 08:00 Açılıyor)';
+          statusStr = 'Şu an Kapalı';
+          navbarStatusStr = 'Şu an Kapalı';
         }
       }
 
-      text.textContent = statusStr;
-      if (isOpen) {
-        badge.className = 'inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200';
-        badge.querySelector('span')?.classList.remove('bg-red-700');
-        badge.querySelector('span')?.classList.add('bg-emerald-500');
-      } else {
-        badge.className = 'inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-rose-50 text-rose-800 border-rose-200';
-        badge.querySelector('span')?.classList.remove('bg-emerald-500');
-        badge.querySelector('span')?.classList.add('bg-red-700');
+      if (badge && text) {
+        text.textContent = statusStr;
+        if (isOpen) {
+          badge.className = 'inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-emerald-50 text-emerald-800 border-emerald-200';
+          badge.querySelector('span')?.classList.remove('bg-rose-500', 'bg-red-700');
+          badge.querySelector('span')?.classList.add('bg-emerald-500');
+        } else {
+          badge.className = 'inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition-colors bg-rose-50 text-rose-800 border-rose-200';
+          badge.querySelector('span')?.classList.remove('bg-emerald-500');
+          badge.querySelector('span')?.classList.add('bg-rose-500');
+        }
       }
 
       if (navBadge && navText) {
-        navText.textContent = isOpen ? 'Şu an Açık (08:00-20:00)' : 'Şu an Kapalı';
+        navText.textContent = navbarStatusStr;
         const navDot = navBadge.querySelector('span');
         if (isOpen) {
           navBadge.className = 'hidden xl:flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-bold border bg-emerald-50 text-emerald-800 border-emerald-200';
-          navDot?.classList.remove('bg-red-700');
+          navDot?.classList.remove('bg-rose-500', 'bg-red-700');
           navDot?.classList.add('bg-emerald-500');
         } else {
           navBadge.className = 'hidden xl:flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-bold border bg-rose-50 text-rose-800 border-rose-200';
           navDot?.classList.remove('bg-emerald-500');
-          navDot?.classList.add('bg-red-700');
+          navDot?.classList.add('bg-rose-500');
         }
       }
     } catch (e) {
-      console.error(e);
+      console.error('Clinic status calculation error:', e);
     }
   }
 

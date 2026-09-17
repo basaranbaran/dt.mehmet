@@ -77,8 +77,8 @@
     "address": "Yeşil Mahalle 727. Sokak No:24 Kat:1 (Devlet Hastanesi Poliklinik Girişi Karşısı)",
     "addressNote": "Devlet Hastanesi Poliklinik Girişi Karşısı, Nazilli / Aydın",
     "googleMapsEmbedUrl": "https://maps.google.com/maps?q=Dt.+Mehmet+Ya%C4%9Fc%C4%B1+A%C4%9F%C4%B1z+ve+Di%C5%9F+Sa%C4%9Fl%C4%B1%C4%9F%C4%B1+Klini%C4%9Fi+Nazilli&t=&z=16&ie=UTF8&iwloc=&output=embed",
-    "googleMapsShareUrl": "https://share.google/YQ6vVbmg2UtP1O5TT",
-    "googleMapsDirectionsUrl": "https://share.google/YQ6vVbmg2UtP1O5TT",
+    "googleMapsShareUrl": "https://www.google.com/maps/search/?api=1&query=Dt.+Mehmet+Ya%C4%9Fc%C4%B1+A%C4%9F%C4%B1z+ve+Di%C5%9F+Sa%C4%9Fl%C4%B1%C4%9F%C4%B1+Klini%C4%9Fi+Nazilli",
+    "googleMapsDirectionsUrl": "https://www.google.com/maps/search/?api=1&query=Dt.+Mehmet+Ya%C4%9Fc%C4%B1+A%C4%9F%C4%B1z+ve+Di%C5%9F+Sa%C4%9Fl%C4%B1%C4%9F%C4%B1+Klini%C4%9Fi+Nazilli",
     "workingHours": [
       {
         "days": "Pazartesi — Cumartesi",

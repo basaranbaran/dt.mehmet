@@ -49,11 +49,11 @@ function initHero() {
     clearProps: 'all',
   });
 
-  // Doktor fotoğrafı parallax
+  // Doktor fotoğrafı — dikey kayma olmadan güvenli ve çerçeveye tam oturan yumuşak odaklanma
   const doctorImg = document.querySelector('.doctor-parallax');
   if (doctorImg) {
     gsap.to(doctorImg, {
-      y: -40,
+      scale: 1.03,
       ease: 'none',
       scrollTrigger: {
         trigger: '#hakkimizda',
