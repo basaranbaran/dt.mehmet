@@ -55,14 +55,17 @@
     "name": "Dt. Mehmet Yağcı",
     "title": "Kurucu / Diş Hekimi",
     "image": "/images/doctor-uploaded-1789654426667.webp",
-    "imageAlign": "object-top",
+    "imageAlign": "object-center",
     "experienceYear": "5+ Yıl",
     "experienceBadgeText": "BİLGİ VE SAMİMİYETİN BULUŞMASI",
     "bio": "İstanbul ve Nazilli’deki klinik tecrübelerimin ardından, estetik ve dijital diş hekimliği üzerine çok sayıda güncel kursa katılarak kendimi sürekli geliştirdim. Amacım, her hastamı dikkatle dinleyerek tam da hayal ettikleri sağlıklı ve estetik gülüşe kavuşmalarını sağlamak.\nKliniğimizde, dijital çağa uygun en yeni tedavi yöntemlerini bir araya getirerek; gülüş estetiğinden implant uygulamalarına, zirkonyum kaplamalardan dolgu ve kanal tedavilerine kadar aradığınız tüm çözümleri tek çatı altında sunuyorum.",
     "education": [
       "Medipol Üniversitesi Diş Hekimliği Fakültesi",
       "Türk Diş Hekimleri Birliği, Aydın Diş Hekimleri Odası"
-    ]
+    ],
+    "focalX": 50,
+    "focalY": 50,
+    "focalPosition": "50% 50%"
   },
   "contact": {
     "doctorName": "Mehmet YAĞCI",
