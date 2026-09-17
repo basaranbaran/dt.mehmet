@@ -6,9 +6,10 @@
   'use strict';
 
   var AUTH_KEY = 'dt_admin_session_v1';
-  var VALID_USER = 'admin';
-  // SHA-256("dt-admin:" + "admin123")
-  var DEFAULT_PASS_HASH = '1f85582f3c054238e8cb5ca89437ee9bf9d2fe2b78b5e9ee99c7bcaea4f9c8f9';
+  var VALID_USER = 'dtmehmet2';
+  var DEFAULT_PASS_HASH = '437a6b18d944858f338d2473f2f647243d73f71fa04cba1fae487b85570dc0ec';
+  var loginAttempts = 0;
+  var lockUntil = 0;
 
   var state = {
     data: null,
@@ -122,25 +123,45 @@
 
   async function handleLogin(e) {
     e.preventDefault();
-    var user = $('#adminUsername').value.trim();
-    var pass = $('#adminPassword').value;
+    var now = Date.now();
     var err = $('#authErrorMsg');
 
-    var hash = await sha256('dt-admin:' + pass);
-    var customHash = localStorage.getItem('dt_admin_pass_hash');
-    var targetHash = customHash || DEFAULT_PASS_HASH;
+    if (lockUntil && now < lockUntil) {
+      var remainingSec = Math.ceil((lockUntil - now) / 1000);
+      if (err) {
+        err.textContent = 'Çok fazla hatalı deneme yapıldı. Lütfen ' + remainingSec + ' saniye bekleyin.';
+        err.classList.add('active');
+      }
+      return;
+    }
 
-    // "admin" veya "admin123" veya hedef hash kabul edilir
-    if (user.toLowerCase() === VALID_USER && (pass === 'admin' || pass === 'admin123' || hash === targetHash)) {
+    var user = $('#adminUsername').value.trim();
+    var pass = $('#adminPassword').value;
+
+    var hash = await sha256('dt-admin:' + pass);
+    var targetHash = DEFAULT_PASS_HASH;
+
+    if (user.toLowerCase() === VALID_USER && hash === targetHash) {
+      loginAttempts = 0;
+      lockUntil = 0;
       sessionStorage.setItem(AUTH_KEY, '1');
       if (err) err.classList.remove('active');
       $('#adminAuthScreen').style.display = 'none';
       initDashboard();
       toast('Yönetici girişi başarılı!');
     } else {
-      if (err) {
-        err.textContent = 'Kullanıcı adı veya şifre hatalı!';
-        err.classList.add('active');
+      loginAttempts++;
+      if (loginAttempts >= 5) {
+        lockUntil = Date.now() + 60000; // 1 dakika kilit
+        if (err) {
+          err.textContent = '5 kez hatalı şifre girildi. Güvenlik amacıyla 1 dakika kilitlendi.';
+          err.classList.add('active');
+        }
+      } else {
+        if (err) {
+          err.textContent = 'Kullanıcı adı veya şifre hatalı! (Kalan deneme: ' + (5 - loginAttempts) + ')';
+          err.classList.add('active');
+        }
       }
     }
   }
@@ -209,6 +230,24 @@
   /* ========================================================================
      3. Form Bağlama (Data-Bind)
      ======================================================================== */
+  function toAdminImageUrl(src) {
+    if (!src) return '';
+    if (src.indexOf('data:') === 0 || src.indexOf('http://') === 0 || src.indexOf('https://') === 0 || src.indexOf('//') === 0) {
+      return src;
+    }
+    return src.startsWith('/') ? src : '/' + src;
+  }
+
+  function updateDoctorPreview() {
+    var preview = $('#doctorImagePreview');
+    if (preview && state.data && state.data.doctor) {
+      var imgUrl = state.data.doctor.image || 'images/doctor.png';
+      preview.src = toAdminImageUrl(imgUrl);
+      var pos = state.data.doctor.focalPosition || '50% 50%';
+      preview.style.objectPosition = pos;
+    }
+  }
+
   function populateForm() {
     $$('[data-bind]').forEach(function (el) {
       var path = el.getAttribute('data-bind');
@@ -221,6 +260,7 @@
         el.value = val;
       }
     });
+    updateDoctorPreview();
   }
 
   function bindEvents() {
@@ -467,7 +507,7 @@
         '        <div style="display: flex; gap: 8px;">',
         '          <label class="btn-admin-secondary" style="flex: 1; cursor: pointer; text-align: center;">',
         '            📁 Fotoğraf Seç',
-        '            <input type="file" accept="image/*" class="file-treatment-upload" data-index="' + idx + '" style="display: none;" />',
+        '            <input type="file" accept="image/*,.webp,.png,.jpg,.jpeg,.avif" class="file-treatment-upload" data-index="' + idx + '" style="display: none;" />',
         '          </label>',
         '          <button type="button" class="btn-admin-secondary btn-treatment-crop" data-index="' + idx + '">📐 Kadraj</button>',
         '        </div>',
@@ -523,14 +563,18 @@
     cont.querySelectorAll('.file-treatment-upload').forEach(function (input) {
       input.addEventListener('change', function (e) {
         var idx = parseInt(input.getAttribute('data-index'), 10);
-        var file = e.target.files[0];
+        var file = e.target.files && e.target.files[0];
         if (!file) return;
         DTCropper.compressImage(file).then(function (res) {
           state.data.treatments[idx].image = res.url;
           triggerAutoSave();
           renderTreatments();
           renderAllImagesGrid();
-          toast('Fotoğraf WebP formatında optimize edildi.');
+          toast('Tedavi fotoğrafı optimize edildi.');
+        }).catch(function (err) {
+          toast('Fotoğraf yüklenemedi: ' + err.message, true);
+        }).finally(function () {
+          input.value = '';
         });
       });
     });
@@ -705,7 +749,7 @@
         '          <input type="text" class="admin-input" data-bind="gallery.' + idx + '.image" value="' + (g.image || '') + '" />',
         '          <label class="btn-admin-secondary" style="cursor: pointer; white-space: nowrap;">',
         '            📁 Seç',
-        '            <input type="file" accept="image/*" class="file-gal-upload" data-index="' + idx + '" style="display: none;" />',
+        '            <input type="file" accept="image/*,.webp,.png,.jpg,.jpeg,.avif" class="file-gal-upload" data-index="' + idx + '" style="display: none;" />',
         '          </label>',
         '        </div>',
         '      </div>',
@@ -757,7 +801,7 @@
     cont.querySelectorAll('.file-gal-upload').forEach(function (input) {
       input.addEventListener('change', function (e) {
         var idx = parseInt(input.getAttribute('data-index'), 10);
-        var file = e.target.files[0];
+        var file = e.target.files && e.target.files[0];
         if (!file) return;
         DTCropper.compressImage(file).then(function (res) {
           state.data.gallery[idx].image = res.url;
@@ -765,6 +809,10 @@
           renderGallery();
           renderAllImagesGrid();
           toast('Galeri fotoğrafı optimize edildi.');
+        }).catch(function (err) {
+          toast('Fotoğraf yüklenemedi: ' + err.message, true);
+        }).finally(function () {
+          input.value = '';
         });
       });
     });
@@ -870,7 +918,7 @@
     var html = imagesList.map(function (item, idx) {
       return [
         '<div class="image-manage-card" data-index="' + idx + '">',
-        '  <img src="' + item.url + '" class="image-manage-thumb" loading="lazy" alt="' + item.label + '" />',
+        '  <img src="' + toAdminImageUrl(item.url) + '" class="image-manage-thumb" loading="lazy" alt="' + item.label + '" />',
         '  <div class="image-manage-info">',
         '    <div>',
         '      <span class="image-manage-label">' + item.label + '</span>',
@@ -879,7 +927,7 @@
         '    <div class="image-manage-actions">',
         '      <label class="btn-admin-secondary" style="flex: 1; cursor: pointer; text-align: center; font-size: 0.78rem;">',
         '        📁 Değiştir',
-        '        <input type="file" accept="image/*" class="file-img-grid-upload" data-path="' + item.path + '" style="display: none;" />',
+        '        <input type="file" accept="image/*,.webp,.png,.jpg,.jpeg,.avif" class="file-img-grid-upload" data-path="' + item.path + '" style="display: none;" />',
         '      </label>',
         '      ' + (item.alignPath ? '<button type="button" class="btn-admin-secondary btn-img-grid-crop" data-path="' + item.path + '" data-align-path="' + item.alignPath + '" style="font-size: 0.78rem;">📐 Kadraj</button>' : ''),
         '    </div>',
@@ -893,13 +941,20 @@
     grid.querySelectorAll('.file-img-grid-upload').forEach(function (input) {
       input.addEventListener('change', function (e) {
         var path = input.getAttribute('data-path');
-        var file = e.target.files[0];
+        var file = e.target.files && e.target.files[0];
         if (!file) return;
         DTCropper.compressImage(file).then(function (res) {
           setPath(state.data, path, res.url);
           triggerAutoSave();
+          populateForm();
+          renderTreatments();
+          renderGallery();
           renderAllImagesGrid();
           toast('Fotoğraf başarıyla güncellendi!');
+        }).catch(function (err) {
+          toast('Fotoğraf yüklenemedi: ' + err.message, true);
+        }).finally(function () {
+          input.value = '';
         });
       });
     });
@@ -958,19 +1013,58 @@
     toast('Yayınlama başlatılıyor... Dosyalar GitHub\'a aktarılıyor 🚀');
 
     try {
-      // 1. Yeni yüklenen base64 görselleri tespit et ve GitHub'a yükle
-      var uploadQueue = [];
-      var dataJsonString = JSON.stringify(state.data);
+      var publishData = DTData.clone(state.data);
+
+      // 1. Yeni yüklenen base64 görselleri tespit et ve GitHub'a dosya olarak yükle
+      if (publishData.doctor && publishData.doctor.image && publishData.doctor.image.indexOf('data:image') === 0) {
+        var base64Part = publishData.doctor.image.split(',')[1];
+        var ext = publishData.doctor.image.indexOf('image/webp') !== -1 ? 'webp' : 'jpg';
+        var docFileName = 'doctor-uploaded-' + Date.now() + '.' + ext;
+        toast('Hekim fotoğrafı GitHub deposuna yükleniyor...');
+        await DTData.github.putFile(cfg, 'public/images/' + docFileName, base64Part, 'chore(assets): upload doctor image', true);
+        publishData.doctor.image = '/images/' + docFileName;
+      }
+
+      if (Array.isArray(publishData.treatments)) {
+        for (var tIdx = 0; tIdx < publishData.treatments.length; tIdx++) {
+          var tItem = publishData.treatments[tIdx];
+          if (tItem.image && tItem.image.indexOf('data:image') === 0) {
+            var tB64 = tItem.image.split(',')[1];
+            var tExt = tItem.image.indexOf('image/webp') !== -1 ? 'webp' : 'jpg';
+            var tFileName = 'treatment-uploaded-' + (tItem.id || tIdx) + '-' + Date.now() + '.' + tExt;
+            toast((tItem.title || 'Tedavi') + ' görseli GitHub deposuna yükleniyor...');
+            await DTData.github.putFile(cfg, 'public/images/' + tFileName, tB64, 'chore(assets): upload treatment image', true);
+            tItem.image = '/images/' + tFileName;
+          }
+        }
+      }
+
+      if (Array.isArray(publishData.gallery)) {
+        for (var gIdx = 0; gIdx < publishData.gallery.length; gIdx++) {
+          var gItem = publishData.gallery[gIdx];
+          if (gItem.image && gItem.image.indexOf('data:image') === 0) {
+            var gB64 = gItem.image.split(',')[1];
+            var gExt = gItem.image.indexOf('image/webp') !== -1 ? 'webp' : 'jpg';
+            var gFileName = 'gallery-uploaded-' + gIdx + '-' + Date.now() + '.' + gExt;
+            toast('Galeri görseli GitHub deposuna yükleniyor...');
+            await DTData.github.putFile(cfg, 'public/images/' + gFileName, gB64, 'chore(assets): upload gallery image', true);
+            gItem.image = '/images/' + gFileName;
+          }
+        }
+      }
 
       // 2. config-draft.json ve config.json dosyalarını güncelle
-      var jsonPayload = JSON.stringify(state.data, null, 2);
+      var jsonPayload = JSON.stringify(publishData, null, 2);
 
       await DTData.github.putFile(cfg, 'src/content/config-draft.json', jsonPayload, 'chore(cms): update draft config from admin panel');
       await DTData.github.putFile(cfg, 'src/content/config.json', jsonPayload, 'chore(cms): publish live config from admin panel');
 
+      state.data = publishData;
       DTData.clearDraft();
       state.isDirty = false;
       checkDirtyState();
+      populateForm();
+      renderAllImagesGrid();
 
       toast('🎉 Tebrikler! Değişiklikler GitHub\'a başarıyla aktarıldı. GitHub Actions siteyi 1-2 dakika içinde güncelleyecektir!');
     } catch (err) {
@@ -1022,14 +1116,20 @@
     });
 
     $('#fileDoctorUpload')?.addEventListener('change', function (e) {
-      var file = e.target.files[0];
+      var file = e.target.files && e.target.files[0];
       if (!file) return;
       DTCropper.compressImage(file).then(function (res) {
         state.data.doctor = state.data.doctor || {};
         state.data.doctor.image = res.url;
         triggerAutoSave();
-        renderAll();
+        populateForm();
+        renderAllImagesGrid();
+        updateDoctorPreview();
         toast('Hekim fotoğrafı WebP formatında optimize edildi.');
+      }).catch(function (err) {
+        toast('Fotoğraf yüklenemedi: ' + err.message, true);
+      }).finally(function () {
+        e.target.value = '';
       });
     });
 
@@ -1053,7 +1153,9 @@
           state.data.doctor.focalPosition = res.focalPosition;
           state.data.doctor.imageAlign = res.imageAlign;
           triggerAutoSave();
-          renderAll();
+          populateForm();
+          renderAllImagesGrid();
+          updateDoctorPreview();
           toast('Hekim kadrajı kaydedildi: ' + res.focalPosition);
         }
       });

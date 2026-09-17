@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /taslak
+Disallow: /taslak/*
+
+Sitemap: https://dtmehmetyagci.com/sitemap-index.xml

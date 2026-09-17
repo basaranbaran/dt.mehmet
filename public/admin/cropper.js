@@ -23,19 +23,39 @@
     return Math.floor((dataUrl.length - idx - 1) * 0.75);
   }
 
-  // Fotoğrafı küçültüp WebP'e çevirir
+  // Fotoğrafı küçültüp WebP'e çevirir (tüm tarayıcılar ve WebP dosyaları için dayanıklı)
   function compressImage(file) {
     return new Promise(function (resolve, reject) {
+      if (!file) {
+        reject(new Error('Dosya bulunamadı.'));
+        return;
+      }
       var reader = new FileReader();
       reader.onerror = function () { reject(new Error('Dosya okunamadı.')); };
       reader.onload = function () {
+        var dataUrl = reader.result;
         var img = new Image();
-        img.onerror = function () { reject(new Error('Fotoğraf açılamadı.')); };
+        img.onerror = function () {
+          // Eğer Image nesnesi açılamadıysa ama geçerli bir görsel dataURL ise (ör. bazı WebP varyantları)
+          if (typeof dataUrl === 'string' && dataUrl.indexOf('data:image') === 0) {
+            resolve({
+              url: dataUrl,
+              width: 800,
+              height: 800,
+              originalBytes: file.size,
+              bytes: file.size
+            });
+          } else {
+            reject(new Error('Görsel dosyası açılamadı. Lütfen geçerli bir JPG, PNG veya WebP dosyası seçin.'));
+          }
+        };
         img.onload = function () {
           try {
-            var scale = Math.min(1, MAX_WIDTH / img.naturalWidth);
-            var width = Math.round(img.naturalWidth * scale);
-            var height = Math.round(img.naturalHeight * scale);
+            var origW = img.naturalWidth || img.width || 800;
+            var origH = img.naturalHeight || img.height || 800;
+            var scale = Math.min(1, MAX_WIDTH / origW);
+            var width = Math.round(origW * scale);
+            var height = Math.round(origH * scale);
 
             var canvas = document.createElement('canvas');
             canvas.width = width;
@@ -57,10 +77,17 @@
               bytes: dataUrlBytes(out)
             });
           } catch (err) {
-            reject(err);
+            // Canvas dönüştürme hata verirse doğrudan orijinal görseli kullan
+            resolve({
+              url: dataUrl,
+              width: img.naturalWidth || 800,
+              height: img.naturalHeight || 800,
+              originalBytes: file.size,
+              bytes: file.size
+            });
           }
         };
-        img.src = reader.result;
+        img.src = dataUrl;
       };
       reader.readAsDataURL(file);
     });
@@ -136,7 +163,7 @@
         '          <label class="cropper-upload-btn">',
         '            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>',
         '            <span>Yeni Fotoğraf Yükle</span>',
-        '            <input type="file" id="cropperFileInput" accept="image/*" hidden>',
+        '            <input type="file" id="cropperFileInput" accept="image/*,.webp,.png,.jpg,.jpeg,.avif" hidden>',
         '          </label>',
         '          <div class="cropper-url-input-wrap">',
         '            <input type="text" id="cropperUrlInput" class="cropper-input" placeholder="Dosya yolu veya görsel URL...">',
@@ -271,6 +298,8 @@
           self.syncVisuals();
         }).catch(function (err) {
           alert('Fotoğraf yüklenemedi: ' + err.message);
+        }).finally(function () {
+          fileInput.value = '';
         });
       });
 
