@@ -1,17 +1,13 @@
 ---
 import { clinicConfig } from '../config.js';
+import { formatRichText } from '../lib/text';
 
 const { config = clinicConfig } = Astro.props;
 const { doctor } = config;
 const base = import.meta.env.BASE_URL;
 
-// Basit Markdown formatlama (bold, italic ve yeni satırlar için)
-const formattedBio = doctor.bio
-  ? doctor.bio
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\r?\n/g, '<br />')
-  : '';
+// Panelden gelen metin kaçışlanır; yalnızca **kalın**, *italik* ve satır sonları HTML'e çevrilir
+const formattedBio = formatRichText(doctor.bio);
 
 // Çift slash (//) oluşmasını engellemek için url birleştirme fonksiyonu
 const cleanImageUrl = (img: string) => {

@@ -72,9 +72,11 @@ const cleanImageUrl = (img: string) => {
   <!-- Gallery Lightbox -->
   <div
     id="gallery-lightbox"
-    class="fixed inset-0 z-50 bg-black/95 items-center justify-center p-4 modal-overlay"
+    class="fixed inset-0 z-[60] bg-black/95 items-center justify-center p-4 modal-overlay outline-none"
+    tabindex="-1"
     role="dialog"
     aria-modal="true"
+    aria-labelledby="lightbox-title"
   >
     <!-- Kapat -->
     <button
@@ -133,23 +135,35 @@ const cleanImageUrl = (img: string) => {
   }));
 
   let currentIndex = 0;
+  let returnFocusTo: HTMLElement | null = null;
   const lightbox = document.getElementById('gallery-lightbox');
   const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
   const lightboxTitle = document.getElementById('lightbox-title');
 
-  function openLightbox(index: number) {
+  // `section { contain: layout }` fixed konumlu çocukları bölüme hapseder; lightbox bölüme göre
+  // konumlanıp menünün altında kalıyordu. Body'ye taşınınca ekranın ortasında açılır.
+  if (lightbox) {
+    document.body.appendChild(lightbox);
+  }
+
+  function openLightbox(index: number, viaKeyboard: boolean) {
     currentIndex = index;
     if (!lightbox || !lightboxImg || !lightboxTitle) return;
+    returnFocusTo = document.activeElement as HTMLElement | null;
     lightboxImg.src = items[index].src;
     lightboxImg.alt = items[index].title;
     lightboxTitle.textContent = items[index].title;
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Odak pencerenin içine taşınır; halka yalnızca klavyeyle açıldığında kapat düğmesinde görünür
+    (viaKeyboard ? document.getElementById('lightbox-close') : lightbox)?.focus();
   }
 
   function closeLightbox() {
-    lightbox?.classList.remove('open');
+    if (!lightbox?.classList.contains('open')) return;
+    lightbox.classList.remove('open');
     document.body.style.overflow = '';
+    returnFocusTo?.focus();
   }
 
   function navigate(dir: number) {
@@ -161,9 +175,13 @@ const cleanImageUrl = (img: string) => {
   }
 
   document.querySelectorAll('.gallery-item').forEach((el, idx) => {
-    el.addEventListener('click', () => openLightbox(idx));
+    el.addEventListener('click', () => openLightbox(idx, false));
     el.addEventListener('keydown', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter') openLightbox(idx);
+      const key = (e as KeyboardEvent).key;
+      if (key === 'Enter' || key === ' ') {
+        e.preventDefault();
+        openLightbox(idx, true);
+      }
     });
   });
 

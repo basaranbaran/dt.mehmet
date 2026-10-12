@@ -1,8 +1,12 @@
 ---
 import { clinicConfig } from '../config.js';
+import { telHref, whatsappHref } from '../lib/phone';
 
 const { config = clinicConfig } = Astro.props;
 const { brand, contact } = config;
+const mobileTel = telHref(contact.phone);
+const landlineTel = telHref(contact.landlinePhone);
+const mobileWhatsapp = whatsappHref(contact.phone);
 
 const navItems = [
   { name: 'Anasayfa', href: '#anasayfa' },
@@ -90,7 +94,7 @@ const workingHoursJson = JSON.stringify(contact.workingHours || [
         </div>
 
         <a
-          href={`tel:${contact.phoneClean || '905305084484'}`}
+          href={mobileTel}
           class="bg-[color:var(--color-phone)] hover:opacity-90 text-white font-bold py-2 px-4 lg:py-2.5 lg:px-5 rounded-full shadow-md transform hover:-translate-y-0.5 transition-all text-xs lg:text-sm font-display flex items-center shrink-0"
         >
           <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,7 +107,7 @@ const workingHoursJson = JSON.stringify(contact.workingHours || [
       <!-- Mobile Menu Button -->
       <div class="md:hidden flex items-center space-x-2">
         <a
-          href={`tel:${contact.phoneClean || '905305084484'}`}
+          href={mobileTel}
           class="bg-emerald-50 text-emerald-700 p-2 rounded-xl border border-emerald-200 text-xs font-bold flex items-center"
           aria-label="Kliniği Ara"
         >
@@ -142,7 +146,7 @@ const workingHoursJson = JSON.stringify(contact.workingHours || [
       ))}
       <div class="pt-4 pb-2 border-t border-gray-100 flex flex-col space-y-2 px-1">
         <a
-          href={`https://wa.me/${contact.phoneClean || '905305084484'}`}
+          href={mobileWhatsapp}
           target="_blank"
           rel="noopener noreferrer"
           class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-xl text-center shadow-md transition-all text-sm font-display flex items-center justify-center space-x-2"
@@ -154,7 +158,7 @@ const workingHoursJson = JSON.stringify(contact.workingHours || [
         </a>
 
         <a
-          href={`tel:${contact.landlineClean || '02563134884'}`}
+          href={landlineTel}
           class="bg-gray-100 hover:bg-gray-200 text-brand-dark font-bold py-2.5 px-5 rounded-xl text-center transition-all text-xs font-display flex items-center justify-center space-x-2"
         >
           <svg class="w-4 h-4 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

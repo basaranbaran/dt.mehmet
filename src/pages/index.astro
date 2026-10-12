@@ -10,8 +10,11 @@ import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 import { absoluteUrl, buildJsonLd, serializeJsonLd } from '../lib/geo';
+import { publicPath } from '../lib/paths';
 
 const { metadata, theme } = clinicConfig;
+// Hero'daki ilk kart hekim fotoğrafıdır; sayfanın LCP görseli
+const heroImage = publicPath(clinicConfig.doctor?.image);
 
 // Kanonik adres ve yapay zeka / arama motorları için yapılandırılmış veri
 const site = Astro.site!;
@@ -73,7 +76,7 @@ const themeVars = `
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- LCP Image preload -->
-    <link rel="preload" as="image" href={`${import.meta.env.BASE_URL}images/doctor.png`} type="image/png" />
+    {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}favicon.png`} />

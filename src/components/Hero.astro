@@ -63,7 +63,10 @@ const cards = [
     id="banner-grid-wrapper"
     class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-3 w-full h-auto md:h-full flex-grow rounded-3xl overflow-hidden shadow-lg border border-gray-100"
   >
-    {cards.map((card, idx) => (
+    {cards.map((card, idx) => {
+      // Sayfanın tek <h1>'i: ilk kart (hekim adı). Görünüm diğer kartlarla aynı.
+      const Heading = idx === 0 ? 'h1' : 'h2';
+      return (
       <a
         href={card.link}
         class={`hero-card relative overflow-hidden group block ${card.gridClass}`}
@@ -85,9 +88,9 @@ const cards = [
 
         <!-- Content Overlay -->
         <div class={`absolute inset-0 flex flex-col text-white z-10 ${card.textClass}`}>
-          <h2 class={`${card.titleSize} font-bold tracking-wider font-display uppercase mb-2 drop-shadow-md`}>
+          <Heading class={`${card.titleSize} font-bold tracking-wider font-display uppercase mb-2 drop-shadow-md`}>
             {card.title}
-          </h2>
+          </Heading>
           {card.desc && (
             <p class="text-xs sm:text-sm text-gray-200/90 font-light leading-relaxed max-w-md drop-shadow-sm transition-colors duration-300 group-hover:text-white line-clamp-3">
               {card.desc}
@@ -98,7 +101,8 @@ const cards = [
         <!-- Hover border frame -->
         <div class="absolute inset-4 border border-white/0 group-hover:border-white/20 rounded-2xl transition-all duration-500 pointer-events-none" />
       </a>
-    ))}
+      );
+    })}
   </div>
 </section>
 

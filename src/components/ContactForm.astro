@@ -1,5 +1,6 @@
 ---
 import { clinicConfig } from '../config.js';
+import { telHref, whatsappHref } from '../lib/phone';
 
 const { config = clinicConfig } = Astro.props;
 const { contact, contactHeading, doctor } = config;
@@ -25,8 +26,9 @@ const workingHoursJson = JSON.stringify(contact.workingHours || [
 const doctorName = contact.doctorName || 'Mehmet YAĞCI';
 const whatsappGreetingName = doctor?.name || `Dt. ${doctorName}`;
 const whatsappMessageText = `Merhaba ${whatsappGreetingName}, randevu almak istiyorum, bilgi alabilir miyim?`;
-const whatsappMessage = encodeURIComponent(whatsappMessageText);
-const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=${whatsappMessage}`;
+const whatsappUrl = whatsappHref(contact.phone, whatsappMessageText);
+const mobileTel = telHref(contact.phone);
+const landlineTel = telHref(contact.landlinePhone);
 ---
 
 <section id="iletisim" class="py-20 bg-brand-light relative overflow-hidden">
@@ -96,7 +98,7 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
             </a>
 
             <a
-              href={`tel:${contact.phoneClean || '905305084484'}`}
+              href={mobileTel}
               class="bg-emerald-700/60 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl border border-emerald-400/40 backdrop-blur-md transition-all text-sm font-display flex items-center justify-center space-x-2 text-center"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +161,7 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
 
         <!-- Sabit Klinik Telefonu -->
         <a
-          href={`tel:${contact.landlineClean || '02563134884'}`}
+          href={landlineTel}
           class="flex items-center space-x-4 p-3.5 rounded-2xl bg-gray-50/80 border border-gray-100 hover:bg-brand-light/50 transition-all hover:shadow-sm group"
         >
           <div class="w-11 h-11 bg-brand-primary text-white rounded-xl shadow-sm flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">

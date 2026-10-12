@@ -102,7 +102,7 @@ const iconPaths = {
   </div>
 
   <!-- Treatment Detail Modal -->
-  <div id="treatment-modal" class="fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 modal-overlay" role="dialog" aria-modal="true">
+  <div id="treatment-modal" class="fixed inset-0 z-[60] items-center justify-center p-4 bg-black/60 modal-overlay outline-none" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="bg-white rounded-3xl overflow-hidden max-w-2xl w-full max-h-[85vh] sm:max-h-[90vh] flex flex-col shadow-2xl border border-gray-100">
 
       <!-- Modal Görseli -->
@@ -154,8 +154,10 @@ const iconPaths = {
 </section>
 
 <script>
+  import { formatRichText } from '../lib/text';
+
   const modal = document.getElementById('treatment-modal');
-  
+
   // Modal'ı parent elementlerdeki transform etkilerinden kurtarmak için doğrudan body'ye taşıyoruz
   if (modal) {
     document.body.appendChild(modal);
@@ -164,36 +166,38 @@ const iconPaths = {
   const modalImg = document.getElementById('modal-img') as HTMLImageElement;
   const modalTitle = document.getElementById('modal-title');
   const modalDesc = document.getElementById('modal-desc');
+  let returnFocusTo: HTMLElement | null = null;
 
-  function openModal(title: string, desc: string, img: string, align: string) {
+  function openModal(title: string, desc: string, img: string, align: string, viaKeyboard: boolean) {
     if (!modal || !modalImg || !modalTitle || !modalDesc) return;
+    returnFocusTo = document.activeElement as HTMLElement | null;
     modalImg.src = img;
     modalImg.alt = title;
     modalImg.className = `w-full h-full object-cover ${align}`;
     modalTitle.textContent = title;
-    
-    // Basit Markdown formatlama (bold, italic ve yeni satırlar için)
-    const formattedDesc = desc
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/\r?\n/g, '<br />');
-    modalDesc.innerHTML = formattedDesc;
+    // Panelden gelen metin önce kaçışlanır, sonra **kalın** / *italik* / satır sonu uygulanır
+    modalDesc.innerHTML = formatRichText(desc);
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Odak pencerenin içine taşınır; halka yalnızca klavyeyle açıldığında kapat düğmesinde görünür
+    (viaKeyboard ? document.getElementById('modal-close') : modal).focus();
   }
 
   function closeModal() {
-    modal?.classList.remove('open');
+    if (!modal?.classList.contains('open')) return;
+    modal.classList.remove('open');
     document.body.style.overflow = '';
+    returnFocusTo?.focus();
   }
 
   document.querySelectorAll('.treatment-detail-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
       const title = btn.getAttribute('data-title') || '';
       const desc = btn.getAttribute('data-desc') || '';
       const img = btn.getAttribute('data-img') || '';
       const align = btn.getAttribute('data-img-align') || 'object-center';
-      openModal(title, desc, img, align);
+      // Klavyeyle (Enter/Space) tetiklenen tıklamada detail 0 olur
+      openModal(title, desc, img, align, (e as MouseEvent).detail === 0);
     });
   });
 

@@ -11,6 +11,7 @@
  * bir sonraki build'de iki çıktıya da yansır.
  */
 
+import { formatPhoneIntl, isMobilePhone } from './phone';
 import { parseWorkingHours, SCHEMA_DAY_NAMES, type WorkingHoursRow } from './working-hours';
 
 interface Treatment {
@@ -44,27 +45,6 @@ export interface ClinicContent {
 type Json = string | number | boolean | null | undefined | Json[] | { [key: string]: Json };
 
 /* ---------- Türetilmiş alanlar ---------- */
-
-/** Herhangi bir TR telefon yazımını "905305084484" biçimine çevirir. */
-export function normalizePhone(raw: string | undefined): string {
-  const d = String(raw || '').replace(/\D/g, '');
-  if (d.length === 12 && d.startsWith('90')) return d;
-  if (d.length === 11 && d.startsWith('0')) return '90' + d.slice(1);
-  if (d.length === 10) return '90' + d;
-  return d;
-}
-
-/** "+90 530 508 44 84" */
-export function formatPhoneIntl(raw: string | undefined): string {
-  const d = normalizePhone(raw);
-  if (d.length !== 12) return d ? `+${d}` : '';
-  return `+${d.slice(0, 2)} ${d.slice(2, 5)} ${d.slice(5, 8)} ${d.slice(8, 10)} ${d.slice(10)}`;
-}
-
-/** 05xx hatlar mobildir (WhatsApp olabilir); 02xx/03xx/04xx sabit hattır (WhatsApp yok). */
-export function isMobilePhone(raw: string | undefined): boolean {
-  return normalizePhone(raw).charAt(2) === '5';
-}
 
 export function absoluteUrl(path: string | undefined, site: URL): string {
   if (!path) return '';

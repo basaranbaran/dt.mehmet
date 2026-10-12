@@ -427,25 +427,6 @@
           </div>
         </div>
 
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <h3 class="admin-card-title">Kart 3: İletişim Kartı (Sağ Alt Sağ)</h3>
-          </div>
-          <div class="form-grid-2">
-            <div class="form-group-admin">
-              <label>Kart Başlığı</label>
-              <input type="text" class="admin-input" data-bind="hero.contactCard.title" />
-            </div>
-            <div class="form-group-admin">
-              <label>Arka Plan Görseli</label>
-              <input type="text" class="admin-input" data-bind="hero.contactCard.image" />
-            </div>
-          </div>
-          <div class="form-group-admin">
-            <label>Açıklama Metni</label>
-            <textarea class="admin-textarea" style="min-height: 60px;" data-bind="hero.contactCard.description"></textarea>
-          </div>
-        </div>
       </section>
 
       <!-- ======================================================================
@@ -477,15 +458,9 @@
             <label>Alt Açıklama</label>
             <textarea class="admin-textarea" style="min-height: 60px;" data-bind="contactHeading.description"></textarea>
           </div>
-          <div class="form-grid-2">
-            <div class="form-group-admin">
-              <label>İletişim Bilgileri Kart Başlığı</label>
-              <input type="text" class="admin-input" data-bind="contactHeading.infoTitle" placeholder="Klinik Detayları" />
-            </div>
-            <div class="form-group-admin">
-              <label>Mesaj Formu Kart Başlığı</label>
-              <input type="text" class="admin-input" data-bind="contactHeading.formTitle" placeholder="Bize Mesaj Gönderin" />
-            </div>
+          <div class="form-group-admin">
+            <label>İletişim Bilgileri Kart Başlığı</label>
+            <input type="text" class="admin-input" data-bind="contactHeading.infoTitle" placeholder="Klinik Detayları" />
           </div>
         </div>
 
@@ -504,14 +479,11 @@
             </div>
           </div>
 
-          <div class="form-grid-3">
+          <div class="form-grid-2">
             <div class="form-group-admin">
               <label>Mobil / WhatsApp Numarası</label>
               <input type="text" class="admin-input" data-bind="contact.phone" placeholder="+90 (530) 508 44 84" />
-            </div>
-            <div class="form-group-admin">
-              <label>WhatsApp Temiz No (Boşluksuz)</label>
-              <input type="text" class="admin-input" data-bind="contact.phoneClean" placeholder="905305084484" />
+              <p class="admin-help-text">Arama ve WhatsApp linkleri bu numaradan otomatik oluşturulur.</p>
             </div>
             <div class="form-group-admin">
               <label>Sabit Klinik Hattı</label>
@@ -594,15 +566,9 @@
           <div class="admin-card-header">
             <h3 class="admin-card-title">🏷️ Marka &amp; Logo Ayarları</h3>
           </div>
-          <div class="form-grid-2">
-            <div class="form-group-admin">
-              <label>Marka / Klinik Adı</label>
-              <input type="text" class="admin-input" data-bind="brand.name" />
-            </div>
-            <div class="form-group-admin">
-              <label>Slogan</label>
-              <input type="text" class="admin-input" data-bind="brand.slogan" placeholder="Smile Together" />
-            </div>
+          <div class="form-group-admin">
+            <label>Marka / Klinik Adı</label>
+            <input type="text" class="admin-input" data-bind="brand.name" />
           </div>
           <div class="form-grid-2">
             <div class="form-group-admin">
@@ -645,15 +611,9 @@
             <label>Anahtar Kelimeler (Keywords)</label>
             <input type="text" class="admin-input" data-bind="metadata.keywords" />
           </div>
-          <div class="form-grid-2">
-            <div class="form-group-admin">
-              <label>Site URL</label>
-              <input type="text" class="admin-input" data-bind="metadata.ogUrl" placeholder="https://dtmehmetyagci.com" />
-            </div>
-            <div class="form-group-admin">
-              <label>Sosyal Medya Paylaşım Görseli (OG Image)</label>
-              <input type="text" class="admin-input" data-bind="metadata.ogImage" />
-            </div>
+          <div class="form-group-admin">
+            <label>Sosyal Medya Paylaşım Görseli (OG Image)</label>
+            <input type="text" class="admin-input" data-bind="metadata.ogImage" />
           </div>
         </div>
       </section>

@@ -73,6 +73,16 @@
   function $(sel) { return document.querySelector(sel); }
   function $$(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
 
+  // innerHTML'e giden her veri bundan geçer: başlıktaki bir " input'u, </textarea> formu bozmasın
+  function esc(value) {
+    return String(value === undefined || value === null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function getPath(obj, path) {
     return String(path).split('.').reduce(function (acc, key) {
       return acc === null || acc === undefined ? undefined : acc[key];
@@ -441,7 +451,7 @@
       '<div class="stat-box success">',
       '  <div class="stat-icon-wrap">🎨</div>',
       '  <div class="stat-info-wrap">',
-      '    <span class="stat-val" style="font-size: 0.95rem; font-weight: 700;">' + paletteName + '</span>',
+      '    <span class="stat-val" style="font-size: 0.95rem; font-weight: 700;">' + esc(paletteName) + '</span>',
       '    <span class="stat-lbl">Aktif Tema</span>',
       '  </div>',
       '</div>'
@@ -470,7 +480,7 @@
         '  <div class="admin-item-header">',
         '    <div class="admin-item-title-group">',
         '      <span class="admin-item-badge">#' + (idx + 1) + '</span>',
-        '      <span class="admin-item-title">' + (t.title || 'Başlıksız Tedavi') + '</span>',
+        '      <span class="admin-item-title">' + esc(t.title || 'Başlıksız Tedavi') + '</span>',
         '    </div>',
         '    <div class="admin-item-actions">',
         '      <button type="button" class="btn-item-ctrl btn-move-up" title="Yukarı Taşı" ' + (idx === 0 ? 'disabled' : '') + '>▲</button>',
@@ -482,7 +492,7 @@
         '    <div class="form-grid-2">',
         '      <div class="form-group-admin">',
         '        <label>Tedavi Başlığı</label>',
-        '        <input type="text" class="admin-input" data-bind="treatments.' + idx + '.title" value="' + (t.title || '') + '" />',
+        '        <input type="text" class="admin-input" data-bind="treatments.' + idx + '.title" value="' + esc(t.title) + '" />',
         '      </div>',
         '      <div class="form-group-admin">',
         '        <label>İkon Seçimi</label>',
@@ -491,16 +501,16 @@
         '    </div>',
         '    <div class="form-group-admin">',
         '      <label>Kısa Açıklama (Kart Ön Yüzü)</label>',
-        '      <textarea class="admin-textarea" style="min-height: 60px;" data-bind="treatments.' + idx + '.shortDescription">' + (t.shortDescription || '') + '</textarea>',
+        '      <textarea class="admin-textarea" style="min-height: 60px;" data-bind="treatments.' + idx + '.shortDescription">' + esc(t.shortDescription) + '</textarea>',
         '    </div>',
         '    <div class="form-group-admin">',
         '      <label>Detaylı Açıklama (Pop-up Detay Penceresi)</label>',
-        '      <textarea class="admin-textarea" style="min-height: 80px;" data-bind="treatments.' + idx + '.longDescription">' + (t.longDescription || '') + '</textarea>',
+        '      <textarea class="admin-textarea" style="min-height: 80px;" data-bind="treatments.' + idx + '.longDescription">' + esc(t.longDescription) + '</textarea>',
         '    </div>',
         '    <div class="form-grid-2">',
         '      <div class="form-group-admin">',
         '        <label>Görsel Yolu</label>',
-        '        <input type="text" class="admin-input" data-bind="treatments.' + idx + '.image" value="' + (t.image || '') + '" />',
+        '        <input type="text" class="admin-input" data-bind="treatments.' + idx + '.image" value="' + esc(t.image) + '" />',
         '      </div>',
         '      <div class="form-group-admin">',
         '        <label>Görsel Kadraj & Yükleme</label>',
@@ -623,7 +633,7 @@
         '  <div class="admin-item-header">',
         '    <div class="admin-item-title-group">',
         '      <span class="admin-item-badge">#' + (idx + 1) + '</span>',
-        '      <span class="admin-item-title">' + (f.title || 'Fark Maddesi') + '</span>',
+        '      <span class="admin-item-title">' + esc(f.title || 'Fark Maddesi') + '</span>',
         '    </div>',
         '    <div class="admin-item-actions">',
         '      <button type="button" class="btn-item-ctrl btn-feat-up" ' + (idx === 0 ? 'disabled' : '') + '>▲</button>',
@@ -635,7 +645,7 @@
         '    <div class="form-grid-2">',
         '      <div class="form-group-admin">',
         '        <label>Madde Başlığı</label>',
-        '        <input type="text" class="admin-input" data-bind="features.' + idx + '.title" value="' + (f.title || '') + '" />',
+        '        <input type="text" class="admin-input" data-bind="features.' + idx + '.title" value="' + esc(f.title) + '" />',
         '      </div>',
         '      <div class="form-group-admin">',
         '        <label>İkon</label>',
@@ -644,7 +654,7 @@
         '    </div>',
         '    <div class="form-group-admin">',
         '      <label>Madde Açıklaması</label>',
-        '      <textarea class="admin-textarea" style="min-height: 60px;" data-bind="features.' + idx + '.description">' + (f.description || '') + '</textarea>',
+        '      <textarea class="admin-textarea" style="min-height: 60px;" data-bind="features.' + idx + '.description">' + esc(f.description) + '</textarea>',
         '    </div>',
         '  </div>',
         '</div>'
@@ -699,7 +709,7 @@
     var html = list.map(function (edu, idx) {
       return [
         '<div style="display: flex; gap: 8px; margin-bottom: 8px;" data-index="' + idx + '">',
-        '  <input type="text" class="admin-input" data-bind="doctor.education.' + idx + '" value="' + (edu || '') + '" />',
+        '  <input type="text" class="admin-input" data-bind="doctor.education.' + idx + '" value="' + esc(edu) + '" />',
         '  <button type="button" class="btn-admin-danger btn-del-edu" style="padding: 0 12px;">✕</button>',
         '</div>'
       ].join('');
@@ -729,7 +739,7 @@
         '  <div class="admin-item-header">',
         '    <div class="admin-item-title-group">',
         '      <span class="admin-item-badge">#' + (idx + 1) + '</span>',
-        '      <span class="admin-item-title">' + (g.title || 'Galeri Fotoğrafı') + '</span>',
+        '      <span class="admin-item-title">' + esc(g.title || 'Galeri Fotoğrafı') + '</span>',
         '    </div>',
         '    <div class="admin-item-actions">',
         '      <button type="button" class="btn-item-ctrl btn-gal-up" ' + (idx === 0 ? 'disabled' : '') + '>▲</button>',
@@ -741,12 +751,12 @@
         '    <div class="form-grid-2">',
         '      <div class="form-group-admin">',
         '        <label>Fotoğraf Başlığı</label>',
-        '        <input type="text" class="admin-input" data-bind="gallery.' + idx + '.title" value="' + (g.title || '') + '" />',
+        '        <input type="text" class="admin-input" data-bind="gallery.' + idx + '.title" value="' + esc(g.title) + '" />',
         '      </div>',
         '      <div class="form-group-admin">',
         '        <label>Görsel Yolu & Yükleme</label>',
         '        <div style="display: flex; gap: 8px;">',
-        '          <input type="text" class="admin-input" data-bind="gallery.' + idx + '.image" value="' + (g.image || '') + '" />',
+        '          <input type="text" class="admin-input" data-bind="gallery.' + idx + '.image" value="' + esc(g.image) + '" />',
         '          <label class="btn-admin-secondary" style="cursor: pointer; white-space: nowrap;">',
         '            📁 Seç',
         '            <input type="file" accept="image/*,.webp,.png,.jpg,.jpeg,.avif" class="file-gal-upload" data-index="' + idx + '" style="display: none;" />',
@@ -827,8 +837,8 @@
     var html = list.map(function (wh, idx) {
       return [
         '<div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; margin-bottom: 10px;" data-index="' + idx + '">',
-        '  <input type="text" class="admin-input" placeholder="Günler (Örn: Pazartesi - Cuma)" data-bind="contact.workingHours.' + idx + '.days" value="' + (wh.days || '') + '" />',
-        '  <input type="text" class="admin-input" placeholder="Saatler (Örn: 09:00 - 19:00)" data-bind="contact.workingHours.' + idx + '.hours" value="' + (wh.hours || '') + '" />',
+        '  <input type="text" class="admin-input" placeholder="Günler (Örn: Pazartesi - Cuma)" data-bind="contact.workingHours.' + idx + '.days" value="' + esc(wh.days) + '" />',
+        '  <input type="text" class="admin-input" placeholder="Saatler (Örn: 09:00 - 19:00)" data-bind="contact.workingHours.' + idx + '.hours" value="' + esc(wh.hours) + '" />',
         '  <button type="button" class="btn-admin-danger btn-del-wh" style="padding: 0 12px;">✕</button>',
         '</div>'
       ].join('');
@@ -906,7 +916,7 @@
     }
     if (state.data.hero) {
       if (state.data.hero.treatmentsCard?.image) imagesList.push({ label: 'Hero: Tedaviler Kartı', path: 'hero.treatmentsCard.image', url: state.data.hero.treatmentsCard.image });
-      if (state.data.hero.contactCard?.image) imagesList.push({ label: 'Hero: İletişim Kartı', path: 'hero.contactCard.image', url: state.data.hero.contactCard.image });
+      if (state.data.hero.clinicCard?.image) imagesList.push({ label: 'Hero: Kliniğimiz Kartı', path: 'hero.clinicCard.image', url: state.data.hero.clinicCard.image });
     }
     (state.data.treatments || []).forEach(function (t, i) {
       if (t.image) imagesList.push({ label: 'Tedavi: ' + t.title, path: 'treatments.' + i + '.image', url: t.image, alignPath: 'treatments.' + i + '.imageAlign' });
@@ -918,11 +928,11 @@
     var html = imagesList.map(function (item, idx) {
       return [
         '<div class="image-manage-card" data-index="' + idx + '">',
-        '  <img src="' + toAdminImageUrl(item.url) + '" class="image-manage-thumb" loading="lazy" alt="' + item.label + '" />',
+        '  <img src="' + esc(toAdminImageUrl(item.url)) + '" class="image-manage-thumb" loading="lazy" alt="' + esc(item.label) + '" />',
         '  <div class="image-manage-info">',
         '    <div>',
-        '      <span class="image-manage-label">' + item.label + '</span>',
-        '      <p class="image-manage-path">' + item.url.slice(0, 45) + (item.url.length > 45 ? '...' : '') + '</p>',
+        '      <span class="image-manage-label">' + esc(item.label) + '</span>',
+        '      <p class="image-manage-path">' + esc(item.url.slice(0, 45)) + (item.url.length > 45 ? '...' : '') + '</p>',
         '    </div>',
         '    <div class="image-manage-actions">',
         '      <label class="btn-admin-secondary" style="flex: 1; cursor: pointer; text-align: center; font-size: 0.78rem;">',
@@ -1002,7 +1012,36 @@
   /* ========================================================================
      5. Yayınlama Akışı (GitHub REST API)
      ======================================================================== */
+  // Veri ağacındaki tüm "data:image/..." değerlerini bulur: [{ path: 'brand.logoImage', value }]
+  function findInlineImages(node, prefix, out) {
+    out = out || [];
+    if (typeof node === 'string') {
+      if (node.indexOf('data:image') === 0) out.push({ path: prefix, value: node });
+    } else if (node && typeof node === 'object') {
+      Object.keys(node).forEach(function (key) {
+        findInlineImages(node[key], prefix ? prefix + '.' + key : key, out);
+      });
+    }
+    return out;
+  }
+
+  function inlineImageFileName(path, dataUrl) {
+    var ext = dataUrl.indexOf('image/webp') !== -1 ? 'webp' : (dataUrl.indexOf('image/png') !== -1 ? 'png' : 'jpg');
+    var slug = path.replace(/\.image$/, '').replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase();
+    return slug + '-uploaded-' + Date.now() + '.' + ext;
+  }
+
+  var isPublishing = false;
+
+  function setPublishButtonsDisabled(disabled) {
+    ['#btnPublishTop', '#btnPublishMobile', '#btnPublishDirect'].forEach(function (sel) {
+      var btn = $(sel);
+      if (btn) btn.disabled = disabled;
+    });
+  }
+
   async function handlePublishClick() {
+    if (isPublishing) return;
     var cfg = DTData.github.getConfig();
     if (!cfg || !cfg.token) {
       switchTab('tab-publish');
@@ -1010,47 +1049,22 @@
       return;
     }
 
+    isPublishing = true;
+    setPublishButtonsDisabled(true);
     toast('Yayınlama başlatılıyor... Dosyalar GitHub\'a aktarılıyor 🚀');
 
     try {
       var publishData = DTData.clone(state.data);
 
-      // 1. Yeni yüklenen base64 görselleri tespit et ve GitHub'a dosya olarak yükle
-      if (publishData.doctor && publishData.doctor.image && publishData.doctor.image.indexOf('data:image') === 0) {
-        var base64Part = publishData.doctor.image.split(',')[1];
-        var ext = publishData.doctor.image.indexOf('image/webp') !== -1 ? 'webp' : 'jpg';
-        var docFileName = 'doctor-uploaded-' + Date.now() + '.' + ext;
-        toast('Hekim fotoğrafı GitHub deposuna yükleniyor...');
-        await DTData.github.putFile(cfg, 'public/images/' + docFileName, base64Part, 'chore(assets): upload doctor image', true);
-        publishData.doctor.image = '/images/' + docFileName;
-      }
-
-      if (Array.isArray(publishData.treatments)) {
-        for (var tIdx = 0; tIdx < publishData.treatments.length; tIdx++) {
-          var tItem = publishData.treatments[tIdx];
-          if (tItem.image && tItem.image.indexOf('data:image') === 0) {
-            var tB64 = tItem.image.split(',')[1];
-            var tExt = tItem.image.indexOf('image/webp') !== -1 ? 'webp' : 'jpg';
-            var tFileName = 'treatment-uploaded-' + (tItem.id || tIdx) + '-' + Date.now() + '.' + tExt;
-            toast((tItem.title || 'Tedavi') + ' görseli GitHub deposuna yükleniyor...');
-            await DTData.github.putFile(cfg, 'public/images/' + tFileName, tB64, 'chore(assets): upload treatment image', true);
-            tItem.image = '/images/' + tFileName;
-          }
-        }
-      }
-
-      if (Array.isArray(publishData.gallery)) {
-        for (var gIdx = 0; gIdx < publishData.gallery.length; gIdx++) {
-          var gItem = publishData.gallery[gIdx];
-          if (gItem.image && gItem.image.indexOf('data:image') === 0) {
-            var gB64 = gItem.image.split(',')[1];
-            var gExt = gItem.image.indexOf('image/webp') !== -1 ? 'webp' : 'jpg';
-            var gFileName = 'gallery-uploaded-' + gIdx + '-' + Date.now() + '.' + gExt;
-            toast('Galeri görseli GitHub deposuna yükleniyor...');
-            await DTData.github.putFile(cfg, 'public/images/' + gFileName, gB64, 'chore(assets): upload gallery image', true);
-            gItem.image = '/images/' + gFileName;
-          }
-        }
+      // 1. Yeni yüklenen (base64) görselleri — hekim, tedavi, galeri, logo, paylaşım görseli,
+      //    hero kartları; hangi alanda olursa — GitHub'a dosya olarak yükle ve yolunu yaz.
+      var inlineImages = findInlineImages(publishData, '');
+      for (var i = 0; i < inlineImages.length; i++) {
+        var item = inlineImages[i];
+        var fileName = inlineImageFileName(item.path, item.value);
+        toast('Görsel yükleniyor (' + (i + 1) + '/' + inlineImages.length + ')...');
+        await DTData.github.putFile(cfg, 'public/images/' + fileName, item.value.split(',')[1], 'chore(assets): upload ' + item.path, true);
+        setPath(publishData, item.path, '/images/' + fileName);
       }
 
       // 2. config-draft.json ve config.json dosyalarını güncelle
@@ -1070,6 +1084,9 @@
     } catch (err) {
       console.error(err);
       toast('Yayınlama başarısız: ' + err.message, true);
+    } finally {
+      isPublishing = false;
+      setPublishButtonsDisabled(false);
     }
   }
 

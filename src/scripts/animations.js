@@ -85,22 +85,7 @@ function initFeatures() {
     },
     clearProps: 'all',
   });
-
-  const featuresHeading = document.querySelector('.features-heading');
-  if (featuresHeading) {
-    gsap.from(featuresHeading, {
-      opacity: 0,
-      y: 20,
-      duration: 0.45,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: featuresHeading,
-        start: 'top 92%',
-        toggleActions: 'play none none none',
-      },
-      clearProps: 'all',
-    });
-  }
+  // Başlık (.features-heading) aynı zamanda .section-heading'dir; initSectionHeadings canlandırır.
 }
 
 // =============================================
@@ -163,22 +148,7 @@ function initTreatments() {
     },
     clearProps: 'all',
   });
-
-  const treatmentsHeading = document.querySelector('.treatments-heading');
-  if (treatmentsHeading) {
-    gsap.from(treatmentsHeading, {
-      opacity: 0,
-      y: 20,
-      duration: 0.45,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: treatmentsHeading,
-        start: 'top 92%',
-        toggleActions: 'play none none none',
-      },
-      clearProps: 'all',
-    });
-  }
+  // Başlık (.treatments-heading) aynı zamanda .section-heading'dir; initSectionHeadings canlandırır.
 }
 
 // =============================================
@@ -289,10 +259,12 @@ function initFooter() {
 // BAŞLAT — DOM hazır olunca çalıştır
 // =============================================
 export function initAnimations() {
-  // ScrollTrigger refresh after page load
-  ScrollTrigger.refresh();
-
   initNavbar();
+
+  // Hareket azaltma tercihi olan ziyaretçide kayma/ölçek animasyonları hiç başlatılmaz;
+  // içerik doğrudan son hâliyle görünür (CSS tarafı global.css'te).
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   initHero();
   initFeatures();
   initAboutDoctor();
