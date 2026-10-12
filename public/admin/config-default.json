@@ -35,7 +35,7 @@
   },
   "metadata": {
     "title": "Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği",
-    "description": "Modern diş kliniğimizde implant, zirkonyum kaplama, Hollywood smile gülüş tasarımı, ortodonti ve çocuk diş hekimliği. Randevunuzu hemen online oluşturun.",
+    "description": "Modern diş kliniğimizde implant, zirkonyum kaplama, gülüş tasarımı, ortodonti ve çocuk diş hekimliği. Randevunuzu hemen online oluşturun.",
     "keywords": "diş hekimi, diş kliniği, implant tedavisi, nazilli diş hekimi, gülüş tasarımı, zirkonyum kaplama, diş beyazlatma, ortodonti, telsiz diş tedavisi",
     "author": "Mehmet Yağcı Ağız ve Diş Sağlığı Kliniği",
     "ogType": "website",
@@ -58,7 +58,7 @@
     "imageAlign": "object-top",
     "experienceYear": "5+ Yıl",
     "experienceBadgeText": "BİLGİ VE SAMİMİYETİN BULUŞMASI",
-    "bio": "İstanbul ve Nazilli’deki klinik tecrübelerimin ardından, estetik ve dijital diş hekimliği üzerine çok sayıda güncel kursa katılarak kendimi sürekli geliştirdim. Amacım, her hastamı dikkatle dinleyerek tam da hayal ettikleri sağlıklı ve estetik gülüşe kavuşmalarını sağlamak.\nKliniğimizde, dijital çağa uygun en yeni tedavi yöntemlerini bir araya getirerek; gülüş estetiğinden implant uygulamalarına, zirkonyum kaplamalardan dolgu ve kanal tedavilerine kadar aradığınız tüm çözümleri tek çatı altında sunuyorum.",
+    "bio": "İstanbul ve Nazilli’deki klinik tecrübelerimin ardından, modern ve dijital diş hekimliği üzerine çok sayıda güncel kursa katılarak kendimi sürekli geliştirdim. Amacım, her hastamı dikkatle dinleyerek tam da hayal ettikleri sağlıklı ve doğal gülüşe kavuşmalarını sağlamak.\nKliniğimizde, dijital çağa uygun en yeni tedavi yöntemlerini bir araya getirerek; gülüş tasarımından implant uygulamalarına, zirkonyum kaplamalardan dolgu ve kanal tedavilerine kadar aradığınız tüm çözümleri tek çatı altında sunuyorum.",
     "education": [
       "Medipol Üniversitesi Diş Hekimliği Fakültesi",
       "Türk Diş Hekimleri Birliği, Aydın Diş Hekimleri Odası"
@@ -122,10 +122,10 @@
     },
     {
       "id": "gulus-tasarimi",
-      "title": "Estetik Diş Hekimliği (Hollywood Smile)",
+      "title": "Gülüş Tasarımı",
       "shortDescription": "Yüz hatlarınız, dudak yapınız ve ten renginizle uyumlu, ışıltılı porselen lamina ve beyazlatma uygulamaları.",
-      "longDescription": "Hollywood Smile, dijital gülüş tasarımı programları ile hastanın ağız yapısına en uygun porselen yaprak laminalar (Lumineers/Veneers), zirkonyum kronlar ve diş eti estetiği (gingivoplasti) yapılarak ideal gülüşe ulaşma sürecidir.",
-      "image": "/images/the-hollywood-smile-makeover-process-what-to-expect_81afcdcbb3b5_1200x630_c.webp",
+      "longDescription": "Gülüş tasarımı, dijital tasarım programları ile hastanın ağız ve yüz yapısına en uygun porselen yaprak laminalar (Lumineers/Veneers), zirkonyum kronlar ve diş eti düzenlemeleri yapılarak doğal ve ideal bir gülüşe ulaşma sürecidir.",
+      "image": "/images/treatment-gulus-tasarimi.webp",
       "imageAlign": "object-center",
       "icon": "Smile"
     },
