@@ -5,3 +5,4 @@ Disallow: /taslak
 Disallow: /taslak/*
 
 Sitemap: https://dtmehmetyagci.com/sitemap-index.xml
+Sitemap: https://dtmehmetyagci.com/sitemap.xml
