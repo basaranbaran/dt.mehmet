@@ -9,8 +9,15 @@ import ClinicGallery from '../components/ClinicGallery.astro';
 import ContactForm from '../components/ContactForm.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { absoluteUrl, buildJsonLd, serializeJsonLd } from '../lib/geo';
 
 const { metadata, theme } = clinicConfig;
+
+// Kanonik adres ve yapay zeka / arama motorları için yapılandırılmış veri
+const site = Astro.site!;
+const canonicalUrl = site.href;
+const ogImageUrl = absoluteUrl(metadata.ogImage, site);
+const jsonLd = serializeJsonLd(buildJsonLd(clinicConfig, site));
 
 // Tema renklerini CSS değişkenlerine dönüştür
 const themeVars = `
@@ -34,20 +41,28 @@ const themeVars = `
     <meta name="description" content={metadata.description} />
     <meta name="keywords" content={metadata.keywords} />
     <meta name="author" content={metadata.author} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
     <title>{metadata.title}</title>
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- OpenGraph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:site_name" content={clinicConfig.brand.name} />
     <meta property="og:title" content={metadata.title} />
     <meta property="og:description" content={metadata.description} />
-    <meta property="og:url" content={metadata.ogUrl} />
-    <meta property="og:image" content={`${import.meta.env.BASE_URL}${metadata.ogImage}`} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={metadata.title} />
     <meta name="twitter:description" content={metadata.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Yapılandırılmış veri (schema.org) — config.json'dan build sırasında üretilir -->
+    <script type="application/ld+json" set:html={jsonLd}></script>
 
     <!-- Tema renkleri (build zamanında oluşturulur, JS çalışmaz) -->
     <style set:html={themeVars}></style>

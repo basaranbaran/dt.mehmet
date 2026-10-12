@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [
     tailwind(),
     sitemap({
-      filter: (page) => !page.includes('/taslak') && !page.includes('/admin') && !page.includes('sitemap.xml'),
+      filter: (page) => !page.includes('/taslak') && !page.includes('/admin') && !page.includes('sitemap.xml') && !page.includes('llms.txt'),
       changefreq: 'weekly',
       priority: 0.8,
       lastmod: new Date(),

@@ -277,6 +277,8 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
 </section>
 
 <script>
+  import { isOpenAt, scheduleForDay } from '../lib/working-hours';
+
   // ========================================================================
   // 1. Canlı Açık / Kapalı Hesaplayıcı (Europe/Istanbul) — Dinamik Saatler
   // ========================================================================
@@ -311,90 +313,27 @@ const whatsappUrl = `https://wa.me/${contact.phoneClean || '905305084484'}?text=
         ];
       }
 
-      // 0: Pazar, 1: Pzt, 2: Salı, 3: Çar, 4: Per, 5: Cuma, 6: Cts
-      const dayNames = ['pazar', 'pazartesi', 'salı', 'çarşamba', 'perşembe', 'cuma', 'cumartesi'];
-      const dayAliases = {
-        0: ['pazar', 'paz'],
-        1: ['pazartesi', 'pzt'],
-        2: ['salı', 'sali', 'sal'],
-        3: ['çarşamba', 'carsamba', 'çar', 'car'],
-        4: ['perşembe', 'persembe', 'per'],
-        5: ['cuma', 'cum'],
-        6: ['cumartesi', 'cts', 'cmt']
-      };
-
-      function matchesDay(daysStr, targetDay) {
-        if (!daysStr) return false;
-        const s = daysStr.toLowerCase().trim();
-        if (s.includes('her gün') || s.includes('hergun')) return true;
-        if (s.includes('hafta içi') || s.includes('haftaici')) {
-          return targetDay >= 1 && targetDay <= 5;
-        }
-        if (s.includes('hafta sonu') || s.includes('haftasonu')) {
-          return targetDay === 0 || targetDay === 6;
-        }
-
-        const rangeSplit = s.split(/[-—–/]+/);
-        if (rangeSplit.length === 2) {
-          const startStr = rangeSplit[0].trim();
-          const endStr = rangeSplit[1].trim();
-          const startIdx = dayNames.findIndex((dn, i) => dayAliases[i].some(a => startStr.includes(a)));
-          const endIdx = dayNames.findIndex((dn, i) => dayAliases[i].some(a => endStr.includes(a)));
-          if (startIdx !== -1 && endIdx !== -1) {
-            if (startIdx <= endIdx) {
-              return targetDay >= startIdx && targetDay <= endIdx;
-            } else {
-              return targetDay >= startIdx || targetDay <= endIdx;
-            }
-          }
-        }
-
-        return dayAliases[targetDay].some(a => s.includes(a));
-      }
-
-      function parseTimes(hoursStr) {
-        if (!hoursStr) return null;
-        if (hoursStr.toLowerCase().includes('kapalı') || hoursStr.toLowerCase().includes('closed')) {
-          return { isClosed: true };
-        }
-        const match = hoursStr.match(/(\d{1,2})[:.](\d{2})\s*[-—–to/]\s*(\d{1,2})[:.](\d{2})/);
-        if (match) {
-          const sH = parseInt(match[1], 10);
-          const sM = parseInt(match[2], 10);
-          const eH = parseInt(match[3], 10);
-          const eM = parseInt(match[4], 10);
-          return {
-            isClosed: false,
-            startMins: sH * 60 + sM,
-            endMins: eH * 60 + eM,
-            startFormatted: `${String(sH).padStart(2, '0')}:${String(sM).padStart(2, '0')}`,
-            endFormatted: `${String(eH).padStart(2, '0')}:${String(eM).padStart(2, '0')}`
-          };
-        }
-        return null;
-      }
-
-      const todaySchedule = rawHours.find(item => matchesDay(item.days, day));
-      const parsed = todaySchedule ? parseTimes(todaySchedule.hours) : null;
+      // Gün eşleştirme ve saat ayrıştırma JSON-LD ile ortak modülden gelir
+      const parsed = scheduleForDay(rawHours, day);
 
       let isOpen = false;
       let statusStr = '';
       let navbarStatusStr = '';
 
-      if (!parsed || parsed.isClosed) {
+      if (!parsed || parsed.closed) {
         isOpen = false;
         statusStr = 'Şu an Kapalı (Randevu & İletişim)';
         navbarStatusStr = 'Şu an Kapalı';
       } else {
-        const timeRangeStr = `${parsed.startFormatted}-${parsed.endFormatted}`;
-        if (currentMins >= parsed.startMins && currentMins < parsed.endMins) {
+        const timeRangeStr = `${parsed.opens}-${parsed.closes}`;
+        if (isOpenAt(parsed, currentMins)) {
           isOpen = true;
-          statusStr = `Şu an Açık (${parsed.endFormatted}'a kadar)`;
+          statusStr = `Şu an Açık (${parsed.closes}'a kadar)`;
           navbarStatusStr = `Şu an Açık (${timeRangeStr})`;
-        } else if (currentMins < parsed.startMins) {
+        } else if (currentMins < parsed.opensMins) {
           isOpen = false;
-          statusStr = `Şu an Kapalı (Bugün ${parsed.startFormatted}'da Açılıyor)`;
-          navbarStatusStr = `Şu an Kapalı (${parsed.startFormatted}'da Açılıyor)`;
+          statusStr = `Şu an Kapalı (Bugün ${parsed.opens}'da Açılıyor)`;
+          navbarStatusStr = `Şu an Kapalı (${parsed.opens}'da Açılıyor)`;
         } else {
           isOpen = false;
           statusStr = 'Şu an Kapalı';
